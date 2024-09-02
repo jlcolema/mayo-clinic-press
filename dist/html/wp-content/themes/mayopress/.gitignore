@@ -1,0 +1,66 @@
+# ignore all files starting with . or ~
+.*
+~*
+
+# ignore project files/directories
+node_modules/
+dist/
+assets/css/*.css
+assets/js/*.js
+assets/*.mjs
+
+# ignore OS generated files
+ehthumbs.db
+Thumbs.db
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# ignore compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ignore packaged files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ignore environmental files/directories
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track these files, if they exist
+!.gitignore
+!.gitkeep
+!.editorconfig
+!README.md
+!CHANGELOG.md
+!composer.json
+!.babelrc
+!.eslintrc.js
+!.eslintignore
+!.stylelintrc.js
+!.stylelintignore
+!.prettierrc
+!.prettierignore
+!.browserslistrc
+!_build
+!.github
+!.vscode
+!.shopifyignore
+!.themekitignore
+!.theme-check.yml
+!.env.example

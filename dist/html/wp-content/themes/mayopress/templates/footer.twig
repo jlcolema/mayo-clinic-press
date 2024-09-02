@@ -1,0 +1,105 @@
+	<footer class="footer">
+		<section id="email-capture">
+			{% include 'template-parts/components/icon.twig' with { icon: 'close' } %}
+			{% include 'template-parts/blocks/email-capture.twig' %}
+		</section>
+		<section>
+			<div class="wp-block-group footer__content">
+				<div class="wp-block-columns">
+          {% include 'template-parts/footer/footer-store-info.twig' %}
+          {% include 'template-parts/footer/footer-menu.twig' %}
+          {% include 'template-parts/footer/footer-social.twig' with { uniqueId: 'footer' } %}
+				</div>
+			</div>
+		</section>
+
+		{% if hasAds %}
+		<section>
+			<div class="wp-block-group has-black-background-color has-white-color">
+				<div class="footer__ad-disclaimer">
+					<div>
+						<p>Any use of this site constitutes your agreement to the Terms and Conditions and Privacy Policy linked below.</p>
+						<a href="https://www.mayoclinic.org/about-this-site/terms-conditions-use-policy" target="_blank">Terms and Conditions</a>
+						<a href="https://www.mayoclinic.org/about-this-site/privacy-policy" target="_blank"><strong>Privacy Policy</strong></a>
+						<a href="https://www.mayo.edu/pmts/mc5200-mc5299/mc5256-01.pdf?_ga=2.255864971.1234818428.1659973679-1364268884.1642695516" target="_blank"><strong>Notice of Privacy Practices</strong></a>
+						<a href="https://www.mayoclinic.org/documents/notice-of-nondiscrimination/doc-20425440" target="_blank">Notice of Nondiscrimination</a>
+					</div>
+					<div>
+						<p><strong>Advertising</strong></p>
+						<p>Mayo Clinic is a nonprofit organization and proceeds from Web advertising help support our mission. Mayo Clinic does not endorse any of the third party products and services advertised.</p>
+						<a href="https://www.mayoclinic.org/about-this-site/advertising-sponsorship-policy" target="_blank">Advertising and sponsorship policy</a>
+						<a href="https://www.mayoclinic.org/about-this-site/advertising-sponsorship" target="_blank">Advertising and sponsorship opportunities</a>
+					</div>
+					<div>
+						<p><strong>Reprint Permissions</strong></p>
+						<p>A single copy of these materials may be reprinted for noncommercial personal use only. "Mayo," "Mayo Clinic," "MayoClinic.org," "Mayo Clinic Healthy Living," and the triple-shield Mayo Clinic logo are trademarks of Mayo Foundation for Medical Education and Research.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		{% endif %}
+
+		{{ footer_widgets }}
+	</footer>
+
+	<div id="mc-consent-advisory" class="is-hidden">
+		<h2 class="consent-heading heading--lg">Privacy Policy</h2>
+		<p class="consent-text">We've made some updates to our <a href="/privacy-policy/">Privacy Policy.</a> Please take a moment to review.</p>
+		<button class="btn btn--primary" id="mc-consent-ok">Okay</button>
+		<a href="/privacy-policy/">Read Our Privacy Policy.</a>
+	</div>
+
+	<script>
+		document.onload = handleDocumentLoad('email-capture','74881809');
+		function handleDocumentLoad(b,a){
+			window.getElqFormSubmissionToken(b,a);
+			window.processLastFormField(b)
+		}
+		function getElqFormSubmissionToken(g,c){
+			var e=new XMLHttpRequest();
+			var d=document.getElementById(g);
+			var b=d.querySelector('form');
+			if(b&&b.elements.namedItem("elqFormSubmissionToken")){
+				var f='https://s74881809.t.eloqua.com/e/f2';
+				var a=window.getHostName(f);
+				a="https://"+a+"/e/formsubmittoken?elqSiteID="+c;
+				if(a){
+					e.onreadystatechange=function(){
+						if(e.readyState===4){
+							if(e.status===200){
+								b.elements.namedItem("elqFormSubmissionToken").value=e.responseText
+							} else{
+								b.elements.namedItem("elqFormSubmissionToken").value=""
+							}
+						}
+					};
+					e.open("GET",a,true);
+					e.send()
+				} else{
+					b.elements.namedItem("elqFormSubmissionToken").value=""
+				}
+			}
+		}
+		function getHostName(b){
+			if(typeof window.URL==="function"){
+				return new window.URL(b).hostname
+			} else{
+				var a=b.match(/:\/\/(www[0-9]?\.)?(.[^\/:]+)/i);
+				if(a!==null&&a.length>2&&typeof a[2]==="string"&&a[2].length>0){
+					return a[2]
+				} else{
+					return null
+				}
+			}
+		}
+		function processLastFormField(b){
+			var form = document.getElementById(b);
+			var lastFormField = form.querySelector("#elq-FormLastRow");
+			if (lastFormField) lastFormField.style.display = "none";
+		}
+	</script>
+
+{{ function('wp_footer') }}
+</body>
+
+</html>

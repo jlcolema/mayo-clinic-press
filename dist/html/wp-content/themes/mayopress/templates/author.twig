@@ -1,0 +1,21 @@
+{% include 'templates/header.twig' %}
+
+<main class="main main--author" id="main">
+
+	<div class="author">
+		{# Name #}
+		<h1 class="author__name">
+			{{ author_name }}
+		</h1>
+
+		{# Bio #}
+		<p class="author__bio">
+			{{ author_bio }}
+		</p>
+	</div>
+
+	{% include 'template-parts/loops/loop-excerpt.twig' %}
+
+</main>
+
+{% include 'templates/footer.twig' %}

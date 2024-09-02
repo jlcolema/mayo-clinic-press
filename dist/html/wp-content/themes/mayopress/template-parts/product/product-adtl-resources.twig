@@ -1,0 +1,42 @@
+{{ fn('timber_set_product', post) }}
+
+{% if post.meta('product_additional_resources') %}
+	<div id="product__additional-resources" class="product__additional-resources accordion__item js-accordion__item">
+		<p class="additional-resources__header accordion__header reset js-accordion__trigger">{{ __('Additional Resources', 'mayo') }}</p>
+		<div class="accordion__panel js-accordion__panel">
+			<div class="description__content" data-component="additional-resources">
+				{% set resource_count = 0 %}
+				{% for row in post.meta('product_additional_resources') %}
+					{% if resource_count == 3 %}
+						<div id="additioanl-resources" class="hide-below">
+							<div class="hidden-height">
+					{% endif %}
+
+					{% if row.is_resource %}
+						{% set resource_count = resource_count + 1 %}
+						{% set link_check = row.resource_citation %}
+						{% set link_check = link_check | split('<a')|last %}
+						{% set link_check = link_check | split('</a>')|first %}
+
+						{% if 'mcpress.mayoclinic.org' in link_check %}
+							{% set citation = row.resource_citation %}
+						{% else %}
+							{% set citation = row.resource_citation|split('</a>')|join('<svg class="icon icon--external-link" aria-hidden="true" focusable="false"><use xlink:href="#external-link"></use></svg></a>') %}
+						{% endif %}
+
+
+						<div class="additional-resources__citation">{{ citation }}</div>
+					{% else %}
+						<p class="additional-resources__section">{{ row.resource_section_title }}</p>
+					{% endif %}
+
+					{% if resource_count > 3 and loop.last %}
+							</div>
+						</div>
+						<button class="btn additional-resources__toggle" aria-expanded="false" aria-controls="additional-resources"><span>{{ __('Show More Resources', 'mayo') }}</span><span>{{ __('Show Less Resources', 'mayo') }}</span></button>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endif %}

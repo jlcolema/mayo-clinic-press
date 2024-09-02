@@ -1,0 +1,159 @@
+@use "../settings/breakpoints" as *;
+@use "../tools" as *;
+
+:root {
+  --form-control-padding-x: var(--space-sm);
+  --form-control-padding-y: var(--space-xs);
+  --form-control-radius: var(--radius-sm);
+  --form-control-font-size: var(--text-base);
+  --form-control-height: 2.75rem;
+  --form-control-focus-color: var(--color-primary);
+}
+
+.form-control,
+.wpcf7-form-control:not([type="submit"]),
+input[type="text"]:not([data-customize-setting-link]),
+input[type="email"]:not([data-customize-setting-link]),
+input[type="tel"]:not([data-customize-setting-link]),
+input[type="time"]:not([data-customize-setting-link]),
+input[type="date"]:not([data-customize-setting-link]),
+input[type="url"]:not([data-customize-setting-link]),
+input[type="search"]:not([data-customize-setting-link]),
+input[type="password"]:not([data-customize-setting-link]),
+select:not([data-customize-setting-link]),
+textarea:not([data-customize-setting-link]) {
+  font-size: var(--form-control-font-size, inherit);
+  padding-top: var(--form-control-padding-y, 0.5em);
+  padding-bottom: var(--form-control-padding-y, 0.5em);
+  padding-left: var(--form-control-padding-x, 0.75em);
+  padding-right: var(--form-control-padding-x, 0.75em);
+  border-radius: var(--form-control-radius, 0.25em);
+  background-color: var(--color-bg);
+  line-height: var(--line-height-sm);
+  transition: all 0.2s ease;
+  width: 100%;
+  min-height: var(--form-control-height);
+  box-shadow: 0 0 0 1px var(--color-black) inset;
+  border: none;
+
+  &::placeholder {
+    opacity: 0.7;
+    color: inherit;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--form-control-focus-color) inset, 0 2px 4px 0 alpha(var(--color-black), 0.5);
+  }
+}
+
+.form-control--disabled,
+.form-control[disabled],
+.form-control[readonly] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-control--error,
+.form-control[aria-invalid="true"],
+.wpcf7-not-valid {
+  --form-control-focus-color: var(--color-error);
+}
+
+.form-control--valid {
+  --form-control-focus-color: var(--color-success);
+}
+
+.login label,
+.register label,
+.form-label {
+  font-size: var(--text-md, 0.75rem);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-base);
+
+  + span {
+    > input[type="text"],
+    > input[type="email"],
+    > input[type="tel"],
+    > input[type="time"],
+    > input[type="date"],
+    > input[type="url"],
+    > input[type="search"],
+    > input[type="password"],
+    > select,
+    > textarea {
+      margin-top: var(--space-xs);
+    }
+  }
+}
+
+.form-legend {
+  font-size: var(--text-md, 1.125rem);
+  margin-bottom: var(--space-sm);
+}
+
+.form-validate__error-msg {
+  display: none; // hide error message by default
+  background-color: var(--color-error);
+  color: var(--color-white);
+  font-size: var(--text-xs);
+  border-radius: var(--form-control-radius, 0.25em);
+  padding: var(--space-xxxs);
+  margin-top: var(--space-xs);
+  border-bottom: 2px solid var(--color-white);
+  position: relative;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: calc(-1 * var(--space-xxs));
+    left: var(--space-xs);
+    background-color: var(--color-error);
+    transform: rotate(45deg);
+  }
+
+  .form-validate__input-wrapper--error & {
+    display: block; // show error message
+  }
+}
+
+.wpcf7-not-valid-tip {
+  background-color: var(--color-error);
+  color: var(--color-white);
+  font-size: var(--text-xs);
+  border-radius: var(--form-control-radius, 0.25em);
+  padding: var(--space-xxs) var(--space-sm);
+  margin-top: var(--space-xs);
+  border-bottom: 2px solid var(--color-white);
+  position: relative;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: calc(-1 * var(--space-xxs));
+    left: var(--space-xs);
+    background-color: var(--color-error);
+    transform: rotate(45deg);
+  }
+}
+
+.wpcf7 form {
+  &:not(.sent) .wpcf7-response-output {
+    display: none;
+  }
+
+  &.disable {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  &.sent .wpcf7-response-output {
+    border-color: var(--color-quaternary);
+  }
+}

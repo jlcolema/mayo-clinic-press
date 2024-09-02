@@ -1,0 +1,53 @@
+<div class="slider__item">
+  {% if slide.post_type == 'reviews' %}
+    <div class="slider__reviews--icon">
+      {% include 'template-parts/components/icon.twig' with { icon: 'quotation-open', size: 'xl' } %}
+    </div>
+  {% endif %}
+
+  {% set thumbnail_url = fn('get_the_post_thumbnail_url', slide.ID) %}
+  <div class="slider__image">
+    {% if thumbnail_url %}
+      <img src="{{ thumbnail_url }}" alt="" loading="lazy">
+    {% endif %}
+  </div>
+
+  <p class="slider__title">{{ slide.post_title }}</p>
+
+  {% set tags = fn('get_the_tags', slide.ID) %}
+  {% if tags %}
+    <p class="slider__type">
+      {% for tag in tags %}
+        {{ tag.name }}{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+  
+  {% if slide.star_review > 0 %}
+    <div class="slider__stars">
+      {% for i in 1..slide.star_review %}
+        <span style="color: var(--color-primary-light)">
+          {% include 'template-parts/components/icon.twig' with { icon: 'star-filled', size: 'sm' } %}
+        </span>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if slide.reviewed_item %}
+    {% set reviewed_product = fn( 'get_post', slide.reviewed_item[0] ) %}
+    {% set post_link = fn( 'get_permalink', slide.reviewed_item[0] ) %}
+
+    <a href="{{ post_link }}">
+      <p class="slider__reviewed-item">{{ reviewed_product.post_title }}</p>
+
+      {% set explore_cover = fn('get_field', 'explore_cover', slide.reviewed_item[0]) %}
+      {% if explore_cover %}
+        <div class="slider__reviewed-item--image">
+          <img src="{{ explore_cover }}" alt="" loading="lazy" />
+        </div>
+      {% endif %}
+    </a>
+  {% endif %}
+
+  <p class="slider__content">{{ slide.reviewed_item_review }}</p>
+</div>

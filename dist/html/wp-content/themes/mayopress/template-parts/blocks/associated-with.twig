@@ -1,0 +1,53 @@
+{#
+  Title: Associated With
+  Description: Select or create authors with image, name, bio, and link
+  Category: common
+  Icon: admin-multisite
+  Keywords: authors associate website network links
+  Mode: auto
+  EnqueueStyle: block-associated-with.css
+#}
+
+{% set section_title = fields.associated_title %}
+
+<div class="{{ classes }}">
+	<h2>{{ section_title }}</h2>
+
+	<div class="associated-with__list" style="--grid-col: {% if fields.associated_repeater | length < 4 %}{{ fields.associated_repeater | length }}{% else %}4{% endif %}">
+		{% for associate in fields.associated_repeater %}
+			{% set associate_season = associate.associated_season %}
+
+			{% if associate.associated_custom %}
+				{% set associate_image = associate.associated_custom_image.url %}
+				{% set associate_name = associate.associated_custom_name %}
+				{% set associate_bio = associate.associated_custom_bio %}
+				{% set associate_link = associate.associated_custom_link %}
+				{% set associate_link_text = associate.associated_custom_link_text %}
+			{% else %}
+				{% set associate_image = TimberImage(associate.associated_author[0].author_thumbnail).src %}
+				{% set associate_name = TimberPost(associate.associated_author[0]).title %}
+				{% set associate_bio = TimberPost(associate.associated_author[0]).author_hub_bio %}
+				{% set associate_link = TimberPost(associate.associated_author[0]).link %}
+				{% set associate_link_text = 'View Bio' %}
+			{% endif %}
+
+			<div class="associated-with__author" data-season="{{ associate_season }}">
+				<div class="associated-with__author--image has-heading-md-font-size">
+					<img src="{{ associate_image }}" alt="" loading="lazy" />
+				</div>
+				<p class="associated-with__author--name">
+					{{ associate_name }}
+				</p>
+				<p class="associated-with__author--bio">
+					{{ associate_bio }}
+				</p>
+
+				{% if associate_link %}
+					<a href="{{ associate_link }}" {% if associate.associated_custom %}target="_blank" rel="noopener noreferrer" {% endif %}class="associated-with__author--link">
+						{{ associate_link_text }}
+					</a>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>
+</div>

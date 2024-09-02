@@ -1,0 +1,22 @@
+{% if footer_logo_url or store_name or store_address or store_city or store_city or store_state or store_postcode or store_country %}
+<div class="wp-block-column store__info">
+{% if footer_logo_url %}
+  <div class="footer__logo">
+    <a href="/">
+      <img alt="" src="{{ footer_logo_url|resize(200) }}" srcset="{{ footer_logo_url|resize(200) }} 1x, {{ footer_logo_url|resize(400) }}  2x" loading="lazy">
+      <span class="sr-only">Go to Homepage</span>
+    </a>
+  </div>
+{% endif %}
+
+  <p>
+    {% if store_name %}{{ store_name|e('esc_html') }}<br>{% endif %}
+    {% if store_address %}{{ store_address|e('esc_html') }}<br>{% endif %}
+    {% if store_address_2 %}{{ store_address_2|e('esc_html') }}<br>{% endif %}
+    {% if store_city %}{{ store_city|e('esc_html') }}, {% endif %}
+    {% if store_state %}{{ store_state|e('esc_html') }} {% endif %}
+    {% if store_postcode %}{{ store_postcode|e('esc_html') }}, {% endif %}
+    {% if store_country %}{{ store_country|e('esc_html') }}{% endif %}
+  </p>
+</div>
+{% endif %}

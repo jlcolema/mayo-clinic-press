@@ -1,0 +1,39 @@
+{{ fn('timber_set_product', post) }}
+
+{% set has_authors = false %}
+{% set authors = Post(post.product_authors) %}
+{% set number_of_authors = authors|length %}
+{% for author in authors %}
+  {% set has_authors = true %}
+{% endfor %}
+
+{% if has_authors %}
+<div class="product__author accordion js-accordion" data-animation="on" data-component="accordion" data-mobile-accordion="" data-autoclose="true">
+  <div id="product__author" class="accordion__item js-accordion__item {% if number_of_authors > 1 %}product__author--has-multiple-authors{% endif %}">
+    <div class="accordion__header reset js-accordion__trigger">{{ __('About the Author', 'mayo') }}</div>
+    <div class="accordion__panel js-accordion__panel">
+      {% for author in authors %}
+        {% set author__bio = author.author_description %}
+        {% if author__bio == '' %}
+          {% set author__bio = author.author_background | excerpt(100) %}
+        {% endif %}
+
+        <div class="author__container">
+          {% if author.meta('portrait_image') %}
+          <div class="author__image">
+            <img src="{{ Image(author.meta('portrait_image')) }}" alt="" loading="lazy" />
+          </div>
+          {% endif %}
+
+          <div class="author__information">
+            <p class="author__heading">{{ __('About the author', 'mayo') }}</p>
+            <p class="author__name">{{ author.title }}</p>
+            <p class="author__bio">{{ author__bio }}</p>
+            <a href="{{ author.link }}" class="btn">{{ __('Learn more', 'mayo') }}</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

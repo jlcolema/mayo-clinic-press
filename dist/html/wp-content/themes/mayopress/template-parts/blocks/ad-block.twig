@@ -1,0 +1,84 @@
+{#
+  Title: Ad Block
+  Category: common
+  Icon: globe
+  Keywords: ads google ad
+  Mode: auto
+#}
+
+{% set types = fields.ad_types %}
+
+{% if types|length > 0 %}
+  {% for type in types %}
+    {% set desktop = false %}
+    {% set mobile = false %}
+    
+    {% if type == 'desktop' %}
+      {% set desktop = true %}
+      {% if fields.customize_desktop_ad %}
+        {% set headerScript = fields.desktop_header_script %}
+        {% set minWidth = fields.desktop_min_width %}
+        {% set minHeight = fields.desktop_min_height %}
+        <script>
+          window.customDesktopAd = {{ fields.customize_desktop_ad ? true : false }};
+          window.desktopHeaderScript = `{{ headerScript|striptags|trim }}`;
+        </script>
+      {% else %}
+        {% set minWidth = 300 %}
+        {% set minHeight = 250 %}
+      {% endif %}
+    {% elseif type == 'desktop-wide' %}
+      {% set desktop = true %}
+      {% if fields.customize_desktop_wide_ad %}
+        {% set headerScript = fields.desktop_wide_header_script %}
+        {% set minWidth = fields.desktop_wide_min_width %}
+        {% set minHeight = fields.desktop_wide_min_height %}
+        <script>
+          window.customDesktopWideAd = {{ fields.customize_desktop_wide_ad ? true : false }};
+          window.desktopWideHeaderScript = `{{ headerScript|striptags|trim }}`;
+        </script>
+      {% else %}
+        {% set minWidth = 720 %}
+        {% set minHeight = 90 %}
+      {% endif %}
+    {% elseif type == 'mobile' %}
+      {% set mobile = true %}
+      {% if fields.customize_mobile_ad %}
+        {% set headerScript = fields.mobile_header_script %}
+        {% set minWidth = fields.mobile_min_width %}
+        {% set minHeight = fields.mobile_min_height %}
+        <script>
+          window.customMobileAd = {{ fields.customize_mobile_ad ? true : false }};
+          window.mobileHeaderScript = `{{ headerScript|striptags|trim }}`;
+        </script>
+      {% else %}
+        {% set minWidth = 300 %}
+        {% set minHeight = 250 %}
+      {% endif %}
+    {% elseif type == 'mobile-sticky' %}
+      {% set mobile = true %}
+      {% if fields.customize_mobile_sticky_ad %}
+        {% set headerScript = fields.mobile_sticky_header_script %}
+        {% set minWidth = fields.mobile_sticky_min_width %}
+        {% set minHeight = fields.mobile_sticky_min_height %}
+        <script>
+          window.customMobileStickyAd = {{ fields.customize_mobile_sticky_ad ? true : false }};
+          window.mobileStickyHeaderScript = `{{ headerScript|striptags|trim }}`;
+        </script>
+      {% else %}
+        {% set minWidth = 300 %}
+        {% set minHeight = 250 %}
+      {% endif %}
+    {% endif %}
+
+    <div
+      data-id="banner-ad-{{ type }}"
+      data-type="{{ type }}"
+      data-width="{{ minWidth }}px"
+      data-height="{{ minHeight }}px"
+      {% if desktop == true %}data-desktop="true"{% endif %}
+      {% if mobile == true %}data-mobile="true"{% endif %}
+      data-component="google-ad"
+    ></div>
+  {% endfor %}
+{% endif %}

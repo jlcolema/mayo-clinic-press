@@ -1,0 +1,17 @@
+{% set thumbnail = post.meta('author_thumbnail') %}
+
+{% if post.meta('author_link') %}
+<div class="author__card">
+  <a href="{{ post.link }}">
+    <div class="author__thumbnail">
+      {% if thumbnail %}
+        <img src="{{ thumbnail }}" alt="" loading="lazy"/>
+      {% else %}
+        <div class="placeholder-image"></div>
+      {% endif %}
+    </div>
+
+    <div class="author__name">{{ post.title }}</div>
+  </a>
+</div>
+{% endif %}

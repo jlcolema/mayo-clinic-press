@@ -1,0 +1,73 @@
+p {
+  margin-bottom: var(--space-md);
+}
+
+hr.wp-block-separator.contact__form--separator {
+  border-width: 1px;
+  margin-top: var(--space-base);
+  margin-bottom: var(--space-md);
+}
+
+.form__container--2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: var(--space-md);
+
+  .form__field--full {
+    grid-column: 1 / 3;
+  }
+
+  .form__field--half {
+    grid-column: 1 / 3;
+
+    @media (--md) {
+      grid-column: auto;
+    }
+  }
+}
+
+.form-label {
+  font-weight: 400;
+}
+
+.singular__content {
+  > .wp-block-columns {
+    display: grid;
+    grid-column: 1 / 4;
+    margin-bottom: 0;
+
+    @media (--md) {
+      display: flex;
+      grid-column: 2;
+    }
+
+    > * {
+      grid-column: 2;
+    }
+
+    .contact__column--two {
+      &:not(:first-child) {
+        padding: var(--space-md);
+        margin-left: 0;
+
+        @media (--md) {
+          margin-left: var(--space-xxxl);
+        }
+      }
+
+      &.column__bg--offset {
+        grid-column: 1 / 4;
+        margin-top: var(--space-xl);
+
+        @media (--md) {
+          margin-top: calc(-1 * var(--space-lg));
+          padding-top: var(--space-xl);
+        }
+      }
+    }
+  }
+
+  .wp-block-social-links {
+    gap: var(--space-base);
+  }
+}

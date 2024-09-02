@@ -1,0 +1,38 @@
+.proceeds__banner {
+  background-color: var(--color-contrast-low-alpha);
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-base);
+  padding: var(--space-base);
+  align-items: flex-start;
+
+  @media (--md) {
+    align-items: center;
+    margin-top: var(--space-lg);
+  }
+
+  // Hide the banner on product pages
+  // starting at `--md`.
+  .single-product .summary & {
+    @media(--sm) {
+      display: none;
+    }
+  }
+
+  .icon {
+    --size: 30px;
+    margin-top: 0.3125rem;
+
+    @media (--md) {
+      margin-top: 0;
+    }
+
+  }
+
+  .proceeds__text {
+    margin-bottom: 0;
+    font-size: var(--heading-sm);
+    line-height: var(--line-height-sm);
+  }
+}

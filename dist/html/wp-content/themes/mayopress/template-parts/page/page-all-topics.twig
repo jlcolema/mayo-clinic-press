@@ -1,0 +1,46 @@
+<article id="page-{{ page.id }}" class="singular">
+
+	{# Header #}
+	<header class="singular__header">
+		{# Breadcrumbs #}
+		{% if fn('function_exists', 'yoast_breadcrumb') %}
+			{{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+		{% endif %}
+	</header>
+
+	{# Content #}
+	<div class="singular__content singular__content--all-topics">
+		<h1 class="has-heading-xxl-font-size">{{ page.title }}</h1>
+
+		{{ page.content }}
+
+    {# Featured Topics #}
+		<ul class="all-topics all-topics--featured">
+			{% for cat in categories %}
+				{% include 'template-parts/loops/all-topics.twig' %}
+			{% endfor %}
+		</ul>
+
+    {# Promoted Topics #}
+    {% if promoted_categories is not empty %}
+      <hr class="divider is-hidden--tablet-down" />
+
+      <h2 class="has-heading-xxl-font-size">Promoted Topics</h2>
+
+      <p>The same trusted, expert content brought to you courtesy of our partners.</p>
+
+      <ul class="all-topics all-topics--promoted">
+        {% for cat in promoted_categories %}
+          {% include 'template-parts/loops/all-topics.twig' %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+		<div class="all-topics__search has-max-width-sm">
+			<h2>{{ __('Looking for %s something specific?', 'mayo') | format('<br class="is-hidden--desktop"/>') }}</h2>
+			<p class="text--md">{{ __('Use the search below:', 'mayo') }}</p>
+			{% include 'template-parts/components/search-form.twig' with { uniqueId: 'all-topics' } %}
+		</div>
+	</div>
+
+</article>

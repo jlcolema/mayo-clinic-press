@@ -1,0 +1,14 @@
+.accepted-payments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .accepted-payments__icons {
+    display: flex;
+    gap: var(--space-xs);
+  }
+}

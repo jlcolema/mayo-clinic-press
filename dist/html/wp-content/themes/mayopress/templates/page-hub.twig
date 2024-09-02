@@ -1,0 +1,11 @@
+{% include 'templates/header.twig' %}
+
+<main class="main main--page" id="main">
+	{% include 'template-parts/page/hub.twig' %}
+</main>
+
+{% if page.slug == 'parenting' %}
+    {% include 'templates/footer-parenting.twig' %}
+{% else %}
+    {% include 'templates/footer.twig' %}
+{% endif %}

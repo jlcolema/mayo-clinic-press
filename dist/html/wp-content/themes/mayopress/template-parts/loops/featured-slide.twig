@@ -1,0 +1,104 @@
+{% set featured_slide_image = false %}
+{% set featured_slide_format = false %}
+{% set featured_slide_heading = false %}
+{% set featured_slide_subcopy = false %}
+{% set featured_slide_date = false %}
+{% set featured_slide_authors = false %}
+{% set featured_slide_link = false %}
+{% set featured_slide_button_text = false %}
+
+{% if featured_post %}
+  {% set featured_slide_image = TimberPost(featured_post).thumbnail.src %}
+  {% set featured_slide_image_alt = TimberPost(featured_post).thumbnail.alt %}
+  {% set featured_slide_heading = TimberPost(featured_post).title %}
+  {% set featured_slide_date = TimberPost(featured_post).date %}
+  {% set featured_slide_authors = TimberPost(featured_post).meta('post_authors') | join(', <br class="is-hidden--desktop">') %}
+  {% set featured_slide_link = TimberPost(featured_post).link %}
+  {% set featured_slide_button_text = 'Read More' %}
+
+  {% set tag_objects = TimberPost(featured_post).terms( {query:{taxonomy:'content-formats'}} ) %}        
+  {% if tag_objects is not empty %}
+    {% for tag in tag_objects %}
+      {% set featured_slide_format = tag.name %}
+    {% endfor %}
+  {% endif %}
+{% elseif slide.featured_is_post %}
+  {% set featured_slide_image = TimberPost(slide.featured_slide_post[0]).thumbnail.src %}
+  {% set featured_slide_image_alt = TimberPost(slide.featured_slide_post[0]).thumbnail.alt %}
+  {% set featured_slide_heading = TimberPost(slide.featured_slide_post[0]).title %}
+  {% set featured_slide_date = TimberPost(slide.featured_slide_post[0]).date %}
+  {% set featured_slide_authors = TimberPost(slide.featured_slide_post[0]).meta('post_authors') | join(', <br class="is-hidden--desktop">') %}
+  {% set featured_slide_link = TimberPost(slide.featured_slide_post[0]).link %}
+  {% set featured_slide_button_text = 'Read More' %}
+
+  {% set tag_objects = TimberPost(slide.featured_slide_post[0]).terms( {query:{taxonomy:'content-formats'}} ) %}        
+  {% if tag_objects is not empty %}
+    {% for tag in tag_objects %}
+      {% set featured_slide_format = tag.name %}
+    {% endfor %}
+  {% endif %}
+{% else %}
+  {% set featured_slide_image = slide.featured_slide_custom_image.url %}
+  {% set featured_slide_image_alt = slide.featured_slide_custom_image.alt %}
+  {% set featured_slide_heading = slide.featured_slide_custom_heading %}
+  {% set featured_slide_subcopy = slide.featured_slide_custom_subcopy %}
+  {% set featured_slide_link = slide.featured_slide_custom_link %}
+  {% set featured_slide_button_text = slide.featured_slide_custom_link_text %}
+{% endif %}
+
+<div class="slider__item">
+  {% if featured_slide_link %}
+    <a href="{{ featured_slide_link }}">
+  {% endif %}
+
+  <div class="slide__image--container">
+    {% if featured_slide_image %}
+      <img src="{{ featured_slide_image }}" alt="" loading="lazy" />
+    {% endif %}
+  </div>
+
+  <div class="slide__content--container">
+    {% if featured_slide_format %}
+      <p class="slide__format{% if featured_post %} personalized-post{% endif %}">{% if featured_post %}{{ __('Recommended for you', 'mayo') }}<span class="is-hidden--mobile"> | </span><br class="is-hidden--desktop" />{% endif %}{{ featured_slide_format }}</p>
+    {% endif %}
+
+    {% if featured_slide_heading %}
+      <p class="slide__heading has-heading-lg-font-size">{{ featured_slide_heading }}</p>
+    {% endif %}
+
+    {% if featured_slide_subcopy %}
+      <p class="slide__subcopy">{{ featured_slide_subcopy }}</p>
+    {% endif %}
+
+    {% if featured_slide_date or featured_slide_authors %}
+      <div class="slide__date-author">
+        {% if featured_slide_date %}
+          <time class="slide__date">
+            <span class="sr-only">
+              {{ __('Posted on ', 'mayo') }}
+            </span>
+            {{ featured_slide_date|e('esc_html') }}
+          </time>
+        {% endif %}
+
+        {% if featured_slide_date and featured_slide_authors %}
+          <span style="color: var(--color-primary);">&#8226;</span>
+        {% endif %}
+
+        {% if featured_slide_authors %}
+          <span class="slide__author">{{ featured_slide_authors }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if featured_slide_link %}
+      <div class="btn btn--primary slide__link">
+        {{ featured_slide_button_text }}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if featured_slide_link %}
+    </a>
+  {% endif %}
+</div>

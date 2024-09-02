@@ -1,0 +1,24 @@
+#page-357>.singular__header {
+    display: none;
+}
+
+.my-account__header {
+    display: flex;
+    margin-top: var(--space-xxl);
+    margin-bottom: var(--space-xxl);
+    padding-bottom: var(--space-md);
+    border-bottom: 2px solid var(--color-black);
+}
+
+#my-account-header {
+    margin: 0px;
+}
+
+#my-account-header-sign-out {
+    font-family: var(--font-sans);
+    margin-left: var(--space-md);
+    align-self: self-end;
+    font-size: var(--text-md);
+    color: var(--color-primary);
+    text-decoration: underline;
+}

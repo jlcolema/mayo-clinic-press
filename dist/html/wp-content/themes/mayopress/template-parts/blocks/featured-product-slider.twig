@@ -1,0 +1,54 @@
+{#
+  Title: Featured Product Slider
+  Description: Select product and add background image
+  Category: common
+  Icon: admin-multisite
+  Keywords: featured product slider
+  Mode: auto
+  EnqueueStyle: block-featured-product-slider.css
+#}
+
+{% set slider_heading = fields.featured_product_heading %}
+
+<div class="featured-product-slider">
+	{% if slider_heading %}
+		<h2 class="featured-product-slider__heading">{{ slider_heading }}</h2>
+	{% endif %}
+	<div class="slider" data-component="featured-product-slider">
+		<div class="slider__track">
+			{% for slide in fields.featured_slides %}
+				{% include 'template-parts/loops/featured-product-slide.twig' %}
+			{% endfor %}
+		</div>
+
+		<button class="slider__arrow slider__arrow--prev">
+			<span class="sr-only">
+				{{ __('Previous slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+		</button>
+		<button class="slider__arrow slider__arrow--next">
+			<span class="sr-only">
+				{{ __('Next slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+		</button>
+		<div class="slider__pagination"></div>
+
+		<div class="slide__timer--container">
+			<div class="slide__timer"><div></div></div>
+		</div>
+
+		<div class="slider__pagination--container">
+			<button class="slider__arrow slider__arrow--prev" aria-hidden="true" tabindex="-1">
+				{% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+			</button>
+			<div class="slider__pagination--pages"></div>
+			<button class="slider__arrow slider__arrow--next" aria-hidden="true" tabindex="-1">
+				{% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+			</button>
+		</div>
+	</div>
+</div>

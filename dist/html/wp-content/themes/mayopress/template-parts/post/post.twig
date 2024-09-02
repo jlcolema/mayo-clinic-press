@@ -1,0 +1,242 @@
+{% set cat_link = fn( 'get_category_link', category[0] ) %}
+
+{% set facebook = post.meta('share_on_facebook') %}
+{% set twitter = post.meta('share_on_twitter') %}
+{% set linkedin = post.meta('share_on_linkedin') %}
+{% set email = post.meta('share_on_email') %}
+
+{% set parent_modal = post.meta('parent_optin_form') %}
+{% set parent_banner_color = banner_options.parent_banner_background %}
+{% set parent_banner_text = banner_options.parent_banner_text %}
+{% set parent_banner_link = banner_options.parent_banner_link %}
+{% set parent_modal_title = banner_options.parent_modal_title %}
+{% set parent_modal_text = banner_options.parent_modal_text %}
+{% set parent_form = banner_options.parent_form %}
+{% set parent_learn_more = banner_options.parent_learn_more %}
+{% set parent_learn_more_link = banner_options.parent_learn_more_link %}
+{% set parent_learn_more_text = banner_options.parent_learn_more_text %}
+
+<article id="post-{{ post.id }}" class="singular{% if facebook or twitter or linkedin or email %} singular__sharing{% endif %}">
+	<div class="readalong__container">
+		<script async src="https://api.readalong.ai/readalong/EAB43192-E788-4788-852A-081F4E43F4EB"></script>
+	</div>
+	{# Thumbnail #}
+	{% if post.meta('embed_code') %}
+    {% set embed_code = post.meta('embed_code') %}
+		{% set width = 0 %}
+		{% set height = 0 %}
+		{% set width = embed_code|split('width="')[1]|split('"')[0] %}
+		{% set height = embed_code|split('height="')[1]|split('"')[0] %}
+
+    {% if post.meta('embed_video_type') == 'youtube' %}
+			{# Include IFrame Player API #}
+			<script src="https://www.youtube.com/iframe_api"></script>
+			
+			{# Manipulate the embed code #}
+			{% set iframe_start = embed_code|split('<iframe', 2)[1]|split('>', 2)[0] %}
+			{% set src_start = iframe_start|split('src="', 2)[1]|split('"', 2)[0] %}
+			{% set src_end = '?enablejsapi=1&origin=' ~ origin %}
+			{% set new_src = src_start ~ src_end %}
+			{% set new_iframe = '<iframe id="ytplayer" ' ~ iframe_start|replace({(src_start): (new_src)}) %}
+			{% set embed_code = new_iframe ~ '></iframe>' %}
+		{% elseif post.meta('embed_video_type') == 'vimeo' %}
+			{# Include IFrame Player API #}
+			<script src="https://player.vimeo.com/api/player.js"></script>
+		{% elseif post.meta('embed_video_type') == 'kaltura' %}
+			{% set video_title = post.title %}
+			{% set partner_id = embed_code|split('partner_id/')[1]|split('?')[0] %}
+			{% set uiconf_id = embed_code|split('uiconf_id/')[1]|split('/partner_id')[0] %}
+			{% set entry_id = embed_code|split('entry_id=')[1]|split('&')[0] %}
+
+			{# Extract flashvars #}
+			{% set flashvars_string = embed_code|split('flashvars[')[1]|split('&wid')[0] %}
+			{% set flashvars_list = flashvars_string|split('&') %}
+
+			{% set flashvars = {} %}
+
+			{% for item in flashvars_list %}
+				{% if item|split(']=')|length > 1 %}
+					{% set flashvar_key = item|split(']=')[0] %}
+					{% set flashvar_value = item|split(']=')[1] %}
+					{% set flashvars = flashvars|merge({ (flashvar_key): flashvar_value }) %}
+				{% endif %}
+			{% endfor %}
+
+			{# Include IFrame Player API #}
+			<script src="https://cdnapi.kaltura.com/p/{{ partner_id }}/sp/{{ partner_id }}00/embedIframeJs/uiconf_id/{{ uiconf_id }}/partner_id/{{ partner_id }}"></script>
+
+			{% set embed_code = '<div id="' ~ entry_id ~ '" style="width:' ~ width ~ 'px; height:' ~ height ~ 'px;" itemprop="video" itemscope itemtype="https://schema.org/VideoObject"><span itemprop="name" content="' ~ video_title ~ '"></span><span itemprop="width" content="' ~ width ~ '"></span><span itemprop="height" content="' ~ height ~ '"></span></div>' %}
+		{% endif %}
+
+		<figure id="embed" class="singular__thumbnail" style="min-height:{{ height }}px">
+			{{ embed_code | raw }}
+		</figure>
+
+		{% if post.meta('embed_video_type') == 'kaltura' %}
+			<script type="text/javascript">
+				kWidget.embed({
+					"targetId": "embed",
+					"wid": "_{{ partner_id }}",
+					"uiconf_id": "{{ uiconf_id }}",
+					"entry_id": "{{ entry_id }}",
+					"flashvars": {{ flashvars | json_encode() | raw }}, // convert the flashvars array to JSON
+					"readyCallback": function(playerId) {
+						var kdp = document.getElementById(playerId); 
+						kdp.addJsListener("doPlay", "doPlayCallback"); 
+						window.inlineReadyCallbackCalled = playerId;
+					}
+				});
+			</script>
+
+			<script type="text/javascript">
+        kWidget.addReadyCallback(function(playerId) {
+					var kdp = document.getElementById(playerId);
+					kdp.kBind("mediaReady", function() {
+						// Seek to 30 seconds from the start of the video
+						kdp.sendNotification("doSeek", 30);
+					});
+
+					kdp.kBind("playerPlayed", function() {
+						console.log("Player played", playerId);
+					});
+
+					kdp.kBind("playerPaused", function() {
+						console.log("Player paused", playerId);
+					});
+
+					kdp.kBind("firstQuartile", function() {
+						console.log("Player reached 25%", playerId);
+					});
+
+					kdp.kBind("secondQuartile", function() {
+						console.log("Player reached 50%", playerId);
+					});
+
+					kdp.kBind("thirdQuartile", function() {
+						console.log("Player reached 75%", playerId);
+					});
+
+					kdp.kBind("playbackComplete", function() {
+						console.log("Playback complete", playerId);
+					});
+        });
+    	</script>
+		{% endif %}
+	{% elseif post.thumbnail is not null %}
+		<figure id="image" class="singular__thumbnail">
+			<img src="{{ post.thumbnail.src('singular-thumbnail')|e('esc_url') }}" alt="" loading="lazy">
+			{% if post.thumbnail.caption %}
+			<figcaption>{{ post.thumbnail.caption }}</figcaption>
+			{% endif %}
+		</figure>
+	{% endif %}
+
+	{% if facebook or twitter or linkedin or email %}
+		{% include 'template-parts/components/social-sharing.twig' %}
+	{% endif %}
+
+	{# Content #}
+	<div class="singular__content">
+		<div id="post-content">
+			{{ post.content }}
+		</div>
+
+		{% for list_page in pages %}
+			{% if list_page.post_name == category[0].slug %}
+				<a href="{{ cat_link }}" class="content__banner" data-component="content-banner">
+					{% if fn('function_exists', 'get_the_post_thumbnail') %}
+						<div class="content__banner--image">
+							{{ fn('get_the_post_thumbnail', list_page.ID, 'card-thumbnail') }}
+						</div>
+					{% endif %}
+					<div class="content__banner--text">
+						<p><strong>Discover more {{ category[0].cat_name }} content from articles, podcasts, to videos.</strong></p>
+						<div class="btn btn--primary">View {{ category[0].cat_name }}</div>
+					</div>
+				</a>
+			{% endif %}
+		{% endfor %}
+
+		{% if has_parenting_cat and parent_banner_text %}
+			{% if parent_modal %}
+				<div class="parent-optin">
+					<div class="parent-optin__container color-{{ parent_banner_color }}" style="--color: var(--color-{{ parent_banner_color }})">
+						<p>{{ parent_banner_text }}</p>
+						{% if parent_banner_link %}
+							<a href="javascript:void(0);" aria-describedby="parent-adtl-info-modal" aria-controls="parent-optin">
+								{{ parent_banner_link }}
+								<span id="parent-adtl-info-modal" class="sr-only">Open parent optin subscribe modal </span>
+								<svg class="icon icon--arrow-right" aria-hidden="true" focusable="false"><use xlink:href="#arrow-right"></use></svg>
+							</a>
+						{% endif %}
+					</div>
+				</div>
+			{% else %}
+				<div id="parent-optin">
+					<div class="parent-optin__content">
+						<p class="parent-optin__title has-heading-md-font-size">{{ parent_modal_title }}</p>
+						<p class="parent-optin__text">{{ parent_modal_text }}</p>
+
+						{% if fn('function_exists', 'do_shortcode') %}
+							<div class="parent-optin__form" data-selector="#parent-optin .parent-optin__title" data-success-message="Thank you for subscribing" data-hide-selectors="#parent-optin form.wpcf7-form &gt; :not(.wpcf7-response-output), #parent-optin .parent-optin__text, #parent-optin .accordion, #parent-optin .parent-optin__modal--link">
+								{{ fn('do_shortcode', parent_form) }}
+							</div>
+						{% endif %}
+
+						{% if parent_learn_more %}
+							<div class="accordion js-accordion" data-animation="on" data-component="accordion">
+								<div class="accordion__item js-accordion__item">
+									<div class="accordion__header reset js-accordion__trigger js-tab-focus">
+										{{ parent_learn_more_link|e('esc_html') }}
+										{% include 'template-parts/components/icon.twig' with { icon: 'chevron-down' } %}
+									</div>
+
+									<div class="accordion__panel js-accordion__panel">
+										<div class="accordion__panel-content">
+											{{ parent_learn_more_text|e('esc_html') }}
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			{% endif %}
+		{% endif %}
+	</div>
+</article>
+
+{% if parent_banner_link %}
+	{% if parent_modal %}
+		<div id="parent-optin" class="modal modal--animate-scale js-modal" data-component="modal">
+			<div class="modal__content" role="alertdialog" aria-labelledby="parent-optin" aria-describedby="parent-optin">
+				<p class="parent-optin__title has-heading-md-font-size">{{ parent_modal_title }}</p>
+				<p class="parent-optin__text">{{ parent_modal_text }}</p>
+
+				{% if fn('function_exists', 'do_shortcode') %}
+					<div class="parent-optin__form form-messaging" data-component="form-tracking" data-selector="#parent-optin .parent-optin__title" data-success-message="Thank you for subscribing" data-hide-selectors="#parent-optin form.wpcf7-form &gt; :not(.wpcf7-response-output), #parent-optin .parent-optin__text, #parent-optin .accordion, #parent-optin .parent-optin__modal--link">
+						{{ fn('do_shortcode', parent_form) }}
+					</div>
+				{% endif %}
+
+				{% if parent_learn_more %}
+					<div class="accordion js-accordion" data-animation="on" data-component="accordion">
+						<div class="accordion__item js-accordion__item">
+							<div class="accordion__header reset js-accordion__trigger js-tab-focus">
+								{{ parent_learn_more_link|e('esc_html') }}
+								{% include 'template-parts/components/icon.twig' with { icon: 'chevron-down' } %}
+							</div>
+
+							<div class="accordion__panel js-accordion__panel">
+								<div class="accordion__panel-content">
+									{{ parent_learn_more_text|e('esc_html') }}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+				<a href="javascript:void(0);" class="reset modal__close-btn modal__close-btn--text js-modal__close">{{ __('Close', 'mayo') }}</a>
+			</div>
+		</div>
+	{% endif %}
+{% endif %}

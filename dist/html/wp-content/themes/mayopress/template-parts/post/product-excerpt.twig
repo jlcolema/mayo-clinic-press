@@ -1,0 +1,78 @@
+{{ fn('timber_set_product', post) }}
+{#
+* Hook: woocommerce_shop_loop.
+#}
+{% do action( 'woocommerce_shop_loop' ) %}
+	<li class="product">
+		{#
+		* Hook: woocommerce_before_shop_loop_item.
+		*
+		* @hooked woocommerce_template_loop_product_link_open - 10
+		#}
+		{{ fn('timber_set_product', post) }}
+		{% do action( 'woocommerce_before_shop_loop_item' ) %}
+
+		{#
+		* Hook: woocommerce_before_shop_loop_item_title.
+		*
+		* @hooked woocommerce_template_loop_product_thumbnail - 10
+		#}
+		{{ fn('timber_set_product', post) }}
+		{% do action( 'woocommerce_before_shop_loop_item_title' ) %}
+
+		{#
+		* Hook: woocommerce_after_shop_loop_item.
+		*
+		* @hooked woocommerce_template_loop_product_link_close - 5
+		#}
+		{{ fn('timber_set_product', post) }}
+		{% do action( 'woocommerce_after_shop_loop_item' ) %}
+
+		<div class="item__description-price">
+			{#
+			* Hook: woocommerce_before_shop_loop_item.
+			*
+			* @hooked woocommerce_template_loop_product_link_open - 10
+			#}
+			{{ fn('timber_set_product', post) }}
+			{% do action( 'woocommerce_before_shop_loop_item' ) %}
+
+			<div class="item__description--container">
+				{#
+				* Hook: woocommerce_shop_loop_item_title.
+				*
+				* @hooked woocommerce_show_product_loop_sale_flash - 5
+				* @hooked woocommerce_template_loop_product_title - 10
+				* @hooked woocommerce_template_loop_product_author - 20
+				* @hooked woocommerce_template_loop_product_plp_description - 20
+				#}
+				{{ fn('timber_set_product', post) }}
+				{% do action( 'woocommerce_shop_loop_item_title' ) %}
+			</div>
+			{#
+			* Hook: woocommerce_after_shop_loop_item.
+			*
+			* @hooked woocommerce_template_loop_product_link_close - 5
+			#}
+			{{ fn('timber_set_product', post) }}
+			{% do action( 'woocommerce_after_shop_loop_item' ) %}
+
+			<div class="item__price--container">
+				{#
+				* Hook: woocommerce_after_shop_loop_item_title.
+				*
+				* @hooked woocommerce_template_loop_price - 10
+				* @hooked woocommerce_percentage_on_sale - 20
+				* @hooked woocommerce_template_loop_add_to_cart - 30
+	 			* @hooked view_details_link - 40
+				#}
+				{{ fn('timber_set_product', post) }}
+				{% do action( 'woocommerce_after_shop_loop_item_title' ) %}
+			</div>
+		</div>
+
+			<!-- Add the second Add to Cart button for mobile view. -->
+			<div class="is-hidden--tablet">
+				{% do fn('woocommerce_template_loop_add_to_cart') %}
+			</div>
+	</li>

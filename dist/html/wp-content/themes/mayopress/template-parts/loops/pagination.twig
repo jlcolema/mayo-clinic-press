@@ -1,0 +1,42 @@
+{% if posts.pagination.pages %}
+	<nav class="pagination">
+		<h3 class="sr-only">
+			{{ __('Post navigation', 'mayo') }}
+		</h3>
+		<ul class="pagination__list">
+
+			{# Previous page #}
+			{% if posts.pagination.prev %}
+				<li class="pagination__item">
+					<a class="pagination__link" href="{{ posts.pagination.prev.link }}">
+						{{ __('Previous page', 'mayo') }}
+					</a>
+				</li>
+			{% endif %}
+
+			{# Link do pages #}
+			{% for page in posts.pagination.pages %}
+				<li class="pagination__item">
+					{% if page.link %}
+						<a class="pagination__link" href="{{ page.link }}">
+							{{ page.title }}
+						</a>
+					{% else %}
+						<span class="pagination__unactive">
+							{{ page.title }}
+						</span>
+					{% endif %}
+				</li>
+			{% endfor %}
+
+			{# Next page #}
+			{% if posts.pagination.next %}
+				<li class="pagination__item">
+					<a class="pagination__link" href="{{ posts.pagination.next.link }}">
+						{{ __('Next page', 'mayo') }}
+					</a>
+				</li>
+			{% endif %}
+		</ul>
+	</nav>
+{% endif %}

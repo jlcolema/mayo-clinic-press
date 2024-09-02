@@ -1,0 +1,11 @@
+.announcement-bar {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  text-align: center;
+  padding: var(--space-xs) 0;
+  line-height: var(--line-height-lg);
+
+  @media (--md) {
+    line-height: inherit;
+  }
+}

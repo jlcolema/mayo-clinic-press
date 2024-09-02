@@ -1,0 +1,44 @@
+{#
+  Title: Email Capture
+  Description: Email Capture Form from Email Capture Options Page
+  Category: common
+  Icon: email
+  Keywords: email form
+  Mode: preview
+  EnqueueStyle: block-email-capture.css
+#}
+
+{% set banner_color = banner_options.email_capture_color %}
+{% set banner_title = banner_options.email_capture_title %}
+{% set banner_subtitle = banner_options.email_capture_subtitle %}
+{% set banner_form = banner_options.email_capture_form %}
+{% set banner_link_text = banner_options.email_capture_text %}
+{% set banner_modal_text = banner_options.email_capture_modal %}
+
+<div class="email-capture__container color-{{ banner_color }} {{ classes }}" style="--color: var(--color-{{ banner_color }})" data-component="form-tracking">
+  {% if banner_title %}
+  <p class="email-capture__title">{{ banner_title }}</p>
+  {% endif %}
+
+  {% if banner_subtitle %}
+  <p class="email-capture__subtitle">{{ banner_subtitle }}</p>
+  {% endif %}
+  
+  {% if fn('function_exists', 'do_shortcode') %}
+  {{ fn('do_shortcode',banner_form) }}
+  {% endif %}
+
+  {% if banner_link_text and banner_modal_text %}
+  <a class="email-capture__modal--link" href="javascript:void(0);" aria-describedby="additional-info-modal" aria-controls="additional-information">
+    {{ banner_link_text | e('wp_kses_post') }}
+    <span id="additional-info-modal" class="sr-only">Open additional information modal</span>
+  </a>
+
+  <div id="additional-information" class="modal modal--animate-scale js-modal" data-component="modal">
+    <div class="modal__content" role="alertdialog" aria-labelledby="additional-information" aria-describedby="additional-information">
+      <p>{{ banner_modal_text }}</p>
+      <a href="javascript:void(0);" class="reset modal__close-btn modal__close-btn--text js-modal__close">{{ __('Close', 'mayo') }}</a>
+    </div>
+  </div>
+  {% endif %}
+</div>

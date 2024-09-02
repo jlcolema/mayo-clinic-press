@@ -1,0 +1,34 @@
+<div class="social-sharing">
+	<p class="social__title">SHARE:</p>
+
+	{% if facebook %}
+  <a href="https://www.facebook.com/sharer/sharer.php?u={{ post.link | e('esc_url') }}&quote={{ post.title | e('esc_url') | replace({ 'http://': '' }) }}"
+    target="_blank"
+    class="social__icon social__facebook" aria-label="Share on Facebook">
+    {% include 'template-parts/components/icon.twig' with { icon: 'facebook' } %}
+  </a>
+	{% endif %}
+
+	{% if twitter %}
+	<a href="https://twitter.com/intent/tweet?url={{ post.link | e('esc_url') }}"
+    target="_blank"
+    class="social__icon social__twitter" aria-label="Share on Twitter">
+    {% include 'template-parts/components/icon.twig' with { icon: 'twitter' } %}
+  </a>
+	{% endif %}
+
+	{% if linkedin %}
+	<a href="https://www.linkedin.com/sharing/share-offsite?url={{ post.link | e('esc_url') }}"
+    target="_blank"
+    class="social__icon social__linkedin" aria-label="Share on LinkedIn">
+    {% include 'template-parts/components/icon.twig' with { icon: 'linkedin' } %}
+  </a>
+	{% endif %}
+
+	{% if email %}
+  <a href="mailto:body={{ post.link | e('esc_url') }}&subject={{ post.title | e('esc_url') }}"
+    class="social__icon social__mail" aria-label="Share via Email">
+    {% include 'template-parts/components/icon.twig' with { icon: 'mail' } %}
+  </a>
+	{% endif %}
+</div>

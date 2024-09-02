@@ -1,0 +1,10 @@
+{% if banner_options.proceeds_text %}
+<div class="proceeds__banner">
+  {% if banner_options.proceeds_icon %}
+  <svg class="icon icon--{{ banner_options.proceeds_icon }}" aria-hidden="true" focusable="false">
+    <use xlink:href="#{{ banner_options.proceeds_icon }}"></use>
+  </svg>
+  {% endif %}
+  <p class="proceeds__text">{{ banner_options.proceeds_text }}</p>
+</div>
+{% endif %}

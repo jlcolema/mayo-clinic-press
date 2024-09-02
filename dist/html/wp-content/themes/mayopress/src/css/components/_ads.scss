@@ -1,0 +1,59 @@
+[data-component="google-ad"] {
+  &:has(.ads) {
+    text-align: center;
+    font-size: var(--text-sm);
+    padding-block: var(--space-xs) var(--space-lg);
+    background-color: var(--color-contrast-low-alpha);
+
+    .page & {
+      margin-top: var(--space-xxxl);
+  
+      ~ .wp-block-columns.hub__featured--columns.hub__featured--has-border-top,
+      ~ .featured-slider {
+        margin-top: 0;
+        border-top: 0;
+      }
+    }
+
+    &.ad-sticky {
+      position: fixed;
+      bottom: 0;
+      inset-inline: 0;
+      background-color: var(--color-white);
+      z-index: var(--z-index-fixed-element);
+      transition: 0.2s;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--color-contrast-low-alpha);
+      }
+
+      > * {
+        position: relative;
+      }
+
+      > .close-button {
+        position: absolute;
+        right: 0;
+        top: -14px;
+        display: flex;
+        align-items: center;
+        padding: var(--space-xxs);
+        background-color: var(--color-white);
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-color: var(--color-contrast-low-alpha);
+        }
+      }
+    }
+
+    aside & {
+      margin-bottom: var(--space-lg);
+    }
+  }
+}

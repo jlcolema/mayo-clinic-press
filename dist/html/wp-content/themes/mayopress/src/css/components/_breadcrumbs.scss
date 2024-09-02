@@ -1,0 +1,13 @@
+body.home #breadcrumbs {
+  display: none;
+}
+
+#breadcrumbs {
+  margin-top: var(--space-base);
+  margin-bottom: var(--space-base);
+
+  @media (--sm) {
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+}

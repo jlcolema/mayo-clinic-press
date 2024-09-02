@@ -1,0 +1,73 @@
+{#
+  Title: Ad Hub Template
+  Description: Template page for ad hub
+#}
+
+{% set hasAds = true %}
+  
+{% if fn('function_exists', 'wp_get_attachment_url') %}
+{% set file_url = fn('wp_get_attachment_url', post.file_pdf) %}
+{% endif %}
+
+{% include 'templates/header.twig' %}
+<header class="singular__header" id="ad-hub-header">
+	{# Breadcrumbs #}
+	{% if fn('function_exists', 'yoast_breadcrumb') %}
+		{{ fn('yoast_breadcrumb','<p id="breadcrumbs ad-hub-breadcrumbs">','</p>')}}
+	{% endif %}
+	<hr class="ad-hub-header-divider"/>
+	<div class="ad-hub-title">
+		<h1 class="singular__title">{{ post.title }}</h1>
+		<p class="singular__subheader">{{ post.subtitle }}</p>
+	</div>
+</header>
+
+<main class="main main--single ad-hub-template" id="ad-hub-template">
+	<div class="container singular__container" id="ad-hub-container">
+		<article class="singular singular__sharing">
+			<div class="ad-hub-video">
+				<iframe class="ad-hub-iframe" width="100%" height="auto" src="{{ post.video|e('esc_url') }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+
+			{% for item in post.meta('articles')  %}
+			<div class="ad-hub-articles">
+				<div>
+					<img class="ad-hub-article-image" src="{{ Image(item.image).src }}" alt=""/>
+				</div>
+				<div class="ad-hub-article-content">
+					<p class="ad-hub-article-type">ARTICLE</p>
+					<h2 class="ad-hub-article-header">{{ item.article[0].post_title }}</h2>
+					<p class="ad-hub-article-desc">{{ item.article[0].preview.read_more('') }}</p>
+					<a href="{{ item.article[0].link|e('esc_url') }}" class="btn btn--primary">Read More</a>
+				</div>
+			</div>
+			<hr class="ad-hub-article-divider"/>
+
+			{% if loop.index == 1 %}
+			<div class="header-advertisement-mobile-top"></div>
+			<hr class="ad-hub-article-divider"/>
+
+			{% if post.add_pdf %}
+			<div class="ad-hub-articles">
+				<div>
+					<img class="ad-hub-article-image" src="{{ Image(post.image_pdf).src }}" alt=""/>
+				</div>
+				<div class="ad-hub-article-content">
+					<p class="ad-hub-article-type">PDF</p>
+					<h2 class="ad-hub-article-header">{{ post.title_pdf }}</h2>
+					<p class="ad-hub-article-desc">{{ post.excerpt_pdf }}</p>
+					<a href="{{ file_url }}" target="_blank" class="btn btn--primary">Read More</a>
+				</div>
+			</div>
+			<hr class="ad-hub-article-divider"/>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+		</article>
+
+		<aside class="ad-hub-script" {% if post.meta('add_sticky_ad') %}data-sticky="{{ post.meta('add_sticky_ad') }}"{% endif %} data-component="ad-placement"></aside>
+		
+	</div>
+</main>
+
+{% include 'templates/footer.twig' %}

@@ -1,0 +1,20 @@
+{% include 'templates/header.twig' %}
+
+{% if customSidebarAd %}
+  <script>
+    window.customSidebarAd = {{ customSidebarAd ? true : false }};
+    window.sidebarHeaderScript = `{{ sidebarHeaderScript|striptags|trim }}`;
+  </script>
+{% endif %}
+
+<main class="main main--single" id="main">
+	{% include 'template-parts/post/post-header.twig' %}
+
+  <div class="container singular__container{% if hasAds %} has-ads{% endif %}">
+	  {% include 'template-parts/post/post.twig' %}
+    {% include 'template-parts/post/post-aside.twig' %}
+    {% include 'template-parts/post/related-posts.twig' %}
+  </div>
+</main>
+
+{% include 'templates/footer.twig' %}

@@ -1,0 +1,44 @@
+// ==========================================================================
+// SETTINGS: COLORS
+// ==========================================================================
+
+@use '../tools' as *;
+
+:root {
+  // main
+  @include defineColorHSL(--color-primary-dark, 213, 100%, 29%);
+  @include defineColorHSL(--color-primary, 212, 100%, 36%);
+  @include defineColorHSL(--color-primary-light, 198, 100%, 44%);
+
+  @include defineColorHSL(--color-accent, 178, 47%, 74%); // light blue or teal
+  @include defineColorHSL(--color-secondary, 274, 43%, 48%); // purple
+  @include defineColorHSL(--color-tertiary, 19, 100%, 50%); // orange
+  @include defineColorHSL(--color-quaternary, 148, 100%, 26%); // green
+  @include defineColorHSL(--color-quinary, 349, 100%, 45%); // red
+  @include defineColorHSL(--color-senary, 42, 100%, 64%); // yellow
+
+  @include defineColorHSL(--color-black, 0, 0%, 0%);
+  @include defineColorHSL(--color-white, 0, 0%, 100%);
+
+  // feedback
+  @include defineColorHSL(--color-warning, 42, 100%, 64%); // yellow
+  @include defineColorHSL(--color-success, 148, 100%, 26%); // green
+  @include defineColorHSL(--color-error, 349, 100%, 45%); // red
+
+  // background
+  @include defineColorHSL(--color-bg-darker, 210, 4%, 89%);
+  @include defineColorHSL(--color-bg-dark, 180, 3%, 94%);
+  @include defineColorHSL(--color-bg, 0, 0%, 100%);
+  @include defineColorHSL(--color-bg-light, 180, 3%, 100%);
+  @include defineColorHSL(--color-bg-lighter, 210, 4%, 100%);
+
+  // color contrasts
+  @include defineColorHSL(--color-contrast-low, 60, 4%, 85%);
+  @include defineColorHSL(--color-contrast-medium, 0, 0%, 78%);
+  @include defineColorHSL(--color-contrast-high, 210, 7%, 66%);
+
+  // other
+  --color-black-alpha-dark: #{alpha(var(--color-black), 0.8)};
+  --color-black-alpha-light: #{alpha(var(--color-black), 0.65)};
+  --color-contrast-low-alpha: #{alpha(var(--color-contrast-low), 0.3)};
+}

@@ -1,0 +1,7 @@
+{% for post in posts %}
+	{% if post.type == 'post' %}
+		{% include 'template-parts/post/post-excerpt.twig' %}
+	{% elseif post.type == 'product' %}
+		{% include 'template-parts/post/product-excerpt.twig' %}			
+	{% endif %}
+{% endfor %}

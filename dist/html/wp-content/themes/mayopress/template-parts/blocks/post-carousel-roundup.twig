@@ -1,0 +1,53 @@
+{#
+  Title: Post Carousel Roundup - Manual Selection
+  Description: Select post to create card carousel
+  Category: common
+  Icon: star-filled
+  Keywords: post carousel roundup
+  Mode: auto
+  EnqueueStyle: block-post-carousel-roundup.css
+#}
+
+{% set slider_heading = fields.title %}
+{% if fields.add_icon %}
+	{% set icon = fields.icon %}
+	{% set icon_color = fields.icon_color %}
+{% endif %}
+
+<div class="post-carousel__roundup">
+	{% if slider_heading %}
+		<div class="post-carousel__header">
+			<h2 class="post-carousel__title roundup__heading">
+				{% if fields.add_icon %}
+					<i class="icon icon--{{ icon }}"{% if icon_color %} style="color: var(--wp--preset--color--{{ icon_color }});"{% endif %}>
+						{{ fn('get_the_svg', icon) }}
+					</i>
+				{% endif %}
+				{{ slider_heading }}
+			</h2>
+		</div>
+	{% endif %}
+	<div class="slider" data-snap-slider>
+		<div class="slider__track">
+			{% for slide in fields.roundup_select_posts %}
+				{% include 'template-parts/loops/roundup-post.twig' %}
+			{% endfor %}
+		</div>
+
+		<button class="slider__arrow slider__arrow--prev">
+			<span class="sr-only">
+				{{ __('Previous slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+		</button>
+		<button class="slider__arrow slider__arrow--next">
+			<span class="sr-only">
+				{{ __('Next slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+		</button>
+		<div class="slider__pagination"></div>
+	</div>
+</div>

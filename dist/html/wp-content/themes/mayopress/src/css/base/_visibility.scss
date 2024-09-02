@@ -1,0 +1,45 @@
+:root {
+  --display: block;
+}
+
+.is-invisible {
+  visibility: hidden !important;
+}
+
+.is-visible {
+  display: var(--display) !important;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+@media (--md) {
+  .is-hidden--desktop {
+    display: none !important;
+  }
+}
+
+@media (--sm) {
+  .is-hidden--tablet {
+    display: none !important;
+  }
+}
+
+@media (--to-md) {
+  .is-hidden--tablet-down {
+    display: none !important;
+  }
+}
+
+@media (--to-sm) {
+  .is-hidden--mobile {
+    display: none !important;
+  }
+}
+
+html:not(.js) {
+  .no-js\:is-hidden {
+    display: none !important;
+  }
+}

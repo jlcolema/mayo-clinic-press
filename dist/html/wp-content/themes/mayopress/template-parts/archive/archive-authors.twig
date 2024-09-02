@@ -1,0 +1,22 @@
+<article id="page-{{ page.id }}" class="singular">
+
+  {# Header #}
+  <header class="singular__header">
+    {# Breadcrumbs #}
+    {% if fn('function_exists', 'yoast_breadcrumb') %}
+      {{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+    {% endif %}
+  </header>
+
+  {# Content #}
+  <div class="singular__content">
+    <h1 class="authors-archive__title">{{ title }}</h1>
+
+    <div class="authors__container">
+      {% for post in posts %}
+        {% include 'template-parts/loops/loop-author.twig' %}
+      {% endfor %}
+    </div>
+  </div>
+
+</article>

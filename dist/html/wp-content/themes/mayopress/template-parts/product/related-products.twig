@@ -1,0 +1,80 @@
+{% if product_query is not empty %}
+	<div id="related-posts" class="related-posts">
+		<header class="related-posts__header">
+			<h2 class="related-posts__title heading--lg">{{ __('Similar Books', 'mayo') }}</h2>
+		</header>
+
+		<div class="slider" data-snap-slider>
+			<div class="slider__track">
+				{% for post in product_query %}
+					{% set tag_objects = post.terms( {query:{taxonomy:'content-formats'}} ) %}
+					{% set video_post = false %}
+					{% set podcast_post = false %}
+					{% set runtime = post.meta('runtime') %}
+
+					{% if tag_objects is not empty %}
+						{% for tag in tag_objects %}
+							{% if tag.slug == 'video' %}
+								{% set video_post = true %}
+							{% endif %}
+
+							{% if tag.slug == 'podcast' %}
+								{% set podcast_post = true %}
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+
+					<div class="slider__item post-card post-card--product">
+						<a href="{{ post.link }}">
+							{% if post.thumbnail %}
+								<div class="post-card__image">
+									<img src="{{ post.thumbnail.src('medium') }}" alt="" class="attachment-card-thumbnail size-card-thumbnail wp-post-image" loading="lazy"/>
+								</div>
+							{% endif %}
+
+							<div class="post-card__content">
+								<div class="post-card__title heading--sm">
+									{{ post.title }}
+								</div>
+
+								{% set price = fn('get_post_meta', post.id, '_price', true) %}
+
+								<span class="post-card__price">
+									{{ fn('wc_price', price) }}
+								</span>
+
+								<div class="btn btn--primary post-card__btn">
+									{{ __('View Details', 'mayo') }}
+									<span class="sr-only">
+										&ndash;
+										{{ post.title }}
+									</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+
+			<button class="slider__arrow slider__arrow--prev">
+				<span class="sr-only">
+					{{ __('Previous slide', 'mayo') }}
+				</span>
+				<svg class="icon icon--chevron-left" aria-hidden="true" focusable="false">
+					<use xlink:href="#chevron-left"></use>
+				</svg>
+			</button>
+			<button class="slider__arrow slider__arrow--next">
+				<span class="sr-only">
+					{{ __('Next slide', 'mayo') }}
+				</span>
+				<svg class="icon icon--chevron-right" aria-hidden="true" focusable="false">
+					<use xlink:href="#chevron-right"></use>
+				</svg>
+			</button>
+			<div class="slider__pagination"></div>
+		</div>
+	</div>
+{% else %}
+	<p>{{ __('Sorry, no posts matched your criteria.', 'mayo') }}</p>
+{% endif %}

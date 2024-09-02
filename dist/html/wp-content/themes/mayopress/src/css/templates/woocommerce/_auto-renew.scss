@@ -1,0 +1,88 @@
+.subscription-auto-renew--row span {
+  font-weight: 400;
+}
+
+.subscription-auto-renew-toggle__i {
+  --inset: 4px;
+
+  width: 52px;
+  height: 32px;
+  border: none;
+
+  &::before {
+    --size: 24px;
+
+    width: var(--size);
+    height: var(--size);
+    top: var(--inset);
+    inset-inline: auto;
+  }
+
+  .icon--check {
+    display: none;
+    position: absolute;
+    top: calc(var(--inset) + 5px);
+    right: calc(var(--inset) + 5px);
+  }
+
+  .auto-renew-toggle--off & {
+    background-color: var(--color-black-alpha-light);
+
+    &::before {
+      left: var(--inset);
+    }
+  }
+
+  .auto-renew-toggle--on & {
+    background-color: var(--color-primary);
+
+    &::before {
+      right: var(--inset);
+    }
+
+    .icon--check {
+      display: block;
+    }
+  }
+}
+
+.wcs-auto-renew-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-base);
+}
+
+#auto-renewal-information {
+  .modal__content {
+    text-align: center;
+
+    @media(--md) {
+      padding: var(--space-xxxl);
+    }
+  }
+
+  .auto-renewal__modal--text {
+    text-align: left;
+  }
+}
+
+#auto-renew-toggle,
+#cancel-subscription {
+  text-align: center;
+}
+
+.btn--proceed-payment,
+.btn--cancel-subscription {
+  + a {
+    display: block;
+    margin-top: var(--space-md);
+  }
+}
+
+.auto-renewal__modal--subtitle {
+  --size: var(--text-md);
+}
+
+.subscription--count {
+  font-size: var(--text-base);
+}

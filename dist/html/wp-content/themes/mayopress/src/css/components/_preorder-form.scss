@@ -1,0 +1,119 @@
+#preorder {
+  position: relative;
+  margin-top: var(--space-base);
+
+  &:not(.success) #wl-wrapper {
+    @media (--md) {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+    }
+  }
+
+  .preorder__form {
+    .wpcf7-checkbox {
+      padding: 0;
+      box-shadow: none;
+    }
+
+    [data-name="optin"] {
+      .wpcf7-list-item.first.last {
+        margin-block: var(--space-sm) var(--space-md);
+        margin-left: 0;
+
+        label {
+          display: flex;
+          align-items: baseline;
+          gap: var(--space-xs);
+        }
+      }
+    }
+
+    .wpcf7-not-valid-tip {
+      text-align: center;
+    }
+  }
+
+  .wl-button-wrap .wl-add-link {
+    font-size: var(--text-md);
+    color: var(--color-black);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .wl-already-in {
+    display: none;
+  }
+
+  #wl-wrapper {
+    width: max-content;
+    margin-inline: auto;
+    
+    .wl-list-pop {
+      top: 100% !important;
+      left: 0 !important;
+
+      // matches up with woocommerce wishlist box styling
+      &::before {
+        content: "";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        box-shadow: -10px -10px 20px 0 rgb(0 0 0 / 20%);
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        transform: rotate(45deg);
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        border-right: 0;
+        border-bottom: 0;
+      }
+
+      .wl-already-in {
+        display: block;
+
+        /* stylelint-disable */
+        ul {
+          margin: 0;
+          padding-inline-start: var(--space-lg);
+        }
+        /* stylelint-enable */
+      }
+
+      dd {
+        font-size: var(--text-base);
+        margin-bottom: var(--space-base);
+      }
+
+      .button {
+        background-color: transparent;
+      }
+    }
+  }
+
+  .wpcf7-response-output {
+    color: var(--color-quaternary);
+    text-align: center;
+    padding-inline: var(--space-lg);
+
+    @media (--md) {
+      padding-inline: var(--space-xxxxl);
+    }
+  }
+
+  .btn {
+    @media (--to-md) {
+      width: 100%;
+    }
+  }
+
+  .wpcf7-spinner {
+    display: none;
+  }
+
+  form.submitting .wpcf7-spinner {
+    display: inline-block;
+  }
+}

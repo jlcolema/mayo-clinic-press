@@ -1,0 +1,10 @@
+{{ fn('timber_set_product', post) }}
+
+
+<div id="product__description" class="product__description accordion__item js-accordion__item">
+	<p class="description__header accordion__header reset js-accordion__trigger">{{ __('Description', 'mayo') }}</p>
+	<div class="accordion__panel js-accordion__panel">
+
+		<div class="description__content">{{ post.content }}</div>
+	</div>
+</div>

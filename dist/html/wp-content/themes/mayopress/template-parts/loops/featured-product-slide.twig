@@ -1,0 +1,25 @@
+{% set featured_slide_image = Image(TimberPost(slide.featured_slide_product[0]).meta('explore_cover')).src %}
+{% set featured_bg_slide_image = slide.bg_image %}
+{% set featured_slide_heading = TimberPost(slide.featured_slide_product[0]).title %}
+{% set featured_slide_link = TimberPost(slide.featured_slide_product[0]).link %}
+{% set featured_slide_button_text = 'View Details' %}
+{% set featured_slide_price = TimberPost(slide.featured_slide_product[0])._price %}
+
+<div class="slider__item">
+  <div class="slider__background" style="background-image:url({{ featured_bg_slide_image }})">
+      <img src="{{ featured_bg_slide_image }}" alt="" loading="lazy" />
+  </div>
+
+  <div class="slide__overlay">
+    <p class="slide__heading">{{ featured_slide_heading }}</p>
+    <p class="slide__price">${{ featured_slide_price }}</p>
+
+    <a href="{{ featured_slide_link }}" class="btn btn--primary slide__link">
+      {{ featured_slide_button_text }}
+    </a>
+
+    <div class="slide__image--container">
+      <img src="{{ featured_slide_image }}" alt="" loading="lazy" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+{% if sidebar %}
+
+	<aside class="sidebar{% if class_list %} {{ class_list }}{% endif %}" id="sidebar"{% if attributes %} {{ attributes }}{% endif %}>
+		{{ fn('render_widget_area', sidebar) }}
+	</aside>
+
+{% endif %}

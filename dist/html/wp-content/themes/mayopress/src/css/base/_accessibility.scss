@@ -1,0 +1,49 @@
+@use '../settings/breakpoints' as *;
+@use '../tools' as *;
+
+.sr-only {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+.sr-only.focusable:active,
+.sr-only.focusable:focus {
+  clip: auto;
+  clip-path: none;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  width: auto;
+  white-space: inherit;
+  border: 4px solid;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: var(--z-index-fixed-element);
+  top: 0;
+  left: 0;
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+
+  // hide
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+
+  &:focus,
+  &.skip-link--focus {
+    // show
+    clip: auto;
+    clip-path: none;
+    outline: 3px solid alpha(var(--color-primary), 0.2);
+  }
+}

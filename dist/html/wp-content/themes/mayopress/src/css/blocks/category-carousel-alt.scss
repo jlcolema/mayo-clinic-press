@@ -1,0 +1,21 @@
+.category-carousel-alt {
+  .slider-item__title {
+    margin-block: var(--space-base) var(--space-xs);
+  }
+
+  .slider-item__desc {
+    height: 7em;
+
+    @media (--sm) {
+      height: 8em;
+    }
+
+    @media (--lg) {
+      height: 7em;
+    }
+  }
+
+  .btn {
+    white-space: normal;
+  }
+}

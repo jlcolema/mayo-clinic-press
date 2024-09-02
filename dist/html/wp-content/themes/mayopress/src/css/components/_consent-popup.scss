@@ -1,0 +1,46 @@
+@use '../tools' as *;
+
+#mc-consent-advisory {
+  position: fixed;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  max-width: var(--max-width-xxxs);
+  padding: var(--space-lg);
+  z-index: var(--z-index-overlay);
+  background-color: var(--color-white);
+  box-shadow: 0 2px 4px 0 #{alpha(var(--color-black), 0.25)};
+
+  @media (--to-sm) {
+    height: fit-content;
+    margin-inline: var(--space-sm);
+    padding: var(--space-xs) var(--space-lg);
+    bottom: var(--space-sm);
+    right: 0;
+    left: 0;
+  }
+
+  .btn {
+    display: block;
+    margin-block: var(--space-base);
+    padding-inline: var(--space-lg);
+
+    @media (--to-sm) {
+      margin-top: var(--space-xxxs);
+    }
+  }
+
+  .consent-heading {
+    @media (--to-sm) {
+      font-size: var(--heading-sm);
+    }
+  }
+
+  .consent-text {
+    @media (--to-sm) {
+      font-size: var(--text-base);
+      max-width: 245px;
+      margin-bottom: var(--space-xs);
+      line-height: var(--line-height-base);
+    }
+  }
+}

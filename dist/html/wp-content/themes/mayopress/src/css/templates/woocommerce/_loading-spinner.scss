@@ -1,0 +1,18 @@
+.loading-spinner {
+  position: relative;
+
+  &::before {
+    --size: 1em;
+
+    content: '';
+    height: var(--size);
+    width: var(--size);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    animation: spin 1s ease-in-out infinite;
+    background: url(../icons/loader.svg) center center;
+    font-size: calc(2 * var(--size));
+    opacity: .75;
+  }
+}

@@ -1,0 +1,62 @@
+{% set social_title = fn('get_option', 'socialsharinglinks_social_options_title')|trim %}
+{% set social_facebook = fn('get_option', 'socialsharinglinks_social_options_facebook')|trim %}
+{% set social_instagram = fn('get_option', 'socialsharinglinks_social_options_instagram')|trim %}
+{% set social_twitter = fn('get_option', 'socialsharinglinks_social_options_twitter')|trim %}
+{% set social_linkedin = fn('get_option', 'socialsharinglinks_social_options_linkedin')|trim %}
+{% set social_youtube = fn('get_option', 'socialsharinglinks_social_options_youtube')|trim %}
+
+
+{% if social_facebook or social_instagram or social_twitter or social_linkedin or social_youtube %}
+<div class="wp-block-column store__social">
+  {% if social_title %}
+  <p class="has-heading-md-font-size connect-with-us">{{ social_title }}</p>
+  {% endif %}
+
+  <ul class="wp-block-social-links">
+    {% if social_facebook %}
+    <li class="wp-block-social-link">
+      <a href="{{ social_facebook|e('esc_url') }}" aria-labelledby="facebook-label-{{ uniqueId }}" rel="noopener nofollow" target="_blank">
+        <span id="facebook-label-{{ uniqueId }}" class="sr-only">Facebook</span>
+        {% include 'template-parts/components/icon.twig' with { icon: 'facebook' } %}
+      </a>
+    </li>
+    {% endif %}
+
+    {% if social_instagram %}
+    <li class="wp-block-social-link">
+      <a href="{{ social_instagram|e('esc_url') }}" aria-labelledby="instagram-label-{{ uniqueId }}" rel="noopener nofollow" target="_blank">
+        <span id="instagram-label-{{ uniqueId }}" class="sr-only">Instagram</span>
+        {% include 'template-parts/components/icon.twig' with { icon: 'instagram' } %}
+      </a>
+    </li>
+    {% endif %}
+
+    {% if social_twitter %}
+    <li class="wp-block-social-link">
+      <a href="{{ social_twitter|e('esc_url') }}" aria-labelledby="twitter-label-{{ uniqueId }}" rel="noopener nofollow" target="_blank">
+        <span id="twitter-label-{{ uniqueId }}" class="sr-only">Twitter</span>
+        {% include 'template-parts/components/icon.twig' with { icon: 'twitter' } %}
+      </a>
+    </li>
+    {% endif %}
+
+    {% if social_linkedin %}
+    <li class="wp-block-social-link">
+      <a href="{{ social_linkedin|e('esc_url') }}" aria-labelledby="linkedin-label-{{ uniqueId }}" rel="noopener nofollow" target="_blank">
+        <span id="linkedin-label-{{ uniqueId }}" class="sr-only">LinkedIn</span>
+        {% include 'template-parts/components/icon.twig' with { icon: 'linkedin' } %}
+      </a>
+    </li>
+    {% endif %}
+
+    {% if social_youtube %}
+    <li class="wp-block-social-link">
+      <a href="{{ social_youtube|e('esc_url') }}" aria-labelledby="youtube-label-{{ uniqueId }}" rel="noopener nofollow" target="_blank">
+        <span id="youtube-label-{{ uniqueId }}" class="sr-only">YouTube</span>
+        {% include 'template-parts/components/icon.twig' with { icon: 'youtube' } %}
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}

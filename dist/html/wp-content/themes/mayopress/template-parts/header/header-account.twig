@@ -1,0 +1,133 @@
+{% if user and account_menu %}
+  <nav class="navbar navbar--account is-hidden--tablet-down" id="account-menu-desktop">
+		<ul class="menu menu--account" id="menu-account" data-component="mega-menu" role="list">
+      {% for item in account_menu.items %}
+				<li class="menu__item {{ item.classes|join(' ')|split('menu-item')[0] }} {% if item.children %}menu__item--has-children{% endif %} {% if item._menu_item_megamenu_widgetarea %}menu__item--has-mega-menu{% endif %}">
+          {% if item._menu_item_nolink %}
+            <span class="menu__text {% if item.current %}menu__text--current{% endif %}">
+              {% include 'template-parts/components/icon.twig' with { icon: 'person' } %}
+              {{ item.title|e('esc_html') }}
+
+              {% if item.children %}
+                <i class="menu__link-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 16 16"><g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"><path d="M2 2l12 12"></path><path d="M14 2L2 14"></path></g></svg>
+                </i>
+              {% endif %}
+            </span>
+          {% else %}
+            <a class="menu__link {% if item.current %}menu__link--current{% endif %}" href="{{ item.link|e('esc_url') }}" {% if item.target == '_blank' %}target="{{ item.target }}" rel="noopener"{% endif %}>
+              {% include 'template-parts/components/icon.twig' with { icon: 'person' } %}
+              <span>{{ item.title|e('esc_html') }}</span>
+
+              {% if item.children %}
+                <i class="menu__link-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 16 16"><g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"><path d="M2 2l12 12"></path><path d="M14 2L2 14"></path></g></svg>
+                </i>
+              {% endif %}
+            </a>
+          {% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea or item.children %}
+            <section class="submenu {{ item._menu_item_megamenu_widgetarea ? 'submenu--mega-menu' }}">
+          {% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea or item.children %}
+            {{ fn('render_widget_area', item._menu_item_megamenu_widgetarea) }}
+          {% endif %}
+
+					{% if item.children %}
+						<ul class="submenu__list" role="list">
+							{% for child in item.children %}
+								<li class="submenu__item">
+									<a class="submenu__link {{ child.classes|join(' ')|split('menu-item')[0] }} {% if child.current %}menu__link--current{% endif %}" href="{{ child.link|e('esc_url') != '#SignOut' ? child.link|e('esc_url') : logout_url }}" {% if child.target == '_blank' %}target="{{ child.target }}" rel="noopener"{% endif %}>
+										{{ child.title|e('esc_html') }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea or item.children %}
+            </section>
+          {% endif %}
+
+				</li>
+			{% endfor %}
+    </ul>
+  </nav>
+  <nav class="navbar navbar--account is-hidden--desktop" id="account-menu-mobile">
+    <a class="menu__link" href="/my-account/">
+      {% include 'template-parts/components/icon.twig' with { icon: 'person' } %}
+    </a>
+  </nav>
+{% else %}
+  <div class="account__sign-in">
+    <a class="navbar--sign-in" href="/my-account/">
+      {% include 'template-parts/components/icon.twig' with { icon: 'person' } %}
+      <span>{{ __('Register', 'mayo') }} / {{ __('Log In', 'mayo') }}</span>
+    </a>
+
+    {# Temporary Tooltip #}
+    {% if not fn('is_user_logged_in') and not fn('is_cart') and not fn('is_checkout') and not fn('is_account_page') %}
+      <div id="personalization-tooltip" class="is-hidden">
+        <p class="heading--xs">{{ __('New', 'mayo') }}</p>
+        <p class="heading--sm">{{ __('Personalize Your Experience', 'mayo') }}</p>
+        <p>{{ __('Log in or create an account for a personalized experience based on your selected interests.', 'mayo') }}</p>
+        <a href="/my-account/?registration" class="btn btn--primary">{{ __('Register Now', 'mayo') }}</a>
+        <p class="last-line"><strong>{{ __('Already have an account?', 'mayo') }}</strong> <a href="/my-account/?redirect_to={{ '/my-account/my-topics/'|url_encode }}">{{ __('Log In', 'mayo') }}</a></p>
+        <a href="javascript:void(0);" class="reset tooltip--close">{{ __('Close', 'mayo') }}</a>
+      </div>
+
+      <script>
+        const getHeaderCookie = name => {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
+          return null;
+        };
+
+        const setHeaderCookie = (name, value, days) => {
+          const date = new Date();
+          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          const expires = `; expires=${date.toUTCString()}`;
+          document.cookie = `${name}=${value}${expires}; path=/`;
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+          const personalizationTooltip = document.querySelector('#personalization-tooltip');
+          if (personalizationTooltip) {
+            if (getHeaderCookie('seenPersonalizedOptionsModal') && !getHeaderCookie('seenPersonalizedTooltip')) {
+              setTimeout(() => {
+                personalizationTooltip.classList.remove('is-hidden');
+                setHeaderCookie('seenPersonalizedTooltip', 'true', 36500);
+
+                // remove sticky footer
+                if (document.querySelector('footer #email-capture')) document.querySelector('footer #email-capture').classList.remove('session--fixed');
+                setHeaderCookie('stickyEmail', 'true', 0.25);
+
+                document.querySelector('body').addEventListener('click', e => {
+                  const target = e.target;
+                  if (e.target.closest('.tooltip--close') || !e.target.closest('#personalization-tooltip')) {
+                    personalizationTooltip.remove();
+                  }
+                });
+              }, 2000);
+            } else {
+              personalizationTooltip.remove();
+            }
+          } 
+        });
+      </script>
+    {% endif %}
+    {# End Temporary Tooltip #}
+  </div>
+{% endif %}
+
+<div class="header__cart">
+  <a class="navbar--cart" href="{{ cart_url }}">
+    {% include 'template-parts/components/icon.twig' with { icon: 'shopping-cart' } %}
+    <span class="sr-only">{{ __('Your cart has', 'mayo') }}</span>
+    <span class="header__cart-count{% if cart_count %} cart--has-items{% endif %}">{{ cart_count }}</span>
+    <span class="sr-only">{{ __('items', 'mayo') }}</span>
+  </a>
+</div>

@@ -1,0 +1,12 @@
+{#
+  Title: Ad Hub Template
+  Description: Template page for ad hub
+#}
+
+	<header class="singular__header">
+		{# Breadcrumbs #}
+		{% if fn('function_exists', 'yoast_breadcrumb') %}
+			{{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+		{% endif %}
+	</header>
+    <h1></h1>

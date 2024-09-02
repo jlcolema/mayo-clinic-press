@@ -1,0 +1,18 @@
+{% if (fn('is_front_page') or fn('is_home')) %}
+{% if not ('<h1' in page.content) %}
+  <h1 class="header__title">
+{% endif %}
+{% endif %}
+
+{# Site name #}
+<a class="header__logo-link" href="{{ site.url|e('esc_url') }}">
+  <img alt="" src="{{ custom_logo_url|resize(200) }}" srcset="{{ custom_logo_url|resize(200) }} 1x, {{ custom_logo_url|resize(400) }}  2x" loading="lazy">
+  <span class="sr-only">Go to Homepage</span>
+</a>
+
+
+{% if (fn('is_front_page') or fn('is_home')) %}
+{% if not ('<h1' in page.content) %}
+  </h1>
+{% endif %}
+{% endif %}

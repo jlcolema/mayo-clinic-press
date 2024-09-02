@@ -1,0 +1,39 @@
+:root {
+  --space-unit: 1rem;
+
+  --space-xxxs: calc(0.125 * var(--space-unit));
+  --space-xxs: calc(0.25 * var(--space-unit));
+  --space-xs: calc(0.5 * var(--space-unit));
+  --space-sm: calc(0.75 * var(--space-unit));
+  --space-base: var(--space-unit);
+  --space-md: calc(1.5 * var(--space-unit));
+  --space-lg: calc(2 * var(--space-unit));
+  --space-xl: calc(2.5 * var(--space-unit));
+  --space-xxl: calc(3 * var(--space-unit));
+  --space-xxxl: calc(4 * var(--space-unit));
+  --space-xxxxl: calc(5 * var(--space-unit));
+  --component-padding: var(--space-unit);
+}
+
+h1 {
+  body:not(.home):not(.page-template-page-hub) & {
+    margin-block: var(--space-sm);
+  }
+
+  + p {
+    margin-bottom: var(--space-md);
+  }
+}
+
+h2 {
+  margin-bottom: var(--space-base);
+}
+
+p,
+li:not(.menu__item):not(.hub-nav__menu-item) {
+  margin-bottom: var(--space-base);
+}
+
+.singular__content h1 {
+  margin-bottom: var(--space-base);
+}

@@ -1,0 +1,19 @@
+{{ fn('timber_set_product', post) }}
+
+{% if post.meta('show_facts_section') %}
+{% set bold_text = post.meta('large_text') %}
+{% set text = post.meta('facts_content') %}
+
+
+<div id="product__facts" class="product__facts accordion__item js-accordion__item">
+  <p class="facts__header accordion__header reset js-accordion__trigger">{{ __('The facts', 'mayo') }}</p>
+  <div class="accordion__panel js-accordion__panel">
+
+    {% if bold_text %}
+    <p class="facts__large">{{ bold_text }}</p>
+    {% endif %}
+
+    <p class="facts__text">{{ text }}</p>
+  </div>
+</div>
+{% endif %}

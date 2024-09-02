@@ -1,0 +1,258 @@
+{
+	"version": 2,
+	"settings": {
+		"appearanceTools": true,
+		"color": {
+      "customGradient": false,
+      "customDuotone": false,
+			"palette": [
+        {
+					"slug": "black",
+					"color": "#000000",
+					"name": "Black"
+				},
+				{
+					"slug": "white",
+					"color": "#ffffff",
+					"name": "White"
+				},
+				{
+					"slug": "primary",
+					"color": "#0057b8",
+					"name": "Primary"
+				},
+        {
+					"slug": "primary-dark",
+					"color": "#004395",
+					"name": "Primary (Dark)"
+				},
+        {
+          "slug": "secondary",
+          "color": "#009cde",
+          "name": "Secondary"
+        },
+				{
+					"slug": "accent-1",
+					"color": "#9cdbd9",
+					"name": "Accent 1"
+				},
+				{
+					"slug": "accent-2",
+					"color": "#00873e",
+					"name": "Accent 2"
+				},
+        {
+					"slug": "accent-3",
+					"color": "#8246af",
+					"name": "Accent 3"
+				},
+        {
+					"slug": "accent-4",
+					"color": "#e4002b",
+					"name": "Accent 4"
+				},
+        {
+					"slug": "accent-5",
+					"color": "#fe5000",
+					"name": "Accent 5"
+				},
+        {
+					"slug": "accent-6",
+					"color": "#ffc845",
+					"name": "Accent 6"
+				},
+        {
+					"slug": "light-gray",
+					"color": "#d9d9d6",
+					"name": "Light Gray"
+				},
+        {
+					"slug": "medium-gray",
+					"color": "#c8c8c8",
+					"name": "Medium Gray"
+				},
+        {
+					"slug": "dark-gray",
+					"color": "#a8a8a8",
+					"name": "Dark Gray"
+				},
+        {
+					"slug": "alpha-black-dark",
+					"color": "rgba(0, 0, 0, 0.8)",
+					"name": "Black Alpha (High Contrast)"
+				},
+        {
+					"slug": "alpha-black-light",
+					"color": "rgba(0, 0, 0, 0.65)",
+					"name": "Black Alpha (Low Contrast)"
+				},
+        {
+					"slug": "alpha-light-gray",
+					"color": "rgba(217, 217, 214, 0.3)",
+					"name": "Light Gray Alpha"
+				}
+			]
+		},
+		"custom": {
+			"spacing": {
+				"small": "max(1.25rem, 5vw)",
+				"medium": "clamp(2rem, 8vw, calc(4 * var(--wp--style--block-gap)))",
+				"large": "clamp(4rem, 10vw, 8rem)",
+				"outer": "var(--wp--custom--spacing--small, 1.25rem)"
+			},
+			"typography": {
+				"line-height": {
+					"xs": "var(--line-height-xs)",
+					"sm": "var(--line-height-sm)",
+					"base": "var(--line-height-base)",
+					"md": "var(--line-height-md)",
+					"lg": "var(--line-height-lg)",
+					"xl": "var(--line-height-xl)",
+					"xxl": "var(--line-height-xxl)"
+				}
+			}
+		},
+		"spacing": {
+			"units": [
+				"%",
+				"px",
+				"em",
+				"rem",
+				"vh",
+				"vw"
+			]
+		},
+		"typography": {
+			"dropCap": false,
+			"fontFamilies": [
+				{
+					"fontFamily": "var(--font-sans)",
+					"name": "Mayo Clinic Sans",
+					"slug": "sans-font"
+				},
+				{
+					"fontFamily": "var(--font-serif)",
+					"name": "Mayo Clinic Serif Display",
+					"slug": "serif-font"
+				}
+			],
+			"fontSizes": [
+				{
+					"size": "var(--text-sm)",
+					"slug": "sm",
+          "name": "S Text"
+				},
+				{
+					"size": "var(--text-md)",
+					"slug": "md",
+          "name": "M Text"
+				},
+        {
+					"size": "var(--heading-xs)",
+					"slug": "heading-xs",
+          "name": "XS Heading"
+				},
+        {
+					"size": "var(--heading-sm)",
+					"slug": "heading-sm",
+          "name": "S Heading"
+				},
+        {
+					"size": "var(--heading-md)",
+					"slug": "heading-md",
+          "name": "M Heading"
+				},
+        {
+					"size": "var(--heading-lg)",
+					"slug": "heading-lg",
+          "name": "L Heading"
+				},
+        {
+					"size": "var(--heading-xl)",
+					"slug": "heading-xl",
+          "name": "XL Heading"
+				},
+        {
+					"size": "var(--heading-xxl)",
+					"slug": "heading-xxl",
+          "name": "XXL Heading"
+				}
+			]
+		},
+		"layout": {
+			"contentSize": "80rem",
+			"wideSize": "100%"
+		}
+	},
+  "styles": {
+		"color": {
+			"background": "var(--wp--preset--color--background)",
+			"text": "var(--wp--preset--color--foreground)"
+		},
+		"elements": {
+			"h1": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--source-serif-pro)",
+					"fontWeight": "300",
+					"lineHeight": "var(--wp--custom--typography--line-height--tiny)",
+					"fontSize": "var(--wp--custom--typography--font-size--colossal)"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--source-serif-pro)",
+					"fontWeight": "300",
+					"lineHeight": "var(--wp--custom--typography--line-height--small)",
+					"fontSize": "var(--wp--custom--typography--font-size--gigantic)"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--source-serif-pro)",
+					"fontWeight": "300",
+					"lineHeight": "var(--wp--custom--typography--line-height--tiny)",
+					"fontSize": "var(--wp--custom--typography--font-size--huge)"
+				}
+			},
+			"h4": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--source-serif-pro)",
+					"fontWeight": "300",
+					"lineHeight": "var(--wp--custom--typography--line-height--tiny)",
+					"fontSize": "var(--wp--preset--font-size--x-large)"
+				}
+			},
+			"h5": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system-font)",
+					"fontWeight": "700",
+					"textTransform": "uppercase",
+					"lineHeight": "var(--wp--custom--typography--line-height--normal)",
+					"fontSize": "var(--wp--preset--font-size--medium)"
+				}
+			},
+			"h6": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--system-font)",
+					"fontWeight": "400",
+					"textTransform": "uppercase",
+					"lineHeight": "var(--wp--custom--typography--line-height--normal)",
+					"fontSize": "var(--wp--preset--font-size--medium)"
+				}
+			},
+			"link": {
+				"color": {
+					"text": "var(--wp--preset--color--foreground)"
+				}
+			}
+		},
+		"spacing": {
+			"blockGap": "1.5rem"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--system-font)",
+			"lineHeight": "var(--wp--custom--typography--line-height--normal)",
+			"fontSize": "var(--wp--preset--font-size--medium)"
+		}
+	}
+}

@@ -1,0 +1,152 @@
+{% set cat_link = fn( 'get_category_link', category[0] ) %}
+
+<div id="related-posts" class="related-posts">
+  <header class="related-posts__header">
+    <h2 class="related-posts__title heading--lg">{{ __('You May Also Enjoy', 'mayo') }}</h2>
+
+    {% if cat_link %}
+    <span class="related-posts__link text--md">
+      <a href="{{ cat_link }}">
+        {{ __('View More from ', 'mayo') }}{{ category[0].cat_name }}
+
+        <svg class="icon icon--arrow-right" aria-hidden="true" focusable="false">
+          <use xlink:href="#arrow-right"></use>
+        </svg>
+      </a>
+    </span>
+    {% endif %}
+  </header>
+
+  {% if post_query is not empty %}
+  <div class="slider" data-snap-slider>
+    <div class="slider__track">
+      {% for post in post_query %}
+        {% set tag_objects = post.terms( {query:{taxonomy:'content-formats'}} ) %}
+        {% set video_post = false %}
+        {% set podcast_post = false %}
+        
+        {% if tag_objects is not empty %}
+        {% for tag in tag_objects %}
+          {% if tag.slug == 'video' %}
+          {% set video_post = true %}
+          {% endif %}
+
+          {% if tag.slug == 'podcast' %}
+          {% set podcast_post = true %}
+          {% endif %}
+
+          {% set format_name = tag.name %}
+        {% endfor %}
+        {% endif %}
+
+        {% set after_bullet = '' %}
+
+        {% set runtime = post.meta('runtime') %}
+        {% set hours = runtime.hours %}
+        {% set minutes = runtime.minutes %}
+        {% set seconds = runtime.seconds %}
+
+        {% set author_names = post.meta('post_authors') | join(', <br class="is-hidden--desktop">') %}
+
+        {% if hours or minutes or seconds %}
+          {% set after_bullet = '<svg class="icon icon--clock" aria-hidden="true" focusable="false"><use xlink:href="#clock"></use></svg>' %}
+
+          {% if hours %}
+            {% set after_bullet = after_bullet ~ hours ~ ':' %}
+          {% endif %}
+
+          {% if minutes %}
+            {% if after_bullet | slice(-1) == ':' and minutes < 10 %}
+              {% set after_bullet = after_bullet ~ '0' %}
+            {% endif %}
+            {% set after_bullet = after_bullet ~ minutes ~ ':' %}
+          {% elseif after_bullet | slice(-1) == ':' %}
+            {% set after_bullet = after_bullet ~ '00:' %}
+          {% endif %}
+
+          {% if seconds %}
+            {% if after_bullet | slice(-1) == ':' %}
+              {% if seconds < 10 %}
+                {% set after_bullet = after_bullet ~ '0' %}
+              {% endif %}
+              {% set after_bullet = after_bullet ~ seconds %}
+            {% else %}
+              {% set after_bullet = after_bullet ~ seconds ~ ' seconds' %}
+            {% endif %}
+          {% elseif after_bullet | slice(-1) == ':' %}
+            {% set after_bullet = after_bullet ~ '00' %}
+          {% endif %}
+        {% elseif author_names %}
+          {% set after_bullet = author_names %}
+        {% endif %}
+
+        <div class="slider__item post-card post-card--post">
+          <a href="{{ post.link }}">
+            {% if post.thumbnail %}
+              <div class="post-card__image">
+                <img src="{{ post.thumbnail.src('card-thumbnail') }}" alt="" class="attachment-card-thumbnail size-card-thumbnail wp-post-image" loading="lazy" />
+              </div>
+            {% endif %}
+
+            <div class="post-card__content">
+              <span class="post-card__type heading--xs">
+                {{ format_name }}
+              </span>
+
+              <div class="post-card__title heading--sm">
+                {{ post.title }}
+              </div>
+
+              <div class="post-card__meta text--sm">
+                <time class="post-card__date">
+                  {{ post.date }}
+                </time>
+
+                {# Author #}
+                {% if after_bullet %}
+                <span class="singular__author">
+                  {{ after_bullet }}
+                </span>
+                {% endif %}
+              </div>
+
+              <div class="btn post-card__btn">
+                {% if video_post %}
+                {{ __('Watch', 'mayo') }}
+                {% elseif podcast_post %}
+                {{ __('Listen', 'mayo') }}
+                {% else %}
+                {{ __('Learn More', 'mayo') }}
+                {% endif %}
+                <span class="sr-only">
+                  &ndash; {{ post.title }}
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <button class="slider__arrow slider__arrow--prev">
+      <span class="sr-only">
+        {{ __('Previous slide', 'mayo') }}
+      </span>
+      <svg class="icon icon--chevron-left" aria-hidden="true" focusable="false">
+        <use xlink:href="#chevron-left"></use>
+      </svg>
+    </button>
+    <button class="slider__arrow slider__arrow--next">
+      <span class="sr-only">
+        {{ __('Next slide', 'mayo') }}
+      </span>
+      <svg class="icon icon--chevron-right" aria-hidden="true" focusable="false">
+        <use xlink:href="#chevron-right"></use>
+      </svg>
+    </button>
+    <div class="slider__pagination"></div>
+  </div>
+  {% else %}
+    <p>{{ __('Sorry, no posts matched your criteria.', 'mayo') }}</p>
+  {% endif %}
+</div>

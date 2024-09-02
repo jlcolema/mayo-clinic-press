@@ -1,0 +1,29 @@
+{% include 'templates/header.twig' %}
+
+<div id="primary" class="content-area">
+	<main class="main main--e404" id="main">
+		{# Breadcrumbs #}
+		{% if fn('function_exists', 'yoast_breadcrumb') %}
+			{{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+		{% endif %}
+
+		<header class="e404__title">
+			<h1 class="e404">
+				{{ __('Page not found', 'mayo') }}
+			</h1>
+		</header>
+
+		<p class="no-posts">
+			{{ __('Please try another search term, or use the guides below:', 'mayo') }}
+		</p>
+
+		<div class="popular-cats">
+		{% if fn('function_exists', 'categories_list') %}
+			{{ fn('categories_list', 'product_cat', 'Shop Popular Book Categories', 6, '/shop/', 'Shop All Books') }}
+			{{ fn('categories_list', 'post_cat', 'Explore Popular Topics', 4, '/topics', 'Explore All Topics') }}
+		{% endif %}
+		</div>
+	</main>
+</div>
+
+{% include 'templates/footer.twig' %}

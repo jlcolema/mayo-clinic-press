@@ -1,0 +1,24 @@
+@import '../components/accordion';
+
+.post-accordion__section {
+  &:not(:last-child) {
+    margin-bottom: var(--space-xxl);
+  }
+
+  .post-accordion .accordion__item {
+    margin-top: 0;
+    border-color: var(--color-contrast-high);
+
+    .post-accordion__heading.accordion__header {
+      font-size: var(--text-md);
+      font-weight: 700;
+      line-height: var(--line-height-md);
+      padding: var(--space-base);
+      padding-left: 0;
+
+      @media (--md) {
+        line-height: var(--line-height-base);
+      }
+    }
+  }
+}

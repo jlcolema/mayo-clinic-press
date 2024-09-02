@@ -1,0 +1,191 @@
+@use './post-carousel.scss';
+
+.post-carousel-alt {
+  --bottom-spacing: var(--space-xl);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  border-bottom: 1px solid var(--color-contrast-low);
+
+  @media (--md) {
+    flex-direction: row;
+  }
+
+  .has-background & {
+    border-bottom: none;
+
+    @media (--md) {
+      --bottom-spacing: 0;
+    }
+  }
+
+  .post-carousel-alt__header {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding-block: var(--bottom-spacing);
+    padding-inline: var(--space-base);
+      
+    @media (--sm) {
+      text-align: center;
+    }
+
+    @media (--md) {
+      padding-inline: var(--space-lg);
+      text-align: left;
+    }
+
+    .has-background & {
+      width: 100%;
+      background-color: transparent;
+      color: var(--color-black);
+      padding: 0;
+    }
+
+    .has-primary-background-color &,
+    .has-primary-dark-background-color &,
+    .has-secondary-background-color &,
+    .has-black-background-color &,
+    .has-alpha-black-dark-background-color &,
+    .has-alpha-black-light-background-color & {
+      color: var(--color-white);
+    }
+
+    .post-carousel-alt__title {
+      position: relative;
+    }
+  }
+
+  .slider {
+    @media (--md) {
+      --items: 3;
+
+      width: 75%;
+    }
+  }
+
+  .slider,
+  .slider__track {
+    height: max-content;
+  }
+
+  .slider__track {
+    @media (--to-sm) {
+      max-width: 300px;
+    }
+  }
+
+  .slider__item {
+    @media (--md) {
+      padding-bottom: var(--bottom-spacing);
+    }
+
+    .has-background & {
+      text-align: center;
+      border: 1px solid var(--color-contrast-low);
+      border-radius: 7px;
+      background-color: var(--color-white);
+      box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .btn--primary {
+      .has-background & {
+        --btn-color: transparent;
+        --btn-text-color: var(--color-primary);
+  
+        border-color: var(--color-primary);
+  
+        &:hover {
+          --btn-color: var(--color-primary-dark);
+          --btn-text-color: var(--color-white);
+  
+          border-color: var(--color-primary-dark);
+        }
+      }
+    }
+  }
+
+  .btn {
+    .has-background & {
+      margin-bottom: var(--space-base);
+    }
+  }
+
+  .post-card__image {
+    .has-background & {
+      border-top-left-radius: 7px;
+      border-top-right-radius: 7px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  .post-card__content {
+    .has-background & {
+      padding-inline: var(--space-base);
+    }
+  }
+
+  .post-carousel-alt__link {
+    text-align: center;
+
+    @media (--md) {
+      position: absolute;
+      bottom: calc(var(--bottom-spacing) + var(--space-xxs)); // header padding + post-cart__content padding
+      left: 50%;
+      transform: translateX(-50%);
+      
+      .has-background & {
+        bottom: calc(var(--space-base) + var(--space-xxs)); // slider__track padding + post-card__content padding
+      }
+    }
+
+    > .btn {
+      @media (--md) {
+        white-space: nowrap;
+      }
+    }
+
+    .btn--primary {
+      --btn-color: var(--color-white);
+      --btn-text-color: var(--color-primary);
+
+      .has-accent-1-background-color &,
+      .has-accent-2-background-color &,
+      .has-accent-3-background-color &,
+      .has-accent-4-background-color &,
+      .has-accent-5-background-color &,
+      .has-accent-6-background-color &,
+      .has-light-gray-background-color &,
+      .has-medium-gray-background-color &,
+      .has-dark-gray-background-color &,
+      .has-alpha-light-gray-background-color & {
+        --btn-color: var(--color-primary);
+        --btn-text-color: var(--color-white);
+
+        &:hover {
+          --btn-color: var(--color-primary-dark);
+        }
+      }      
+    }
+  }
+
+  .slider__pagination {
+    .has-primary-background-color &,
+    .has-primary-dark-background-color &,
+    .has-secondary-background-color &,
+    .has-alpha-black-dark-background-color &,
+    .has-alpha-black-light-background-color & {
+      color: var(--color-white);
+    }
+  }
+}

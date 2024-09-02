@@ -1,0 +1,138 @@
+.parent-optin__container {
+  display: grid;
+  background-color: var(--color);
+  padding: var(--space-base);
+  margin-inline: auto;
+  text-align: center;
+
+  p {
+    font-size: var(--heading-md);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-xs);
+  }
+
+  a {
+    font-size: var(--text-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-gap: var(--space-xs);
+  }
+}
+
+.color-white,
+.color-primary-light,
+.color-accent,
+.color-tertiary,
+.color-senary {
+  color: var(--color-black);
+
+  a {
+    color: var(--color-black);
+  }
+}
+
+.color-black,
+.color-primary,
+.color-quaternary,
+.color-secondary,
+.color-quinary {
+  color: var(--color-white);
+
+  a {
+    color: var(--color-white);
+  }
+}
+
+.color-white {
+  border: 1px solid var(--color-black);
+}
+
+#parent-optin {
+  font-size: var(--text-base);
+  background-color: rgba(0, 0, 0, .3);
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+
+  @media (--md) {
+    font-size: var(--text-md);
+  }
+
+  .modal__content {
+    padding-top: var(--space-xxxxl);
+
+    @media (--md) {
+      padding: var(--space-xxxl) var(--space-xxxxl);
+    }
+  }
+
+  .accordion {
+    max-width: var(--max-width-xxxs);
+    margin-inline: auto;
+  }
+
+  .accordion__item {
+    border: none;
+
+    &.accordion__item--is-open svg.icon--chevron-down {
+      transform: rotate(180deg);
+    }
+  }
+
+  .accordion__header {
+    color: var(--color-primary);
+    padding: 0;
+  }
+
+  .wpcf7-response-output {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.parent-optin__form form {
+  max-width: var(--max-width-xxxxs);
+  margin-inline: auto;
+
+  &.sent {
+    max-width: none;
+  }
+}
+
+#parent-email {
+  box-shadow: none;
+  border-bottom: 1px solid var(--color-black);
+}
+
+.parent-optin__categories .wpcf7-checkbox {
+  display: flex;
+  flex-direction: column;
+  box-shadow: none;
+  padding-inline: 0;
+
+  > .wpcf7-list-item {
+    margin-inline: 0;
+    margin-bottom: var(--space-xs);
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xxs);
+
+    input[type="checkbox"] {
+      --checkbox-size: 20px;
+
+      width: var(--checkbox-size);
+      height: var(--checkbox-size);
+    }
+  }
+}
+
+.parent-optin__submit {
+  margin-top: var(--space-base);
+}

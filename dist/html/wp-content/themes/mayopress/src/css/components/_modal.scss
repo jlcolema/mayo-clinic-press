@@ -1,0 +1,229 @@
+.modal {
+  position: fixed;
+  z-index: var(--z-index-overlay, 15);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  background-color: var(--color-black-alpha-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+
+  &:not(.modal--is-visible) {
+    pointer-events: none;
+    background-color: transparent;
+  }
+}
+
+.modal--is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal__content {
+  position: relative;
+  max-width: var(--max-width-xs);
+  width: 95%;
+  max-height: 95%;
+  background-color: var(--color-white);
+  padding: var(--space-lg);
+
+  @media (--to-md) {
+    padding-top: var(--space-xxxl);
+    padding-inline: var(--space-base);
+    overflow-y: auto;
+  }
+
+  &:has(.modal__close-btn--text) {
+    padding-top: var(--space-xxl);
+  }
+}
+
+// close button
+.modal__close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: .2s;
+
+  .icon {
+    display: block;
+    margin: auto;
+  }
+}
+
+.modal__close-btn--text { // close button - close text
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-base);
+  font-size: var(--text-md);
+  color: var(--color-primary);
+  z-index: var(--z-index-fixed-element, 10);
+}
+
+.modal__close-btn--outer { // close button - outside the modal__content
+  width: 48px;
+  height: 48px;
+  position: fixed;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  z-index: var(--z-index-fixed-element, 10);
+  background-color: rgba(0, 0, 0, 0.9);
+  transition: .2s;
+  
+  @media (--md) {
+    top: calc(-1 * var(--space-md));
+    right: calc(-1 * var(--space-md));
+  }
+
+  .icon {
+    color: var(--color-white); // icon color
+    transition: transform .3s var(--ease-out-back);
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 1);
+
+    .icon {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.modal__close-btn--inner { // close button - inside the modal__content
+  --size: 32px;
+
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--color-bg-light);
+  box-shadow: var(--inner-glow), var(--shadow-sm);
+  transition: .2s;
+
+  .icon {
+    color: inherit; // icon color
+  }
+
+  &:hover {
+    background-color: var(--color-bg-lighter);
+    box-shadow: var(--inner-glow), var(--shadow-md);
+  }
+}
+
+// animations
+:root {
+  --modal-transition-duration: 0.2s; // fallback (i.e., unless specified differently in the variations 👇)
+}
+
+@media (--allow-motion) {
+  .modal--animate-fade {
+    --modal-transition-duration: 0.2s;
+    transition: opacity var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s var(--modal-transition-duration);
+
+    &.modal--is-visible {
+      transition: opacity var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s;
+    }
+  }
+
+  .modal--animate-scale,
+  .modal--animate-translate-up,
+  .modal--animate-translate-down {
+    --modal-transition-duration: .2s;
+    transition: opacity var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s var(--modal-transition-duration);
+
+    .modal__content {
+      will-change: transform;
+      transition: transform var(--modal-transition-duration) var(--ease-out);
+    }
+
+    &.modal--is-visible {
+      transition: opacity var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s;
+
+      .modal__content {
+        transform: scale(1); // reset all transformations
+      }
+    }
+  }
+
+  .modal--animate-slide-up,
+  .modal--animate-slide-down {
+    --modal-transition-duration: 0.3s;
+    transition: opacity 0s var(--modal-transition-duration), background-color var(--modal-transition-duration), visibility 0s var(--modal-transition-duration);
+
+    .modal__content {
+      will-change: transform;
+      transition: transform var(--modal-transition-duration) var(--ease-out);
+    }
+
+    &.modal--is-visible {
+      transition: background-color var(--modal-transition-duration), visibility 0s;
+
+      .modal__content {
+        transform: scale(1); // reset all transformations
+      }
+    }
+  }
+
+  // scale
+  .modal--animate-scale {
+    .modal__content {
+      transform: scale(0.95);
+    }
+  }
+
+  // translate
+  .modal--animate-translate-up {
+    .modal__content {
+      transform: translateY(40px);
+    }
+  }
+
+  .modal--animate-translate-down {
+    .modal__content {
+      transform: translateY(-40px);
+    }
+  }
+
+  // slide
+  .modal--animate-slide-up {
+    .modal__content {
+      transform: translateY(100%);
+    }
+  }
+
+  .modal--animate-slide-down {
+    .modal__content {
+      transform: translateY(-100%);
+    }
+  }
+}
+
+// load content - optional
+.modal--is-loading {
+  .modal__content {
+    visibility: hidden;
+  }
+
+  .modal__loader {
+    display: flex;
+  }
+}
+
+.modal__loader { // loader icon
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  pointer-events: none;
+}

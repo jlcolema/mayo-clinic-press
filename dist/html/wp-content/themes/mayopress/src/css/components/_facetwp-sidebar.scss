@@ -1,0 +1,219 @@
+@use './flyout';
+
+#sidebar {
+  @media (--md) {
+    position: static;
+    z-index: 0;
+    width: 20%;
+    margin-right: var(--space-xxl);
+    padding-bottom: 0;
+  }
+
+  &[data-mobile-accordion] {
+    @media (--md) {
+      svg {
+        display: none;
+      }
+
+      .accordion__panel {
+        display: block;
+      }
+    }
+  }
+
+  p,
+  .facetwp-facet {
+    padding-inline: var(--space-base);
+
+    @media (--md) {
+      padding-inline: 0;
+    }
+  }
+
+  .facets--selected {
+    @media (--to-md) {
+      display: none;
+    }
+  }
+
+  .accordion__item {
+    margin-top: 0;
+
+    + hr {
+      display: none;
+
+      @media (--md) {
+        display: block;
+      }
+    }
+  }
+
+  .facets__filter--header {
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+
+    @media (--md) {
+      font-size: var(--heading-md);
+      line-height: var(--line-height-md);
+      font-family: var(--family, var(--font-serif-display));
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    + div {
+      margin-top: var(--space-base);
+    }
+  }
+
+  .facets__accordion--header {
+    font-size: var(--heading-sm);
+    line-height: var(--line-height-sm);
+    font-family: var(--family, var(--font-serif-display));
+    margin-bottom: var(--space-base);
+
+    @media (--md) {
+      font-size: var(--heading-base);
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin-block: var(--space-sm);
+      font-family: var(--family, var(--font-sans));
+      text-transform: uppercase;
+    }
+  }
+
+  hr {
+    border-width: 1px;
+    border-color: var(--color-contrast-low);
+    margin-block: var(--space-base);
+  }
+
+  .facetwp-facet {
+    margin-bottom: var(--space-md);
+
+    > div {
+      padding-bottom: var(--space-md);
+      margin: 0;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    /* stylelint-disable */
+    > .facetwp-depth,
+    &.facetwp-facet-sale_tags {
+      /* stylelint-enable */
+      margin-top: calc(-1 * var(--space-md) + 4px);
+      padding-left: var(--space-md);
+    }
+
+    /* stylelint-disable */
+    &.facetwp-facet-sale_tags {
+      &:empty {
+        margin-top: 0;
+      }
+
+      /* stylelint-enable */
+      @media (--to-md) {
+        padding-left: var(--space-xl);
+      }
+    }
+
+    .facetwp-overflow > div {
+      padding-bottom: var(--space-md);
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  .facetwp-counter {
+    font-size: var(--text-sm);
+    color: var(--color-black-alpha-light);
+  }
+
+  .facets--sort {
+    @media (--md) {
+      display: none;
+    }
+
+    p:empty {
+      display: none;
+    }
+
+    .facets__filter--header {
+      margin-bottom: var(--space-base);
+    }
+
+    .sort__container {
+      margin-block: 0;
+      margin-inline: var(--space-base);
+
+      .facetwp-facet {
+        width: 100%;
+      }
+
+      .facetwp-facet,
+      .sort__select--arrows {
+        margin: 0;
+        padding: 0;
+      }
+
+      .options--selected {
+        padding-inline: 0;
+      }
+    }
+  }
+
+  .facetwp-checkbox {
+    position: relative;
+    background: none;
+
+    &::before {
+      content: "";
+      border: 1px solid var(--color-black);
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      position: absolute;
+      left: 0;
+      top: 7px;
+      border-radius: 3px;
+    }
+
+    &.checked {
+      background-image: none;
+
+      &::before {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+      }
+
+      &::after {
+        content: "";
+        border-right: 2px solid var(--color-white);
+        border-bottom: 2px solid var(--color-white);
+        position: absolute;
+        left: 4px;
+        top: 8px;
+        transform: rotate(45deg);
+        width: 6px;
+        height: 9px;
+      }
+    }
+
+    .facetwp-expand {
+      float: none;
+    }
+  }
+}
+
+.facetwp-toggle {
+  text-decoration: underline;
+}
+
+.facetwp-display-value {
+  font-size: var(--text-md);
+}

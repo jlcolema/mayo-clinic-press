@@ -1,0 +1,33 @@
+:root {
+  --space-xxxxxl: calc(7.75 * var(--space-unit));
+  --space-xxxxxxl: calc(12.5 * var(--space-unit));
+  --text-xxxxxl: calc(6.25 * var(--space-unit));
+  --text-xxxl: calc(4 * var(--space-unit));
+}
+
+.hub-hero {
+  background-color: var(--color-primary);
+  padding-block: var(--space-xxxxl) var(--space-xxxxxl);
+
+  @media (--md) {
+    padding-block: var(--space-xxxxxl) var(--space-xxxxxxl);
+  }
+
+  .hub-hero__image {
+    opacity: 0.25;
+  }
+
+  .icon--book-swoosh {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    font-size: var(--text-xxxl);
+    transform: translateX(-50%);
+    grid-column: 1 / -1;
+    width: 100%;
+  
+    @media (--md) {
+      font-size: var(--text-xxxxxl);
+    }
+  }
+}

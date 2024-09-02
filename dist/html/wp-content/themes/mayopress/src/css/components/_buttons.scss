@@ -1,0 +1,134 @@
+@use '../settings/breakpoints' as *;
+@use '../tools' as *;
+
+:root {
+  --btn-font-size: var(--text-md);
+  --btn-padding-x: var(--space-md);
+  --btn-padding-y: var(--space-xs);
+  --btn-min-height: 2.75rem;
+  --btn-radius: 1.5em;
+  --btn-color: var(--color-primary);
+  --btn-text-color: var(--color-primary);
+}
+
+.btn,
+.wp-block-button__link,
+.woocommerce a.button {
+  --outline-color: var(--color-primary-light);
+  --outline-offset: 1px;
+  font-family: var(--font-sans);
+  // basic button style
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  font-size: var(--btn-font-size, 1em);
+  text-decoration: none;
+  padding-top: var(--btn-padding-y, 0.5em);
+  padding-bottom: var(--btn-padding-y, 0.5em);
+  padding-left: var(--btn-padding-x, 0.75em);
+  padding-right: var(--btn-padding-x, 0.75em);
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  line-height: 1;
+  min-height: var(--btn-min-height);
+  transition: transform 0.15s, color 0.3s, background-color 0.3s, box-shadow 0.15s;
+
+  &:hover {
+    box-shadow: 0 2px 4px 0 alpha(var(--color-black), 0.5);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: none;
+  }
+}
+
+.btn,
+.wp-block-button.is-style-outline .wp-block-button__link:not(.has-text-color),
+.woocommerce a.button {
+  color: var(--btn-text-color);
+  border: 2px solid var(--btn-color);
+
+  &:hover,
+  &:focus,
+  &:active {
+    --btn-color: var(--color-primary-dark);
+    --btn-text-color: var(--color-white);
+
+    background-color: var(--btn-color);
+    color: var(--btn-text-color);
+  }
+
+  &:focus {
+    --btn-color: var(--color-primary);
+  }
+}
+
+// themes
+.btn--primary,
+.wp-block-button:not(.is-style-outline) .wp-block-button__link,
+.is-style-fill .wp-block-button__link {
+  --btn-color: var(--color-primary);
+  --btn-text-color: var(--color-white);
+
+  background-color: var(--btn-color);
+  color: var(--btn-text-color);
+}
+
+.btn--primary a {
+  color: var(--btn-text-color);
+}
+
+.btn--secondary {
+  --btn-color: var(--color-white);
+  --btn-text-color: var(--color-primary);
+
+  background-color: var(--btn-color);
+}
+
+.has-white-color .btn {
+  --btn-color: var(--color-white);
+  --btn-text-color: var(--color-white);
+
+  &:hover,
+  &:focus,
+  &:active {
+    --btn-text-color: var(--color-primary);
+  }
+
+  &:hover,
+  &:active {
+    --btn-color: #{alpha(var(--color-white), 0.9)};
+  }
+}
+
+// feedback
+.btn--disabled,
+.btn[disabled],
+.btn[readonly],
+.woocommerce a.button[disabled],
+.woocommerce a.button[readonly] {
+  --btn-color: var(--color-contrast-low);
+  --btn-text-color: alpha(var(--color-black), 0.65);
+
+  background-color: var(--btn-color);
+  cursor: not-allowed;
+
+  &:hover,
+  &:focus,
+  &:active {
+    --btn-color: var(--color-contrast-low);
+    --btn-text-color: alpha(var(--color-black), 0.65);
+
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// button with (only) icon
+.btn--icon {
+  padding: var(--btn-padding-y, 0.5em);
+}

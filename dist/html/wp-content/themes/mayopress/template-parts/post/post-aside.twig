@@ -1,0 +1,96 @@
+<aside>
+  {% if hasAds %}
+    {% if customSidebarAd %}
+      <div data-id="banner-ad-sidebar" data-type="sidebar" data-width="{{ sidebarMinWidth }}px" data-height="{{ sidebarMinHeight }}px" data-desktop="true" data-component="google-ad"></div>
+    {% endif %}
+  {% endif %}
+
+  {% for author in Post(post.authors_contributors) %}
+  <div class="author__card">
+    {% if author.meta('author_thumbnail') %}
+    <div class="author__card--image">
+      {% if author.meta('author_link') %}
+        <a href="{{ author.link }}"><img src="{{ Image(author.meta('author_thumbnail')) }}" alt="" loading="lazy" /></a>
+      {% else %}
+        <img src="{{ Image(author.meta('author_thumbnail')) }}" alt="" loading="lazy" />
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% set post_tags = author.tags() %}
+    {% if post_tags | length %}
+    <div class="author__card--contributor">
+      {% if 'Author' in post_tags %}
+      Author
+      {% elseif 'Contributor' in post_tags %}
+      Contributor
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% if author.title %}
+    <p class="author__card--name">
+      {{ author.title }}
+    </p>
+    {% endif %}
+
+    {% if author.meta('author_excerpt') %}
+    <p class="author__card--excerpt">
+      {{ author.meta('author_excerpt') }}
+    </p>
+    {% endif %}
+
+    {% if author.meta('author_link') %}
+    <a href="{{ author.link }}">
+      View Bio
+    </a>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {% if not fn('is_user_logged_in') %}
+    <div id="personalization-banner" data-component="personalization-redirect">
+      <p class="heading--sm">{{ __('Interested in more content like this?', 'mayo') }}</p>
+      <p>{{ __('Receive free access to exclusive content, a personalized homepage based on your interests, and a weekly newsletter with the topics of your choice.', 'mayo') }}</p>
+      <a href="/my-account/?registration" class="btn btn--primary">{{ __('Register Now', 'mayo') }}</a>
+      <p class="last-line"><strong>{{ __('Already have an account?', 'mayo') }}</strong> <a href="/my-account/">{{ __('Log In', 'mayo') }}</a></p>
+    </div>
+  {% endif %}
+
+  {% set banner_img = banner_options.default.background_image %}
+  {% set banner_link = banner_options.default.button_link.url %}
+
+  {% if banner_img %}
+    <div class="health-banner">
+      {% if banner_link %}<a href="{{ banner_link }}">{% endif %}
+      <img src="{{ banner_img }}" alt="" loading="lazy"/>
+      {% if banner_link %}</a>{% endif %}
+    </div>
+
+    <script>
+      function renderBannerSmartAssets() {
+        fetchRedpointGroupName();
+      }
+
+      if (window.rpiWebClient) {
+        if (rpiWebClient.isInitialized) {
+          renderBannerSmartAssets();
+        } else {
+          window.addEventListener('rpiWebClientInit', () => {
+            renderBannerSmartAssets();
+          });
+        }
+      } else {
+        window.addEventListener('rpiWebClientLoad', () => {
+          if (rpiWebClient.isInitialized) {
+            renderBannerSmartAssets();
+          } else {
+            window.addEventListener('rpiWebClientInit', () => {
+              renderBannerSmartAssets();
+            });
+          }
+        });
+      }
+    </script>
+  {% endif %}
+</aside>

@@ -1,0 +1,31 @@
+{% for list_page in pages %}
+  {% if list_page.post_name == cat.slug %}
+    <li>
+      <a href="{{ fn('get_category_link', cat.cat_ID) }}" class="all-topics__link">
+        <div class="cat__image">
+        {% if fn('function_exists', 'get_the_post_thumbnail') %}
+          {{ fn('get_the_post_thumbnail', list_page.ID, 'card-thumbnail') }}
+        {% endif %}        
+        </div>
+
+        <p class="cat__name has-heading-md-font-size">
+          {{ cat.name }}
+        </p>
+
+        <div class="icon__container is-hidden--desktop">
+          {% include 'template-parts/components/icon.twig' with { icon: 'arrow-right', size: 'sm' } %}
+        </div>
+      </a>
+
+      {% if fn('function_exists', 'category_description') %}
+        <p class="cat__desc is-hidden--tablet-down">
+          {{ fn('category_description', cat.cat_ID) | striptags }}
+        </p>
+      {% endif %}
+
+      <a href="{{ fn('get_category_link', cat.cat_ID) }}" class="btn is-hidden--tablet-down">
+        {{ __('View %s', 'mayo') | format(cat.name) }}
+      </a>
+    </li>
+  {% endif %}
+{% endfor %}

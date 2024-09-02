@@ -1,0 +1,33 @@
+.shop-confidence {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--space-md) var(--space-sm);
+
+  p {
+    margin-bottom: var(--space-xs);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: 0 !important;
+  }
+
+  .icon--safety-quality {
+    color: var(--color-primary);
+  }
+
+  .heading--sm {
+    margin-bottom: 0;
+  }
+
+  .icon--check {
+    color: var(--color-quaternary);
+  }
+}

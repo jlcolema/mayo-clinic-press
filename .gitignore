@@ -1,0 +1,25 @@
+.DS_Store
+*.nova
+*.code-workspace
+*.sql
+organize/*
+
+# Ignore everything in the root except the 'wp-content' directory.
+
+dist/html/*
+
+!dist/html/wp-content/
+
+# Ignore everything in the 'wp-content' directory, except the 'mu-plugins', plugins', 'themes', and 'uploads' directories.
+
+dist/html/wp-content/*
+
+!dist/html/wp-content/themes/
+
+# Ignore everything in the 'themes' directory, except the themes you specify (see the commented-out example for a hint on how to do this).
+
+dist/html/wp-content/themes/*
+
+# Themes
+
+!dist/html/wp-content/themes/mayopress/

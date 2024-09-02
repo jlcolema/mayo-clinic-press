@@ -1,0 +1,105 @@
+{% include 'templates/header.twig' %}
+
+<div id="primary" class="content-area">
+	<main class="main main--search" id="main">
+		{# Breadcrumbs #}
+		{% if fn('function_exists', 'yoast_breadcrumb') %}
+			{{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+		{% endif %}
+		{% if posts is not empty %}
+			<header class="search__title">
+				<h1 class="search__phrase">
+					{{ __("Results for: '", 'mayo') }}
+					{{ search_query }}
+					{{ __("'", 'mayo') }}
+				</h1>
+			</header>
+
+			<div class="post-toggle" data-component="post-toggle">
+				{% if fn('function_exists', 'do_shortcode') %}
+					{{ fn('do_shortcode', '[facetwp facet="products_articles"]') }}
+				{% endif %}
+			</div>
+
+			<div class="search-listing__container {{ post_type }}">
+
+				<div class="flyout--overlay flyout__button--close"></div>
+				<div class="flyout-sidebar__close">
+					<a href="javascript:void(0);" class="btn btn--primary flyout__button--close">Close Filters</a>
+				</div>
+				{% include 'templates/sidebar.twig' with { attributes: 'data-animation="on" data-component="accordion" data-autoclose="true"', class_list: 'flyout__container accordion js-accordion' } %}
+				
+				<div class="facetwp-template__container {{ post_type }} {{ view }}">
+					<div class="facetwp-template__row--header">
+						<div class="facetwp-flyout__container is-hidden--desktop" data-component="mobile-flyout">
+							<div class="flyout__button--open flyout__button--sort" data-container="search-listing__container">
+								<svg class="icon icon--filter-alt" aria-hidden="true" focusable="false"><use xlink:href="#filter-alt"></use></svg>
+								Sort & Filter
+							</div>
+						</div>
+
+						<div class="facetwp__results-count">
+						{% if fn('function_exists', 'do_shortcode') %}
+							Showing {{ fn('do_shortcode', '[facetwp facet="results_count"]') }}
+						{% endif %}
+						</div>
+
+						<div class="view__container is-hidden--tablet-down" data-component="view-toggle">
+							<p class="view__label">VIEW:</p>
+							<div class="options__container">
+								<button type="button" data-view="grid" class="view__option view__option--grid">
+									<svg class="icon icon--grid" aria-hidden="true" focusable="false"><use xlink:href="#grid"></use></svg>
+									Grid 
+								</button>
+								<button type="button" data-view="list" class="view__option view__option--list">
+									<svg class="icon icon--list-2" aria-hidden="true" focusable="false"><use xlink:href="#list-2"></use></svg>
+									List 
+								</button>
+							</div>
+						</div>
+
+						<div class="sort__container is-hidden--tablet-down" data-component="select-format">
+							<p class="view__label">SORT BY:</p>
+							{% if fn('function_exists', 'do_shortcode') %}
+								{{ fn('do_shortcode', '[facetwp facet="sort_"]') }}
+							{% endif %}
+							<div class="sort__select--arrows">
+							<svg class="icon icon--chevron-up" aria-hidden="true" focusable="false"><use xlink:href="#chevron-up"></use></svg>
+							<svg class="icon icon--chevron-down" aria-hidden="true" focusable="false"><use xlink:href="#chevron-down"></use></svg>
+							</div>
+						</div>
+					</div>
+					
+					<div class="is-hidden--desktop facets--selected" data-component="fwp-filters">
+					{% if fn('function_exists', 'do_shortcode') %}
+						{{ fn('do_shortcode', '[facetwp selections="true"]') }}
+					{% endif %}
+					<p><span class="facets--selected-count"></span><a href="javascript:void(0);" onclick="FWP.reset()">Clear All</a></p>
+					</div>
+
+					<div class="facetwp-template">
+						<ul class="columns-3">
+							{% include 'template-parts/loops/loop-excerpt.twig' %}
+						</ul>
+					</div>
+
+					<div class="facetwp-template__row--footer">
+						<div class="facetwp__results-count">
+							{% if fn('function_exists', 'do_shortcode') %}
+								Showing {{ fn('do_shortcode', '[facetwp facet="results_count"]') }}
+							{% endif %}
+						</div>
+
+						{% if fn('function_exists', 'do_shortcode') %}
+							{{ fn('do_shortcode', '[facetwp facet="pagination"]') }}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% else %}
+			{% include 'template-parts/post/no-posts.twig' %}
+		{% endif %}
+	</main>
+</div>
+
+{% include 'templates/footer.twig' %}

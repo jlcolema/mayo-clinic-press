@@ -1,0 +1,57 @@
+{#
+  Title: Featured Slider
+  Description: Select post or create custom slides with heading, sub-copy (optional), button text/link (optional), and featured image
+  Category: common
+  Icon: admin-multisite
+  Keywords: featured slider
+  Mode: auto
+  EnqueueStyle: block-featured-slider.css
+#}
+
+{% set personalized_posts = [] %}
+{% if 'personalized' in classes %}
+	{% set numPosts = min(3, fields.featured_slides | length ) %}
+	{% if cachedPosts is defined and cachedPosts|length >= numPosts %}
+		{% set personalized_posts = cachedPosts|slice(0, numPosts) %}
+	{% else %}
+		{% set personalized_posts = fn('get_featured_posts', numPosts) %}
+	{% endif %}
+{% endif %}
+
+<div class="{{ classes }}">
+	<div class="slider" data-component="featured-slider">
+		<div class="slider__track">
+			{% for i in 1..(fields.featured_slides | length ) %}
+				{# add a personalized slide first, then selected slide #}
+				{% if i <= personalized_posts | length %}
+					{% set featured_post = personalized_posts[i - 1] %}
+					{% include 'template-parts/loops/featured-slide.twig' %}
+					{% set featured_post = null %}
+				{% endif %}
+
+				{% set slide = fields.featured_slides[i - 1] %}
+				{% include 'template-parts/loops/featured-slide.twig' %}
+			{% endfor %}
+		</div>
+
+		<button class="slider__arrow slider__arrow--prev">
+			<span class="sr-only">
+				{{ __('Previous slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+		</button>
+		<button class="slider__arrow slider__arrow--next">
+			<span class="sr-only">
+				{{ __('Next slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+		</button>
+		<div class="slider__pagination"></div>
+
+		<div class="slide__timer--container">
+			<div class="slide__timer"><div></div></div>
+		</div>
+	</div>
+</div>

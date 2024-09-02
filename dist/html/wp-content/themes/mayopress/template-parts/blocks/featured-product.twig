@@ -1,0 +1,93 @@
+{#
+  Title: Featured Simple Product
+  Description: Display featured product with buy now button
+  Category: common
+  Icon: star-filled
+  Keywords: featured product buy
+  Mode: preview
+  EnqueueStyle: block-featured-product.css
+#}
+
+<div class="featured-product__container {{ classes }}">
+	{% for book in Post(fields.featured_product) %}
+		{% set book_image = book.thumbnail.src %}
+		{% set book_title = book.title %}
+		{% set book_excerpt = book.post_excerpt %}
+		{% set book_link = book.link %}
+		{% set book_badge = fn( 'strtotime', book.date ) >= fn( 'strtotime', '-90 days' ) %}
+		{% set is_preorder = fn( 'get_post_meta', book.id, '_wc_pre_orders_enabled', true ) == 'yes' %}
+		{% set discount = false %}
+
+		{% if book._regular_price and book._price < book._regular_price %}
+			{% set discount = true %}
+			{% set discount_percentage = ((book._regular_price - book._price) / book._regular_price) * 100 %}
+		{% endif %}
+
+		{% if is_preorder %}
+			{% set preorder_date = fn( 'get_post_meta', book.id, '_wc_pre_orders_availability_datetime', true ) | date("F j, Y") %}
+		{% endif %}
+
+		{% set authors = Post(book.product_authors) %}
+		{% if authors %}
+			{% set author_names = [] %}
+			{% for author in authors %}
+				{% set author_names = author_names | merge([author.title]) %}
+			{% endfor %}
+		{% endif %}
+
+		{% if book_image %}
+			<a href="{{ book_link}}" class="featured-product__image">
+				<img src="{{ book_image }}" alt="" loading="lazy"/>
+			</a>
+		{% endif %}
+
+		<div class="featured-product__content">
+			{% if book_badge or is_preorder or discount %}
+				<p class="featured-product__badge{%- if is_preorder %} featured-product__badge--preorder{% elseif discount %} featured-product__badge--sale{% endif %}">
+					{%- if is_preorder -%}
+						{{ __('Pre-order', 'mayo') }}
+					{%- elseif discount -%}
+						{{ __('Sale', 'mayo') }}
+					{%- else -%}
+						{{ __('New Release', 'mayo') }}
+					{%- endif -%}
+				</p>
+				{%- if is_preorder -%}
+					<p>
+						{{- __('This item will be released %s.', 'mayo') | format(preorder_date) -}}
+					</p>
+				{% endif %}
+			{% endif %}
+
+			{% if book_title %}
+				<h2 class="featured-product__title"><a href="{{ book_link}}">{{ book_title }}</a></h2>
+			{% endif %}
+
+			{% if authors %}
+				<p class="featured-product__author">by {{ author_names | join(', ') }}</p>
+			{% endif %}
+
+			<div class="featured-product__price--container">
+				<span class="featured-product__price{% if discount %} featured-product__price--discount{% endif %}">
+				${{ book._price }}
+				</span>
+				{% if discount %}
+					<span class="featured-product__price--original"><s>${{ book._regular_price }}</s></span>
+					<span class="featured-product__price--percentage">{{ discount_percentage | number_format }}% OFF</span>
+				{% endif %}
+			</div>
+
+			{% if book_excerpt %}
+				<p class="featured-product__excerpt">{{ book_excerpt }}</p>
+			{% endif %}
+
+			<a href="/cart?add-to-cart={{ book.id }}&quantity=1" class="btn btn--primary">
+				{%- if is_preorder -%}
+					{{ __('Pre-Order Now', 'mayo') }}
+				{%- else -%}
+					{{ __('Add to Cart', 'mayo') }}
+				{%- endif -%}
+			</a>
+		</div>
+	{% endfor %}
+</div>

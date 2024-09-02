@@ -1,0 +1,35 @@
+<article id="page-{{ page.id }}" class="singular">
+
+	{# Header #}
+	<header class="singular__header">
+  	{% if fn('is_checkout') and not fn('is_order_received_page') %}
+			{# Checkout Steps #}
+			<div class="checkout__steps">
+				<p id="stepAddress" class="active">{{ __('Shipping', 'mayo' ) }} <span class="is-hidden--mobile">{{ __('Address', 'mayo' ) }}</span></p>
+        <svg class="icon icon--xxxs icon--chevron-right" aria-hidden="true" focusable="false"><use xlink:href="#chevron-right"></use></svg>
+				<p id="stepMethod"><span class="is-hidden--mobile">{{ __('Shipping', 'mayo' ) }}</span> {{ __('Method', 'mayo' ) }}</p>
+        <svg class="icon icon--xxxs icon--chevron-right" aria-hidden="true" focusable="false"><use xlink:href="#chevron-right"></use></svg>
+				<p id="stepReview">{{ __('Review', 'mayo' ) }}</p>
+        <svg class="icon icon--xxxs icon--chevron-right" aria-hidden="true" focusable="false"><use xlink:href="#chevron-right"></use></svg>
+				<p id="stepPayment">{{ __('Payment', 'mayo' ) }}</p>
+			</div>
+
+			{# Return to Cart #}
+			<a class="return-cart" href="{{ cart_url }}">
+				<svg class="icon icon--sm icon--arrow-left" aria-hidden="true" focusable="false">
+					<use xlink:href="#arrow-left"></use>
+				</svg>
+				{{ __('Return to Cart', 'mayo') }}
+			</a>
+		{% elseif fn('function_exists', 'yoast_breadcrumb') %}
+			{# Breadcrumbs #}
+			{{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+		{% endif %}
+	</header>
+
+	{# Content #}
+	<div class="singular__content">
+		{{ fn('wc_get_template_part', 'myaccount/form-onboard') }}
+	</div>
+
+</article>

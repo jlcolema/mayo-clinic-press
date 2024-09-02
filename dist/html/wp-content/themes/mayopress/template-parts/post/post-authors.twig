@@ -1,0 +1,112 @@
+{% set facebook = post.meta('share_on_facebook') %}
+{% set twitter = post.meta('share_on_twitter') %}
+{% set linkedin = post.meta('share_on_linkedin') %}
+{% set email = post.meta('share_on_email') %}
+
+<article id="post-{{ post.id }}" class="author-post">
+  <div class="author-post__image-share">
+    <div class="author-post__image">
+      <img src="{{ post.meta('portrait_image') }}" alt="" height="480" width="400" loading="lazy">
+    </div>
+    {% if post.meta('author_social_accounts')['facebook'] or post.meta('author_social_accounts')['twitter'] or post.meta('author_social_accounts')['linkedin'] %}
+      <div class="author-post__socials">
+        <p class="author-post__socials--text">Connect</p>
+        <div class="author-post__socials--icons">
+          {% if post.meta('author_social_accounts')['facebook'] %}
+            <a href="{{ post.meta('author_social_accounts')['facebook'] | e('esc_url') }}"
+               target="_blank"
+               class="social__icon social__facebook">
+              {% include 'template-parts/components/icon.twig' with { icon: 'facebook' } %}
+            </a>
+          {% endif %}
+          {% if post.meta('author_social_accounts')['twitter'] %}
+            <a href="{{ post.meta('author_social_accounts')['twitter'] | e('esc_url') }}"
+               target="_blank"
+               class="social__icon social__twitter">
+              {% include 'template-parts/components/icon.twig' with { icon: 'twitter' } %}
+            </a>
+          {% endif %}
+          {% if post.meta('author_social_accounts')['linkedin'] %}
+            <a href="{{ post.meta('author_social_accounts')['linkedin'] | e('esc_url') }}"
+               target="_blank"
+               class="social__icon social__linkedin">
+              {% include 'template-parts/components/icon.twig' with { icon: 'linkedin' } %}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+  {% endif %}
+  </div>
+  <div class="author-post__information" data-component="author-bullets">
+    {% if post.meta('author_contributions') %}
+    <div class="author-post__contributions">
+      <div class="author-post__title">
+        Associated Works
+      </div>
+      <div class="author-post__contributions--list">
+        {% for item in Post(post.meta('author_contributions')) %}
+          <a href="{{ item.link }}"><p>{{ item.title }}</p></a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% if post.meta('author_expertise') %}
+    <div class="author-post__expertise">
+      <div class="author-post__title">
+        Area of Expertise
+      </div>
+      <div class="author-post__expertise--list">
+        {{ post.meta('author_expertise') }}
+      </div>
+    </div>
+    {% endif %}
+    {% if post.meta('author_background') %}
+    <div class="author-post__background">
+      <div class="author-post__title">
+        Background
+      </div>
+      <div class="author-post__background--info">
+        {{ post.meta('author_background') }}
+      </div>
+    </div>
+    {% endif %}
+    {% if post.meta('author_videos') %}
+    <div class="author-post__videos">
+      <div class="author-post__title">
+        Videos
+      </div>
+      <div class="author-post__videos--list">
+        {% for item in post.meta('author_videos') %}
+            <p class="video-container__embed">{{ item.video_embed_code }}</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    {% if post.meta('author_media_links') %}
+    <div class="author-post__media">
+      <div class="author-post__title">
+        Media Links
+      </div>
+      <div class="author-post__media--list">
+        {{ post.meta('author_media_links') }}
+      </div>
+    </div>
+    {% endif %}
+    {% if post.meta('author_upcoming_events') %}
+    <div class="author-post__events">
+      <div class="author-post__title">
+        Upcoming Events
+      </div>
+      <div class="author-post__events--list">
+        {% for item in post.meta('author_upcoming_events') %}
+          <div class="event-container">
+            <p class="event-container__title">{{ item.event_title }}</p>
+            <p class="event-container__date">{{ item.event_date }}</p>
+            <p class="event-container__content">{{ item.event_content }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</article>

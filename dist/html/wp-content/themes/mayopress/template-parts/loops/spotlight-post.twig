@@ -1,0 +1,20 @@
+<div class="slider__item">
+    {% set thumbnail_url = fn('get_the_post_thumbnail_url', slide.ID) %}
+    {% if thumbnail_url %}
+      <div class="slider__image">
+        {% for i in 1..5 %}
+          <div class="spotlight__circle"></div>
+        {% endfor %}
+        <img src="{{ thumbnail_url }}" alt="" loading="lazy">
+        {% for i in 1..5 %}
+          <div class="spotlight__circle"></div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  <p class="slider__title">{{ slide.post_title }}</p>
+
+  <div class="slider__content">{{ slide.meta('author_background') }}</div>
+
+  <a href="{{ slide.link }}" class="btn btn--primary">{{ __('View Bio', 'mayo') }} <span class="sr-only">{{ slide.post_title }}</span></a>
+</div>

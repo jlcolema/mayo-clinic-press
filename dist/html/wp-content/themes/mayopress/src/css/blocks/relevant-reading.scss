@@ -1,0 +1,34 @@
+.relevant-reading__container {
+  font-family: var(--font-sans);
+  grid-column: 1 / 4;
+  display: grid;
+  gap: var(--gap);
+  padding: var(--space-md);
+  margin-bottom: var(--space-xxl);
+  background-color: var(--wp--preset--color--alpha-light-gray);
+  text-align: center;
+
+  @media (--sm) {
+    grid-template-columns: 25% 1fr;
+    text-align: left;
+  }
+}
+
+.relevant-reading__heading {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xxs);
+}
+
+.relevant-reading__title {
+  font-family: var(--font-serif-display);
+  font-size: var(--heading-sm);
+  line-height: var(--line-height-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.relevant-reading__image {
+  max-width: 170px;
+  margin-inline: auto;
+}

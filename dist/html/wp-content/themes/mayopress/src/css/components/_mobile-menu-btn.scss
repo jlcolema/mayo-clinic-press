@@ -1,0 +1,78 @@
+:root {
+  --mobile-menu-btn-size: 48px;
+  --mobile-menu-btn-transition-duration: 0.2s;
+
+  // 🍔 icon
+  --mobile-menu-btn-icon-size: 24px;
+  --mobile-menu-btn-icon-stroke: 1.75px;
+}
+
+.mobile-menu-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--mobile-menu-btn-size);
+  height: var(--mobile-menu-btn-size);
+}
+
+// icons
+.mobile-menu-btn__icon {
+  position: relative;
+  display: block;
+  font-size: var(--mobile-menu-btn-icon-size);
+  width: 1em;
+  height: var(--mobile-menu-btn-icon-stroke);
+  color: inherit;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  transform: scale(1);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: inherit;
+    border-radius: inherit;
+  }
+}
+
+// menu to 'X' close
+.mobile-menu-btn__icon--close {
+  background-size: 100% 100%;
+  will-change: transform, background-size;
+  transition-property: transform, background-size;
+  transition-duration: var(--mobile-menu-btn-transition-duration, 0.2s);
+
+  .mobile-menu-btn:active & {
+    transform: scale(0.9);
+  }
+
+  &::before, &::after {
+    will-change: inherit;
+    transition: inherit;
+  }
+
+  &::before { // line top
+    transform: translateY(-6px) rotate(0);
+  }
+
+  &::after { // line bottom
+    transform: translateY(6px) rotate(0);
+  }
+
+  .mobile-menu-btn--is-open & {
+    background-size: 0% 100%;
+
+    &::before {
+      transform: translateY(0) rotate(45deg);
+    }
+
+    &::after {
+      transform: translateY(0) rotate(-45deg);
+    }
+  }
+}

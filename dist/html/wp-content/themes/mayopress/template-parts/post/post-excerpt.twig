@@ -1,0 +1,98 @@
+{% set after_bullet = '' %}
+
+{% set runtime = post.meta('runtime') %}
+{% set hours = runtime.hours %}
+{% set minutes = runtime.minutes %}
+{% set seconds = runtime.seconds %}
+
+{% set author_names = post.meta('post_authors') | join(', <br class="is-hidden--desktop">') %}
+
+{% if hours or minutes or seconds %}
+  {% set after_bullet = '<svg class="icon icon--clock" aria-hidden="true" focusable="false"><use xlink:href="#clock"></use></svg>' %}
+
+  {% if hours %}
+    {% set after_bullet = after_bullet ~ hours ~ ':' %}
+  {% endif %}
+
+  {% if minutes %}
+    {% if after_bullet | slice(-1) == ':' and minutes < 10 %}
+      {% set after_bullet = after_bullet ~ '0' %}
+    {% endif %}
+    {% set after_bullet = after_bullet ~ minutes ~ ':' %}
+  {% elseif after_bullet | slice(-1) == ':' %}
+    {% set after_bullet = after_bullet ~ '00:' %}
+  {% endif %}
+
+  {% if seconds %}
+    {% if after_bullet | slice(-1) == ':' %}
+      {% if seconds < 10 %}
+        {% set after_bullet = after_bullet ~ '0' %}
+      {% endif %}
+      {% set after_bullet = after_bullet ~ seconds %}
+    {% else %}
+      {% set after_bullet = after_bullet ~ seconds ~ ' seconds' %}
+    {% endif %}
+  {% elseif after_bullet | slice(-1) == ':' %}
+    {% set after_bullet = after_bullet ~ '00' %}
+  {% endif %}
+{% elseif author_names %}
+  {% set after_bullet = author_names %}
+{% endif %}
+
+<article id="post-{{ post.id }}" class="excerpt {% if fn('is_sticky') %}excerpt--sticky{% endif %}">
+
+	{# Header #}
+	<header class="excerpt__header">
+		{# Thumbnail #}
+		{% if post.thumbnail is not null %}
+			<a class="excerpt__thumbnail-link" href="{{ post.link|e('esc_url') }}" tabindex="-1">
+				<img class="excerpt__thumbnail" src="{{ post.thumbnail.src|resize(384, 216)|e('esc_url') }}" alt="" loading="lazy">
+			</a>
+		{% endif %}
+	</header>
+
+	<div class="excerpt__description">
+		{% set post_format = post.terms( {query:{taxonomy:'content-formats'}} ) %}
+		{% set post_category = post.terms( {query:{taxonomy:'category'}} ) %}
+
+		{% if post_format | length %}
+			<div class="term-category">
+				<span class="post--format">{{ post_format[0] }}</span>
+				{% if post_category | length %}
+					|
+					<span class="post--category">{{ post_category[0] }}</span>
+				{% endif %}
+			</div>
+		{% endif %}
+
+		{# Title #}
+		<h2 class="excerpt__title">
+			<a href="{{ post.link|e('esc_url') }}">
+				{{ post.title|e('wp_kses_post') }}
+			</a>
+		</h2>
+
+		{# Date #}
+		<time class="excerpt__date" datetime="{{ post.post_date }}">
+			<span class="sr-only">
+				{{ __('Posted on ', 'mayo') }}
+			</span>
+			{{ post.date|e('wp_kses_post') }}
+		</time>
+
+    {% if after_bullet %}
+    <span style="color: var(--color-primary);">&#8226;</span>
+
+    {# Author #}
+    <span class="singular__author">
+      {{ after_bullet }}
+    </span>
+    {% endif %}
+	</div>
+
+	{# Excerpt #}
+	<div class="excerpt__content">
+		{{ post.preview.read_more('') }}
+	</div>
+
+</article>

@@ -1,0 +1,234 @@
+.singular__content {
+  padding: 0;
+
+  > .hub__banner {
+    padding: var(--space-lg) var(--space-base);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+
+    @media (--md) {
+      padding-block: var(--space-xl);
+      margin-bottom: var(--space-xxl);
+    }
+
+    + #full-list > .filters__container {
+      margin-top: 0;
+    }
+  }
+
+  .hub__banner--title {
+    font-weight: var(--font-weight-bold);
+    letter-spacing: .01em;
+
+    + h2 {
+      margin-top: 0;
+    }
+  }
+
+  .facetwp-flyout__container {
+    display: block;
+
+    > *:first-child,
+    > *:last-child {
+      border-inline: none;
+      width: 100%;
+    }
+
+    .filters__container {
+      justify-content: flex-start;
+      padding: 0;
+      margin-top: var(--space-lg);
+      border-bottom-width: 2px;
+      border-bottom-color: var(--color-black);
+      text-transform: none;
+    }
+  }
+
+  .facetwp-radio,
+  .facetwp-radio.checked {
+    background-image: none;
+    padding-bottom: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  .facetwp-radio {
+    font-size: var(--heading-sm);
+    font-family: var(--font-serif-display);
+    line-height: var(--line-height-sm);
+    padding-inline: var(--space-sm);
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-color: var(--color-primary);
+      width: 100%;
+      height: 0;
+      transition: height 0.3s;
+    }
+
+    &.checked {
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    &.checked,
+    &:hover {
+      &::after {
+        height: 0.25rem;
+      }
+    }
+  }
+
+  h1 {
+    @media (--md) {
+      margin-bottom: var(--space-xl);
+    }
+  }
+}
+
+.wp-block-columns.hub__featured--columns {
+  gap: var(--space-md);
+  margin-bottom: 0;
+
+  @media (--md) {
+    gap: var(--space-xxxl);
+  }
+
+  &.hub__featured--has-border-top {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--color-contrast-low);
+
+    @media (--lg) {
+      margin-top: var(--space-xxxl);
+      padding-top: var(--space-xl);
+    }
+
+  }
+
+  .hub__featured--video {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+// Quiz Maker plugin
+#ays-quiz-container-1.ays-quiz-container {
+  width: 100% !important;
+  max-width: none !important;
+  margin-top: var(--space-md) !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+
+  @media (--lg) {
+    margin-top: var(--space-xxxl) !important;
+  }
+
+  .ays-field:hover label {
+    background-color: var(--color-primary);
+  }
+}
+
+.ays-start-page {
+  display: flex;
+  flex-direction: column;
+
+  .ays-fs-title {
+    order: -1;
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md) !important;
+  }
+}
+
+[id^="ays_finish_quiz_"] div.step {
+  padding-block: var(--space-lg);
+}
+
+/* stylelint-disable */
+.ays_quiz_question {
+/* stylelint-enable */
+  display: flex;
+  justify-content: center;
+
+  p {
+    padding-inline: 0;
+  }
+}
+
+.wp-block-group.series__list {
+  text-align: center;
+  padding-block: var(--space-lg);
+
+  @media (--md) {
+    padding-block: var(--space-xxxxl);
+  }
+
+  > .icon {
+    margin-inline: auto;
+  }
+}
+
+.filters__container {
+  margin-top: var(--space-xxxxl);
+  border-bottom-width: 2px;
+  border-bottom-color: var(--color-black);
+}
+
+.flyout__container {
+  .facetwp-radio {
+    padding-block: var(--space-sm);
+    padding-inline: var(--space-base);
+
+    &::after {
+      width: 0;
+      height: 100%;
+      transition: width 0.3s;
+    }
+
+    &.checked {
+      padding-block: var(--space-xs);
+      padding-inline: var(--space-base);
+      color: var(--color-black);
+
+      &::after {
+        width: 0.25rem;
+        height: 100%;
+      }
+    }
+  }
+
+  .facetwp-counter {
+    display: none;
+  }
+}
+
+.flyout__content-types--container {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    font-family: var(--font-serif-display);
+    color: var(--color-black);
+    text-decoration: none;
+    padding-block: var(--space-xs);
+    padding-inline: var(--space-base);
+    position: relative;
+
+    &.checked {
+      font-weight: 700;
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: var(--color-primary);
+        width: 0.25rem;
+        height: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+@use '../../tools/' as *;
+
+/* stylelint-disable */
+.woocommerce_account_subscriptions--no-subscriptions {
+  /* stylelint-enable */
+  text-align: center;
+
+  > p {
+    @media (--md) {
+      margin-bottom: var(--space-lg);
+    }
+  }
+
+  .shop-promo__box {
+    font-size: var(--text-base);
+    padding: var(--space-md);
+    margin-inline: auto;
+    border: 1px solid var(--color-contrast-medium);
+    max-width: 850px;
+
+    @media (--md) {
+      text-align: left;
+    }
+
+    .has-heading-md-font-size {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .is-layout-flow > * + * {
+      margin-top: var(--space-xxs);
+      
+      /* stylelint-disable */
+      + * {
+        /* stylelint-enable */
+        margin-top: var(--space-xs);
+      }
+    }
+
+    .btn {
+      width: 100%;
+
+      a {
+        color: var(--btn-text-color);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+/* stylelint-disable */
+.subscription_details tr td:first-child {
+  /* stylelint-enable */
+  font-weight: 700;
+}
+
+/* stylelint-disable */
+.woocommerce table.shop_table td.subscription--actions-label {
+  /* stylelint-enable */
+  @media (--to-md) {
+    vertical-align: baseline;
+    padding-top: 19px;
+  }
+}
+
+.subscription--actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-base);
+
+  @media (--md) {
+    flex-direction: row;
+    gap: var(--space-md);
+  }
+
+  a {
+    text-align: center;
+    white-space: pre-wrap;
+  }
+}

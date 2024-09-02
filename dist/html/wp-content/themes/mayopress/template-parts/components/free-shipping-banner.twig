@@ -1,0 +1,25 @@
+{% set show_banner = fn('get_option', 'freeshippingbanner_free_shipping_display')|trim %}
+{% set banner_text = fn('get_option', 'freeshippingbanner_free_shipping_bar')|trim %}
+{% set banner_link = fn('get_option', 'freeshippingbanner_free_shipping_link')|trim %}
+{% set banner_details = fn('get_option', 'freeshippingbanner_free_shipping_details')|trim %}
+
+{% if show_banner %}
+  <div class="free-shipping__banner" role="region" aria-labelledby="freeShippingAnnouncementLabel">
+    <div class="container free-shipping__content">
+      <span id="freeShippingAnnouncementLabel" class="sr-only">{{ __('Free Shipping Announcement', 'mayo') }}</span>
+      {{ banner_text }}
+      {% if banner_link %}
+      <br class="is-hidden--desktop">
+      <a class="free-shipping__modal--link" href="javascript:void(0);" aria-describedby="additional-details-modal" aria-controls="view-details">{{ banner_link | e('wp_kses_post') }}</a>
+      <span id="additional-details-modal" class="sr-only">Open additional details modal</span>
+
+      <div id="view-details" class="modal modal--animate-scale js-modal" data-component="modal">
+        <div class="modal__content" role="alertdialog" aria-labelledby="additional-information" aria-describedby="additional-information">
+          <p>{{ banner_details }}</p>
+          <a href="javascript:void(0);" class="reset modal__close-btn modal__close-btn--text js-modal__close">{{ __('Close', 'mayo') }}</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

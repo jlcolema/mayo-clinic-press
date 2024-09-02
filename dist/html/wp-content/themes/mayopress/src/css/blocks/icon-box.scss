@@ -1,0 +1,86 @@
+#main .banner--hub {
+  margin-block-start: var(--wp--style--block-gap);
+
+  .icon-box {
+    a {
+      color: var(--color-black);
+
+      &:where(:visited) {
+        color: var(--color-primary-dark);
+      }
+    }
+
+    p {
+      margin-bottom: var(--space-xs);
+
+      &:first-child {
+        margin-bottom: var(--space-xxs);
+      }
+    }
+
+    .hub-link {
+      gap: var(--space-xs);
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.icon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-base);
+  text-align: center;
+
+  p:first-child {
+    margin-bottom: 0;
+  }
+
+  @media (--sm) {
+    gap: var(--space-md);
+    flex-direction: row;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: left;
+  }
+}
+
+// Proceeds Banner for Home Page
+.home-proceeds-banner {
+  .alignfull > & {
+    margin-top: 0;
+  }
+
+  .icon-box {
+    justify-content: center;
+    flex-direction: row;
+    padding: var(--space-md) 0;
+    font-size: var(--text-sm);
+    text-align: left;
+
+    @media (--sm) {
+      padding: var(--space-base);
+      font-size: var(--text-md);
+    }
+  }
+}
+
+.icon-box--align-top {
+  @media (--sm) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.icon-box--align-right {
+  flex-direction: row-reverse;
+}
+
+// Personalized Announcement Bar
+#personalizedAnnouncementBar a {
+  color: inherit;
+}

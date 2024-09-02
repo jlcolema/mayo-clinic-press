@@ -1,0 +1,26 @@
+// ==========================================================================
+// SETTINGS: BREAKPOINTS
+// ==========================================================================
+
+$breakpoints: (
+  xs: 32rem, // ~512px
+  sm: 48rem, // ~768px
+  md: 64rem, // ~1024px
+  lg: 80rem, // ~1280px
+  xl: 90rem // ~1440px
+) !default;
+
+/* stylelint-disable */
+@each $name, $width in $breakpoints {
+  @custom-media --#{$name}      (width >= #{$width});
+  @custom-media --to-#{$name}   (width < #{$width});
+}
+
+@custom-media --landscape       (orientation: landscape);
+@custom-media --portrait        (orientation: portrait);
+
+@custom-media --reduced-motion  (prefers-reduced-motion: reduce);
+@custom-media --allow-motion    (prefers-reduced-motion: no-preference);
+@custom-media --light-scheme    (prefers-color-scheme: light);
+@custom-media --dark-scheme     (prefers-color-scheme: dark);
+/* stylelint-enable */

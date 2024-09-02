@@ -1,0 +1,293 @@
+<div class="header__mobile">
+  <button class="reset mobile-menu-btn js-mobile-menu-btn" id="mobile-menu-btn" aria-controls="mobile-navigation" aria-labelledby="mobile-menu-description">
+    <span id="mobile-menu-description" class="sr-only">{{ __('Toggle menu', 'mayo') }}</span>
+    <i class="mobile-menu-btn__icon mobile-menu-btn__icon--close" aria-hidden="true"></i>
+  </button>
+</div>
+
+<div class="header-drawer drawer js-drawer" id="mobile-navigation">
+  <div class="mobile-drawer__overlay"></div>
+  <div class="drawer__content">
+    <div class="drawer__section drawer__section--account">
+      {% if user and account_menu %}
+        <nav class="navbar navbar--account" id="account-menu-mobile">
+          <ul class="menu menu--account accordion js-accordion" id="menu-account-mobile" data-animation="on" data-component="accordion">
+            {% for item in account_menu.items %}
+              <li class="{{ item.classes|join(' ')|split('menu-item')[0] }} {{ 'btn' in item.classes ? '' : 'accordion__item' }} {% if item.children %}js-accordion__item{% endif %} {% if item._menu_item_megamenu_widgetarea %}menu__item--has-mega-menu{% endif %}">
+                <button class="reset drawer__close-btn js-drawer__close js-tab-focus">
+                  {% include 'template-parts/components/icon.twig' with { icon: 'close' } %}
+                  <span class="sr-only">{{ __('Close the drawer', 'mayo') }}</span>
+                </button>
+
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                  <button class="reset accordion__header js-accordion__trigger js-tab-focus">
+                  {% include 'template-parts/components/icon.twig' with { icon: 'person' } %}
+                {% endif %}
+
+                  {% if item._menu_item_nolink %}
+                    <span class="menu__text">
+                      {{ item.title|e('esc_html') }}
+                    </span>
+                  {% else %}
+                    <a class="menu__link" href="{{ item.link|e('esc_url') }}" {% if item.target == '_blank' %}target="{{ item.target }}" rel="noopener"{% endif %}>
+                      {{ item.title|e('esc_html') }}
+                    </a>
+                  {% endif %}
+
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                  {% include 'template-parts/components/icon.twig' with { icon: 'chevron-down' } %}
+                  </button>
+                {% endif %}
+
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                  <section class="accordion__panel js-accordion__panel {{ item._menu_item_megamenu_widgetarea ? 'accordion__panel--mega-menu' }}">
+                    <div class="accordion__panel-content">
+                {% endif %}
+
+                {% if item._menu_item_megamenu_widgetarea %}
+                  {{ fn('render_widget_area', item._menu_item_megamenu_widgetarea) }}
+                {% endif %}
+
+                {% if item.children %}
+                  <ul class="submenu__list">
+                    {% for child in item.children %}
+                      <li class="submenu__item">
+                        <a class="submenu__link {{ child.classes|join(' ')|split('menu-item')[0] }} {% if child.current %}menu__link--current{% endif %}" href="{{ child.link|e('esc_url') != '#SignOut' ? child.link|e('esc_url') : logout_url }}" {% if child.target == '_blank' %}target="{{ child.target }}" rel="noopener"{% endif %}>
+                          {{ child.title|e('esc_html') }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                    </div>
+                  </section>
+                {% endif %}
+
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      {% else %}
+        <button class="reset drawer__close-btn js-drawer__close js-tab-focus">
+          {% include 'template-parts/components/icon.twig' with { icon: 'close' } %}
+          <span class="sr-only">{{ __('Close the drawer', 'mayo') }}</span>
+        </button>
+        <div class="drawer__sign-in">
+          <a class="navbar--sign-in" href="/my-account/">
+            {% include 'template-parts/components/icon.twig' with { icon: 'person' } %}
+            <span>{{ __('Register', 'mayo') }} / {{ __('Log In', 'mayo') }}</span>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <nav class="navbar navbar--drawer" id="navbar-mobile">
+      <div class="drawer__section drawer__section--search">
+        {% include 'template-parts/components/search-form.twig' with { uniqueId: 'mobile-menu' } %}
+      </div>
+      
+      {% if header_menu %}
+        <ul class="menu menu--mobile mobile-drawer js-mobile-drawer" id="menu-mobile" data-animation="on" data-multi-items="off" data-component="mobile-drawer">
+          {% for item in header_menu.items %}
+            {% if item.children %}
+              <li class="{{ item.classes|join(' ')|split('menu-item')[0] }} {{ 'btn' in item.classes ? '' : 'mobile-drawer__item accordion__item' }} js-mobile-drawer__item{% if item._menu_item_megamenu_widgetarea %} menu__item--has-mega-menu{% endif %}">
+                <button class="reset mobile-drawer__header js-mobile-drawer__trigger accordion__header js-tab-focus">
+                  <span class="menu__text drawer__title {% if item.current %}menu__text--current{% endif %}">
+                    {{ item.title|replace({'More ': ''})|e('esc_html') }}
+                  </span>
+
+                  {% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+                </button>
+
+                <section class="drawer mobile-drawer__panel js-mobile-drawer__panel {{ item._menu_item_megamenu_widgetarea ? 'mobile-drawer__panel--mega-menu' }}">
+                  <div class="drawer__content mobile-drawer__panel-content">
+                    <ul class="submenu__list">
+                      <li class="submenu__item mobile-drawer__close-btn">
+                        {% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+
+                        <button class="submenu__link reset">
+                          {{ item.title|replace({'More ': ''})|e('esc_html') }}
+                        </button>
+                      </li>
+
+                      {% if item._menu_item_megamenu_widgetarea == 'ecs-sidebar-61147' %}
+                        {{ fn('render_widget_area', item._menu_item_megamenu_widgetarea) }}
+                      {% endif %}
+
+                      {% set startPromoTopics = false %}
+                      {% if 'topics--mobile-parent' in item.classes %}
+                        {% for item in header_menu.items %}
+                          {% if not item.children %}
+                            {# start promoted topics drawer #}
+                            {% if 'link--promoted-topics' in item.classes and not startPromoTopics %}
+                              {% set startPromoTopics = true %}
+                              <li class="{{ item.classes|join(' ')|split('menu-item')[0] }} {{ 'btn' in item.classes ? '' : 'mobile-drawer__item accordion__item' }} js-mobile-drawer__item{% if item._menu_item_megamenu_widgetarea %} menu__item--has-mega-menu{% endif %}">
+                                <button class="reset mobile-drawer__header js-mobile-drawer__trigger accordion__header js-tab-focus">
+                                  <span class="menu__text drawer__title {% if item.current %}menu__text--current{% endif %}">
+                                    {{ item.title|replace({'More ': ''})|e('esc_html') }}
+                                  </span>
+
+                                  {% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+                                </button>
+
+                                <section class="drawer mobile-drawer__panel js-mobile-drawer__panel {{ item._menu_item_megamenu_widgetarea ? 'mobile-drawer__panel--mega-menu' }}">
+                                  <div class="drawer__content mobile-drawer__panel-content">
+                                    <ul class="submenu__list">
+                                      <li class="submenu__item mobile-drawer__close-btn">
+                                        {% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+
+                                        <button class="submenu__link reset">
+                                          {{ __('Promoted Topics', 'mayo') }}
+                                        </button>
+                                      </li>
+                            {% endif %}
+
+                            <li class="submenu__item {{ item.classes|join(' ')|split('menu-item')[0] }} {{ 'submenu__item--top' in item.classes ? '' : 'mobile-drawer__item accordion__item' }}">
+                              <a class="submenu__link {% if item.current %}menu__link--current{% endif %}" href="{{ item.link|e('esc_url') }}" {% if item.target == '_blank' %}target="{{ item.target }}" rel="noopener"{% endif %}>
+                                {{ item.title|e('esc_html') }}
+                              </a>
+                            </li>
+
+                            {# end promoted topics drawer #}
+                            {% if 'link--promoted-topics' not in item.classes and startPromoTopics %}
+                              {% set startPromoTopics = false %}
+                                    </ul>
+                                  </div>
+                                </section>
+                              </li>
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+
+                      {% for child in item.children %}
+                        {# start promoted topics drawer #}
+                        {% if 'link--promoted-topics' in child.classes and not startPromoTopics %}
+                          {% set startPromoTopics = true %}
+                          <li class="{{ child.classes|join(' ')|split('menu-item')[0] }} {{ 'btn' in child.classes ? '' : 'mobile-drawer__item accordion__item' }} js-mobile-drawer__item{% if child._menu_item_megamenu_widgetarea %} menu__item--has-mega-menu{% endif %}">
+                            <button class="reset mobile-drawer__header js-mobile-drawer__trigger accordion__header js-tab-focus">
+                              <span class="menu__text widget__title {% if child.current %}menu__text--current{% endif %}">
+                                {{ __('Promoted Topics', 'mayo') }}
+                              </span>
+
+                              {% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+                            </button>
+
+                            <section class="drawer mobile-drawer__panel js-mobile-drawer__panel {{ child._menu_item_megamenu_widgetarea ? 'mobile-drawer__panel--mega-menu' }}">
+                              <div class="drawer__content mobile-drawer__panel-content">
+                                <ul class="submenu__list">
+                                  <li class="submenu__item mobile-drawer__close-btn">
+                                    {% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+
+                                    <button class="submenu__link reset">
+                                      {{ __('Promoted Topics', 'mayo') }}
+                                    </button>
+                                  </li>
+                        {% elseif 'link--promoted-topics' not in child.classes and startPromoTopics %}
+                          {% set startPromoTopics = false %}
+                                </ul>
+                              </div>
+                            </section>
+                          </li>
+                        {% endif %}
+
+                        <li class="submenu__item {{ child.classes|join(' ')|split('menu-item')[0] }} {{ 'submenu__item--top' in child.classes ? '' : 'mobile-drawer__item accordion__item' }}">
+                          <a class="submenu__link {% if child.current %}menu__link--current{% endif %}" href="{{ child.link|e('esc_url') }}" {% if child.target == '_blank' %}target="{{ child.target }}" rel="noopener"{% endif %}>
+                            {{ child.title|e('esc_html') }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </section>
+              </li>
+
+              {% if item._menu_item_megamenu_widgetarea == 'ecs-sidebar-61147' %}
+                {{ fn('render_widget_area', item._menu_item_megamenu_widgetarea) }}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% set counter = 0 %}
+          {% for item in header_menu.items %}
+            {% if not item.children and counter <= 5 %}
+              <li class="mobile-drawer__item mobile-drawer__item--border">
+                <a class="mobile-drawer__link widget__title" href="{{ item.link|e('esc_url') }}">
+                  {{ item.title|e('esc_html') }}
+                </a>
+              </li>
+              {% set counter = counter + 1 %}
+            {% endif %}
+          {% endfor %}
+
+          <li class="accordion__item view-more__link">
+            <button class="reset mobile-drawer__header accordion__header mock-topics">
+              <span class="menu__text widget__title">
+                {{ __('View More', 'mayo') }}
+              </span>
+
+              {% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+            </button>
+          </li>
+
+          {% if supplemental_drawer_menu %}
+            {% for item in supplemental_drawer_menu.items %}
+              <li class="{{ item.classes|join(' ')|split('menu-item')[0] }} {{ 'btn' in item.classes ? '' : 'mobile-drawer__item' }} {% if item.children %}js-mobile-drawer__item{% endif %} {% if item._menu_item_megamenu_widgetarea %}menu__item--has-mega-menu{% endif %}">
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                  <button class="reset mobile-drawer__header js-mobile-drawer__trigger js-tab-focus">
+                {% endif %}
+
+                {% if item._menu_item_nolink %}
+                  <span class="menu__text {% if item.current %}menu__text--current{% endif %}">
+                    {{ item.title|e('esc_html') }}
+                  </span>
+                {% else %}
+                  <a class="menu__link {% if item.current %}menu__link--current{% endif %}" href="{{ item.link|e('esc_url') }}" {% if item.target == '_blank' %}target="{{ item.target }}" rel="noopener"{% endif %}>
+                    {{ item.title|e('esc_html') }}
+                  </a>
+                {% endif %}
+
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                    <svg class="icon mobile-drawer__icon-plus no-js:is-hidden" viewBox="0 0 20 20" aria-hidden="true">
+                      <g class="icon__group" fill="none" stroke="currentColor">
+                        <line x1="2" y1="10" x2="18" y2="10" />
+                        <line x1="10" y1="18" x2="10" y2="2" />
+                      </g>
+                    </svg>
+                </button>
+                {% endif %}
+
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                  <section class="drawer mobile-drawer__panel js-mobile-drawer__panel {{ item._menu_item_megamenu_widgetarea ? 'mobile-drawer__panel--mega-menu' }}">
+                    <div class="drawer__content mobile-drawer__panel-content">
+                {% endif %}
+
+                {% if item.children %}
+                  <ul class="submenu__list">
+                    {% for child in item.children %}
+                      <li class="submenu__item">
+                        <a class="submenu__link {{ child.classes|join(' ')|split('menu-item')[0] }} {% if child.current %}menu__link--current{% endif %}" href="{{ child.link|e('esc_url') }}" {% if child.target == '_blank' %}target="{{ child.target }}" rel="noopener"{% endif %}>
+                          {{ child.title|e('esc_html') }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+
+                {% if item._menu_item_megamenu_widgetarea or item.children %}
+                    </div>
+                  </section>
+                {% endif %}
+              </li>
+            {% endfor %}
+          {% endif %}
+
+          {% include 'template-parts/footer/footer-social.twig' with { uniqueId: 'mobile-menu' } %}
+        </ul>
+      {% endif %}
+    </nav>
+
+  </div>
+</div>

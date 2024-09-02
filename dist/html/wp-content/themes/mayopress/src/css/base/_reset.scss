@@ -1,0 +1,218 @@
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+* {
+  font: inherit;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+hr {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+ul,
+ol {
+  padding-inline-start: var(--space-xxl);
+}
+
+html {
+	scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg, white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section,
+main,
+form legend {
+  display: block;
+}
+
+ol[role="list"],
+ul[role="list"] {
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+button,
+input,
+textarea,
+select {
+  margin: 0;
+}
+
+.btn,
+.form-control,
+.link,
+.reset {
+  // reset style of buttons + form controls
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  line-height: inherit;
+  appearance: none;
+}
+
+a,
+button,
+input,
+textarea {
+  --outline-size: 2px;
+  --outline-style: dotted;
+  --outline-color: var(--color-primary-light);
+  --outline-offset: var(--outline-size);
+
+  &:focus {
+    outline: var(--outline-size) var(--outline-style) var(--outline-color);
+    outline-offset: var(--outline-offset);
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--outline-size) var(--outline-style) var(--outline-color);
+    outline-offset: var(--outline-offset);
+  }
+}
+
+select.form-control::-ms-expand {
+  display: none; // hide Select default icon on IE
+}
+
+/* stylelint-disable */
+.fmefvg_video_popup {
+/* stylelint-enable */
+  display: none; // hide fme video popup
+}
+
+textarea {
+  resize: vertical;
+  overflow: auto;
+  vertical-align: top;
+}
+
+input::-ms-clear {
+  display: none; // hide X icon in IE and Edge
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

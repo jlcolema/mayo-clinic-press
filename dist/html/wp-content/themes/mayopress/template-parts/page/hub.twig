@@ -1,0 +1,109 @@
+<article id="page-{{ page.id }}" class="singular">
+
+	{# Header #}
+	<header class="singular__header">
+		{# Breadcrumbs #}
+		{% if fn('function_exists', 'yoast_breadcrumb') %}
+			{{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+		{% endif %}
+	</header>
+
+	{# Content #}
+	<div class="singular__content">
+		{{ page.content }}
+		<div id="full-list">
+			<div class="facetwp-flyout__container is-hidden--desktop" data-component="mobile-flyout">
+				<div class="filters__container">
+					<h2>{{ __('All %s', 'mayo') | format(page.title) }}</h2>
+				</div>
+
+				<div class="flyout__button--open flyout__button--filter" data-container="flyout--filters">
+					<svg class="icon icon--filter" aria-hidden="true" focusable="false"><use xlink:href="#filter"></use></svg>
+					Filter By
+					<span class="filters--total"></span>
+				</div>
+			</div>
+
+			<div class="filters__container is-hidden--tablet-down">
+				{% if fn('function_exists', 'do_shortcode') %}
+				{{ fn('do_shortcode','[facetwp facet="listing_format"]') }}
+				{% endif %}
+
+				<h2>{{ __('All %s', 'mayo') | format(page.title) }}</h2>
+
+				<div class="content-types__select">
+					{% if fn('function_exists', 'do_shortcode') %}
+          <label>
+            <span class="sr-only">Content Type</span>
+					  {{ fn('do_shortcode','[facetwp facet="all_content_types"]') }}
+          </label>
+					{% endif %}
+
+					<div class="filter__select--arrows">
+						<svg class="icon icon--chevron-up" aria-hidden="true" focusable="false"><use xlink:href="#chevron-up"></use></svg>
+						<svg class="icon icon--chevron-down" aria-hidden="true" focusable="false"><use xlink:href="#chevron-down"></use></svg>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="facetwp-template">
+			{% if use_recent %}
+				{% for post in featured %}
+					{% include 'template-parts/loops/featured-post-excerpt.twig' %}
+				{% endfor %}
+			{% else %}
+				{% for post in Post(page.featured_post) %}
+					{% include 'template-parts/loops/featured-post-excerpt.twig' %}
+				{% endfor %}
+			{% endif %}
+			<ul class="columns-3" role="list">
+				{% for post in post_query %}
+					<li>
+						{% include 'template-parts/post/post-excerpt.twig' %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		{% if fn('function_exists', 'do_shortcode') %}
+			{{ fn('do_shortcode', '[facetwp facet="pagination"]') }}
+		{% endif %}
+
+		<div class="is-hidden--desktop flyout--topics">
+			<div class="flyout--overlay flyout__button--close"></div>
+			<div class="flyout-sidebar__close">
+				<a href="javascript:void(0);" class="btn btn--primary flyout__button--close">Close Filters</a>
+			</div>
+			<div class="flyout__container">
+				<div class="flyout__button--close">
+					<svg class="icon icon--close" aria-hidden="true" focusable="false"><use xlink:href="#close"></use></svg>
+				</div>
+				<p class="flyout__header">{{ __('Topics', 'mayo') }}</p>
+
+				{% if fn('function_exists', 'do_shortcode') %}
+				{{ fn('do_shortcode','[facetwp facet="listing_categories"]') }}
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="is-hidden--desktop flyout--filters">
+			<div class="flyout--overlay flyout__button--close"></div>
+			<div class="flyout-sidebar__close">
+				<a href="javascript:void(0);" class="btn btn--primary flyout__button--close">Close Filters</a>
+			</div>
+			<div class="flyout__container">
+				<div class="flyout__button--close">
+					<svg class="icon icon--close" aria-hidden="true" focusable="false"><use xlink:href="#close"></use></svg>
+				</div>
+				<p class="flyout__header">{{ __('Topics', 'mayo') }}</p>
+
+				<div class="flyout__content-types--container">
+					{% if fn('function_exists', 'do_shortcode') %}
+					{{ fn('do_shortcode','[facetwp facet="all_content_types_flyout"]') }}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</article>

@@ -1,0 +1,39 @@
+{% set numItems = 1 %}
+{% if cachedProducts is defined and cachedProducts|length >= numItems %}
+	{% set featured_products = cachedProducts|slice(0, numItems) %}
+{% else %}
+  {% set featured_products = fn('get_featured_products', numItems, true) %}
+{% endif %}
+
+{% for featured_product in featured_products %}
+  {% set book_image = Image(featured_product.image_id).src %}
+  {% set book_title = featured_product.get_title %}
+  {% set book_price = featured_product._price %}
+  {% set book_link = featured_product.get_permalink %}
+
+  <div class="featured-book">
+    <p class="featured-book__badge">{{ __('Featured book', 'mayo') }}</p>
+
+    {% if book_link %}
+      <a href="{{ book_link }}">
+    {% endif %}
+
+    <div class="featured-book__container">
+      {% if book_image %}
+        <div class="featured-book__image">
+          <img src="{{ book_image }}" alt="" loading="lazy"/>
+        </div>
+      {% endif %}
+
+      <div class="featured-book__info">
+        {% if book_title %}
+          <p class="featured-book__title has-heading-sm-font-size">{{ book_title }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if book_link %}
+      </a>
+    {% endif %}
+  </div>
+{% endfor %}

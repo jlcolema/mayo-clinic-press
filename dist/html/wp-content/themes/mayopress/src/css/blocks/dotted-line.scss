@@ -1,0 +1,14 @@
+.dotted-line-separator {
+  body .is-layout-constrained > * + & {
+    margin-top: var(--space-xxl);
+
+    @media (--md) {
+      margin-top: var(--space-xxxxl);
+    }
+  }
+
+  path {
+    fill: var(--color);
+    stroke: var(--color);
+  }
+}

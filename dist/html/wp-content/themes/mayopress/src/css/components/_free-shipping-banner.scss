@@ -1,0 +1,35 @@
+.free-shipping__banner {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  text-align: center;
+  padding-block: var(--space-xs);
+  line-height: var(--line-height-lg);
+  overflow: hidden;
+
+  @media (--md) {
+    line-height: inherit;
+  }
+
+  a {
+    font-size: var(--text-base);
+    color: var(--color-white);
+
+    @media (--md) {
+      margin-left: var(--space-base);
+    }
+  }
+}
+
+#view-details {
+  font-size: var(--text-base);
+  background-color: rgba(0, 0, 0, .3);
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+
+  @media (--md) {
+    font-size: var(--text-md);
+  }
+}

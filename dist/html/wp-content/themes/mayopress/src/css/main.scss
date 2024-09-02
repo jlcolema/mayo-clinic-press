@@ -1,0 +1,41 @@
+// ==========================================================================
+// LAYOUT: BASE
+// ==========================================================================
+
+///  @content
+///  DO NOT ADD CLASSES OR RULES IN THIS FILE DIRECTLY.
+///  Instead, use imports to add extensions or snippets.
+
+/// SETTINGS & TOOLS (MUST BE AT THE TOP)
+/// Common settings and tools.
+
+@forward './settings/colors';
+@forward './settings/breakpoints';
+
+// Base
+@use './base/reset';
+@use './base/spacing';
+@use './base/typography';
+@use './base/z-index';
+@use './base/visibility';
+@use './base/accessibility';
+@use './base/radius';
+@use './base/timing';
+@use './base/layout';
+
+// Global sections
+@use './sections/header';
+@use './sections/footer';
+
+// Global components
+@use './components/forms';
+@use './components/icons';
+@use './components/buttons';
+@use './components/accordion';
+@use './components/announcement-bar';
+@use './components/free-shipping-banner';
+@use './components/search';
+@use './components/breadcrumbs';
+@use './components/woocommerce';
+@use './components/edges';
+

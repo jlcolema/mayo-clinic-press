@@ -1,0 +1,25 @@
+{#
+  Title: Icon
+  Category: common
+  Icon: star-filled
+  Keywords: icon picture image
+  Mode: preview
+  SupportsAlign: left center right
+  SupportsMode: false
+#}
+
+{% set size %}
+  {% if fields.size %}
+    icon--{{ fields.size }}
+  {% endif %}
+{% endset %}
+
+{% set color %}
+  {% if fields.color %}
+    style="color: var(--wp--preset--color--{{ fields.color }});"
+  {% endif %}
+{% endset %}
+
+<i class="{{ classes }} icon--{{ fields.icon }} {{ size }}" {{ color }}>
+  {{fn('get_the_svg', fields.icon)}}
+</i>

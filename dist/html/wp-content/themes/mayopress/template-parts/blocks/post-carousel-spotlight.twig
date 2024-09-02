@@ -1,0 +1,46 @@
+{#
+  Title: Post Carousel Spotlight - Manual Selection
+  Description: Select post to create card carousel
+  Category: common
+  Icon: users
+  Keywords: post carousel spotlight
+  Mode: auto
+  EnqueueStyle: block-post-carousel-spotlight.css
+#}
+
+{% set slider_heading = fields.title %}
+
+<div class="post-carousel__spotlight{% if fields.background_color %} has-background has-{{ fields.background_color }}-background-color{% endif %}">
+	{% include 'template-parts/components/icon.twig' with { icon: 'book-swoosh' } %}
+
+	{% if slider_heading %}
+		<div class="post-carousel__header">
+			<h2 class="post-carousel__title spotlight__heading">{{ slider_heading }}</h2>
+		</div>
+	{% endif %}
+	<div class="slider" data-snap-slider>
+		<div class="slider__track">
+			{% for slide in Post(fields.spotlight_select_posts) %}
+				{% include 'template-parts/loops/spotlight-post.twig' %}
+			{% endfor %}
+		</div>
+
+		<button class="slider__arrow slider__arrow--prev">
+			<span class="sr-only">
+				{{ __('Previous slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-left' } %}
+		</button>
+		<button class="slider__arrow slider__arrow--next">
+			<span class="sr-only">
+				{{ __('Next slide', 'mayo') }}
+			</span>
+
+			{% include 'template-parts/components/icon.twig' with { icon: 'chevron-right' } %}
+		</button>
+		<div class="slider__pagination"></div>
+	</div>
+
+	{% include 'template-parts/components/icon.twig' with { icon: 'book-swoosh' } %}
+</div>

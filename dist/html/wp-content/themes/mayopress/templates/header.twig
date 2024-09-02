@@ -1,0 +1,67 @@
+<!doctype html>
+<html {{ site.language_attributes }}>
+
+<head>
+	<meta charset="{{ site.charset }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="msvalidate.01" content="5B42091B14D90FB25BB70F97EC54EB32" />
+  <script>document.documentElement.classList.add('js');</script>
+	{{ function('wp_head') }}
+  <script type="text/javascript" src="https://resources.digital-cloud-west.medallia.com/wdcwest/161171/onsite/embed.js" async></script>
+  {% if hasAds %}
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+  {% endif %}
+</head>
+
+<body class="{{ body_class }}">
+	{{ fn('wp_body_open') }}
+
+	{% if (fn('is_user_logged_in') and (fn('is_front_page') or fn('is_home'))) %}
+    {% include 'template-parts/header/tour.twig' %}
+  {% endif %}
+
+	{% include 'template-parts/header/skip-links.twig' %}
+  {% include 'template-parts/components/svg-sprite.twig' %}
+
+  {% include 'template-parts/components/announcement-bar.twig' %}
+
+	<header class="header">
+    <div class="container">
+      <div class="header__content" data-component="mobile-menu">
+        {% include 'template-parts/header/mobile-menu.twig' %}
+
+        <div class="header__logo">
+          {% include 'template-parts/header/logo.twig' %}
+        </div>
+
+        <div class="header__search">
+          {% include 'template-parts/components/search-form.twig' with { uniqueId: 'desktop' } %}
+        </div>
+
+        <div class="header__account">
+          {% include 'template-parts/header/header-account.twig' %}
+        </div>
+
+        {% include 'template-parts/header/header-menu.twig' %}
+      </div>
+    </div>
+	</header>
+
+  {% if (fn('is_page_template', 'rise-hub.php') == false) %}
+    {% include 'template-parts/components/free-shipping-banner.twig' %}
+  {% endif %}
+
+  {# Temporary Modal #}
+  {% if not fn('is_user_logged_in') and not fn('is_cart') and not fn('is_checkout') and not fn('is_account_page') %}
+    <a class="is-hidden" href="javascript:void(0);" aria-describedby="personalization-options-modal" aria-controls="personalization-options" aria-hidden="true" tabindex="-1"></a>
+    <div id="personalization-options" class="modal modal--animate-scale js-modal" data-show="true" data-cookie="seenPersonalizedOptionsModal" data-component="modal">
+      <div class="modal__content" role="alertdialog" aria-labelledby="personalization-options" aria-describedby="personalization-options">
+        <h2>{{ __('Register for an enhanced, personalized experience.', 'mayo') }}</h2>
+        <p>{{ __('Receive free access to exclusive content, a personalized homepage based on your interests, and a weekly newsletter with topics of your choice.' , 'mayo') }}</p>
+        <a href="/my-account/?registration" class="btn btn--primary">{{ __('Register Now', 'mayo') }}</a>
+        <p class="last-line"><strong>{{ __('Already have an account?', 'mayo') }}</strong> <a href="/my-account/?redirect_to={{ '/my-account/my-topics/'|url_encode }}">{{ __('Log In', 'mayo') }}</a></p>
+        <a href="javascript:void(0);" class="reset modal__close-btn modal__close-btn--text js-modal__close">{{ __('Close', 'mayo') }}</a>
+      </div>
+    </div>
+  {% endif %}
+  {# End Temporary Modal #}

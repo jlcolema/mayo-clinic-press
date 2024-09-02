@@ -1,0 +1,39 @@
+{#
+  Title: Relevant Reading
+  Description: Select book to promote on post
+  Category: common
+  Icon: star-filled
+  Keywords: related relevant reading
+  Mode: preview
+  EnqueueStyle: block-relevant-reading.css
+#}
+
+<div class="relevant-reading__container {{ classes }}">
+	{% for book in Post(fields.relevant_product) %}
+		{% set book_image = book.thumbnail.src %}
+		{% set book_image_alt = book.thumbnail.alt %}
+		{% set book_title = book.title %}
+		{% set book_excerpt = book.meta('relevant_reading_description') %}
+		{% set book_link = book.link %}
+
+		{% if book_image %}
+			<div class="relevant-reading__image">
+				<img src="{{ book_image }}" alt="" loading="lazy"/>
+			</div>
+		{% endif %}
+
+		<div class="relevant-reading__content">
+			<p class="relevant-reading__heading">Relevant reading</p>
+
+			{% if book_title %}
+				<p class="relevant-reading__title">{{ book_title }}</p>
+			{% endif %}
+
+			{% if book_excerpt %}
+				<p class="relevant-reading__excerpt">{{ book_excerpt }}</p>
+			{% endif %}
+
+			<a href="{{ book_link }}" class="btn btn--primary">Shop Now</a>
+		</div>
+	{% endfor %}
+</div>

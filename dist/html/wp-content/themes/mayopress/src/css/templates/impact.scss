@@ -1,0 +1,15 @@
+.wp-block-media-text.has-media-on-the-right .wp-block-media-text__media {
+  grid-column: 1;
+
+  @media (--md) {
+    grid-column: 2;
+  }
+}
+
+.wp-block-media-text.has-media-on-the-right .wp-block-media-text__content {
+  grid-row: 2;
+
+  @media (--md) {
+    grid-row: 1;
+  }
+}

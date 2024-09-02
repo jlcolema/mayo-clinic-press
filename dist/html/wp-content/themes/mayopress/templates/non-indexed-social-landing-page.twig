@@ -1,0 +1,190 @@
+{#
+  Title: Non-Indexed Social Landing Page Template
+  Description: Template for a Non-Indexed Social Landing Page
+#}
+
+<!-- Header -->
+
+{# {% include 'templates/header.twig' %} #}
+
+<!doctype html>
+
+<html {{ site.language_attributes }}>
+
+<head>
+	<meta charset="{{ site.charset }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="msvalidate.01" content="5B42091B14D90FB25BB70F97EC54EB32" />
+  <script>document.documentElement.classList.add('js');</script>
+	{{ function('wp_head') }}
+  <script type="text/javascript" src="https://resources.digital-cloud-west.medallia.com/wdcwest/161171/onsite/embed.js" async></script>
+</head>
+
+<body class="{{ body_class }}">
+
+	{{ fn('wp_body_open') }}
+
+	{% include 'template-parts/header/skip-links.twig' %}
+  {% include 'template-parts/components/svg-sprite.twig' %}
+
+  {% include 'template-parts/components/announcement-bar.twig' %}
+
+  {# Header #}
+
+  <header class="header">
+    <div class="container header__container">
+      <div class="header__content">
+        <div class="header__logo">
+          {% include 'template-parts/header/logo.twig' %}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {# Main #}
+
+  <main class="main main--page" id="main">
+
+    <article id="" class="singular">
+
+      <div class="singular__content">
+
+        <div class="slp-columns">
+
+          <div class="slp-cover--alternate">
+
+            <img src="{{ Image(page.meta('slp_image')).src }}" width="815" height="1231" alt="{{ Image(page.meta('slp_image')).alt }}" class="slp-cover__image--alternate" />
+
+          </div>
+
+          <div class="slp-content">
+
+            <header class="slp-header">
+
+              <p class="slp-supporting-text">Free E-Book</p>
+
+              <h1 class="slp-heading">{{ page.title }}</h1>
+
+              <p class="slp-subheading">From the world's leading medical experts</p>
+
+            </header>
+
+            <div class="slp-cover">
+
+              <img src="{{ Image(page.meta('slp_image')).src }}" width="815" height="1231" alt="{{ Image(page.meta('slp_image')).alt }}" class="slp-cover__image" />
+
+            </div>
+
+            <div class="slp-overview">
+
+              {{ page.meta('slp_description') }}
+
+            </div>
+
+            {% if page.meta('slp_learn') %}
+
+              <div class="slp-learn">
+
+                <h2 class="slp-learn__heading">Learn about:</h2>
+
+                <ul class="slp-learn__list">
+                  {% for item in page.meta('slp_learn') %}
+                    <li class="slp-learn__item">{{ item.slp_learn_item }}</li>
+                  {% endfor %}
+                </ul>
+
+              </div>
+
+            {% endif %}
+
+            <div class="slp-claim">
+
+              <a href="#claim" class="btn btn--primary slp-claim__button">Claim Your Free E-Book</a>
+
+              {% if page.meta('slp_physical').slp_physical_url and page.meta('slp_physical').slp_physical_price %}
+
+                <div class="slp-claim__wrapper">
+
+                  <p class="slp-claim__heading">Want a physical copy?</p>
+
+                  <p class="slp-claim__detail">Order now on <a href="{{ page.meta('slp_physical').slp_physical_url }}">Amazon for only ${{ page.meta('slp_physical').slp_physical_price }}</a></p>
+
+                </div>
+
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  </main>
+
+  {# Footer #}
+
+  <footer class="new-footer">
+
+    <div class="container new-footer__container">
+
+      <div class="new-footer__content">
+
+        {% if page.meta('slp_form_shortcode') %}
+
+          <div id="claim" class="slp-form">
+
+            <h3 class="slp-form__heading">Claim Your Free E-Book</h3>
+
+            <div data-component="form-tracking">
+
+              {% filter shortcodes %}
+                {{ page.meta('slp_form_shortcode') }}
+              {% endfilter %}
+
+            </div>
+
+          </div>
+
+        {% endif %}
+
+        {% if page.meta('slp_physical').slp_physical_url and page.meta('slp_physical').slp_physical_price %}
+
+          <div class="slp-physical">
+
+            <div class="slp-physical__separator">
+              <span>or</span>
+            </div>
+
+            <h3 class="slp-physical__heading">Want a physical copy?</h3>
+
+            <p class="slp-physical__detail">Physical copies are available from <a href="{{ page.meta('slp_physical').slp_physical_url }}">Amazon for ${{ page.meta('slp_physical').slp_physical_price }}</a></p>
+
+            <a href="{{ page.meta('slp_physical').slp_physical_url }}" class="btn btn--primary slp-physical__button">Purchase from Amazon</a>
+
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  {{ function('wp_footer') }}
+
+  {% if page.meta('slp_form_shortcode') and page.meta('slp_form_redirect') %}
+    <script>
+      document.addEventListener( 'wpcf7mailsent', function( event ) {
+        location = "{{ page.meta('slp_form_redirect') }}";
+      }, false );
+    </script>
+  {% endif %}
+
+</body>
+
+</html>

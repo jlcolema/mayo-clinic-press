@@ -1,0 +1,10 @@
+<form class="search-form" method="get" action="{{ site.url }}">
+	<label for="search-{{ uniqueId }}" class="search-form__label sr-only">
+		{{ __('Search', 'mayo') }}
+  </label>
+  <input class="form-control search-form__input" style="padding-right: var(--space-xxl);" type="search" id="search-{{ uniqueId }}" name="s" autocomplete="on" placeholder="{{ __('Search', 'mayo') }}">
+  <button class="reset search-form__btn" type="submit">
+    <span class="sr-only">{{ __('Submit', 'mayo') }}</span>
+    {% include 'template-parts/components/icon.twig' with { icon: 'search' } %}
+  </button>
+</form>

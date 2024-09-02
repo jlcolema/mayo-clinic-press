@@ -1,0 +1,48 @@
+@use "../components/hub-sticky-nav";
+
+.leadership-message {
+  margin-top: var(--space-lg);
+
+  @media (--md) {
+    margin-top: var(--space-xxxxl);
+  }
+
+  .wp-block-media-text__media {
+    border-radius: 50px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 1023px) {
+    &.wp-block-media-text.is-stacked-on-mobile {
+      .wp-block-media-text__media {
+        grid-row: 2;
+        grid-column: 1;
+      }
+
+      .wp-block-media-text__content {
+        grid-row: 1;
+      }
+    }
+  }
+}
+
+.leadership-message__paragraph {
+  margin-bottom: var(--space-xl)
+}
+
+.leadership-message__author {
+  margin-bottom: var(--space-md);
+}
+
+.wp-block-group.series__list {
+  text-align: center;
+  padding-block: var(--space-lg);
+
+  @media (--md) {
+    padding-block: var(--space-xxxxl);
+  }
+
+  > .icon {
+    margin-inline: auto;
+  }
+}

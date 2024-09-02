@@ -1,0 +1,118 @@
+:root {
+  --container-width: 80rem;
+  --gap: var(--space-md);
+
+  --max-width-xxxxs: 20rem;  // ~320px
+  --max-width-xxxs: 28rem;   // ~448px
+  --max-width-xxs: 32rem;    // ~512px
+  --max-width-xs: 38rem;     // ~608px
+  --max-width-sm: 48rem;     // ~768px
+  --max-width-md: 64rem;     // ~1024px
+  --max-width-lg: 80rem;     // ~1280px
+  --max-width-xl: 90rem;     // ~1440px
+  --max-width-xxl: 100rem;   // ~1600px
+  --max-width-xxxl: 120rem;  // ~1920px
+  --max-width-xxxxl: 150rem; // ~2400px
+
+  --layout-template:
+    1fr
+    min(var(--container-width), calc(100% - 2 * var(--component-padding)))
+    1fr;
+
+  --layout-template-sm:
+    1fr
+    min(var(--max-width-sm), calc(100% - 2 * var(--component-padding)))
+    1fr;
+}
+
+.container {
+  --container-max-width: calc(var(--container-width) + 2 * var(--component-padding));
+
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--component-padding);
+  padding-right: var(--component-padding);
+}
+
+.container--lg {
+  --container-width: var(--max-width-lg);
+}
+
+.container--xl {
+  --container-width: var(--max-width-xl);
+}
+
+.container--xxl {
+  --container-width: var(--max-width-xxl);
+}
+
+.singular__header {
+  display: grid;
+  grid-template-columns: var(--layout-template);
+  overflow: hidden;
+
+  > * {
+    grid-column: 2;
+  }
+}
+
+.singular__content {
+  display: grid;
+  grid-template-columns: var(--layout-template);
+  overflow: hidden;
+  padding-bottom: var(--space-xxxl);
+
+  @media (--md) {
+    padding-bottom: var(--space-xxxxl);
+  }
+
+  > * {
+    grid-column: 2;
+  }
+
+  > .wp-block-group {
+    padding: 0;
+  }
+}
+
+.wp-block-group.alignfull {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  max-width: 100%;
+
+  @supports not (grid-template-columns: subgrid) {
+    grid-template-columns: var(--layout-template);
+  }
+
+  > *:not(.alignfull) {
+    grid-column: 2;
+  }
+}
+
+.wp-block-separator,
+.wp-block-separator.is-style-wide {
+  color: inherit;
+  border-bottom: 2px solid currentColor;
+  opacity: 1;
+  margin: unset;
+  margin-bottom: var(--space-xl);
+
+  body.home & {
+    border-bottom: 2px solid var(--color-black);
+    margin-bottom: var(--space-md);
+  }
+}
+
+.has-max-width-sm {
+  @media (--md) {
+    display: grid;
+    grid-template-columns: var(--layout-template-sm);
+
+    > * {
+      grid-column: 2;
+    }
+  }
+}

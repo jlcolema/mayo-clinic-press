@@ -1,0 +1,10 @@
+{% set announcement_text = fn('get_option', 'announcementbartext_announcement_bar')|trim %}
+
+{% if announcement_text %}
+  <div class="announcement-bar" role="region" aria-labelledby="announcementLabel">
+    <div class="container announcement-bar__content">
+      <span id="announcementLabel" class="sr-only">{{ __('Announcement', 'mayo') }}</span>
+      {{ announcement_text }}
+    </div>
+  </div>
+{% endif %}

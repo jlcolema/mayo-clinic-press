@@ -1,0 +1,138 @@
+.wp-block-media-text {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  align-items: center;
+  gap: var(--gap);
+  margin-bottom: var(--space-xl);
+
+  @media (--md) {
+    margin-bottom: var(--space-xxxl);
+  }
+
+  &:not(:last-child) {
+    margin-bottom: var(--space-xl);
+  }
+
+  &.is-stacked-on-mobile {
+    grid-template-columns: 100%;
+    max-width: var(--max-width-xs);
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (--sm) {
+      grid-template-columns: 1fr 1fr;
+      max-width: 100%;
+    }
+  }
+
+  .wp-block-media-text__content {
+    padding: 0;
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+.media-text--hero {
+  padding: var(--space-md) 0 var(--space-lg);
+
+  @media (--md) {
+    padding: var(--space-xl) 0;
+  }
+
+  .wp-block-media-text__content {
+    @media (--md) {
+      padding: 0 0 0 var(--space-xl);
+    }
+  }
+
+  .wp-block-separator + * {
+    margin-top: var(--space-base);
+  }
+
+  h2 + p {
+    margin-top: var(--space-sm);
+  }
+
+  * + .wp-block-buttons {
+    margin-top: var(--space-base);
+  }
+}
+
+.media-text--subscribe {
+  --gap: 0;
+
+  padding: var(--space-xl) 0 var(--space-sm);
+
+  @media (--xs) {
+    padding-bottom: var(--space-lg);
+  }
+
+  @media (--sm) {
+    --gap: var(--space-md);
+    padding: var(--space-xxxl) 0 var(--space-sm);
+  }
+
+  @media (--md) {
+    padding: var(--space-xxxxl) 0 0;
+    margin-bottom: calc(-1 * var(--space-md));
+  }
+
+  .wp-block-media-text__content {
+    text-align: center;
+    
+    @media (--md) {
+      text-align: left;
+      padding: 0 0 0 var(--space-xl);
+    }
+  }
+
+  h2 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .has-heading-md-font-size {
+    margin-bottom: var(--space-sm);
+
+    body.home & {
+      font-family: var(--font-sans);
+      color: var(--color-primary);
+    }
+  }
+
+  * + .wp-block-buttons {
+    width: max-content;
+    margin-top: var(--space-md);
+    margin-inline: auto;
+
+    @media (--md) {
+      margin-inline: 0;
+    }
+  }
+}
+
+.home .main--page h1 {
+  margin-block: var(--space-lg) 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+
+  @media (--md) {
+    margin-top: var(--space-xxxl);
+    gap: var(--space-lg);
+  }
+
+  &::after {
+    content: '';
+    height: 2px;
+    width: 100%;
+    max-width: 60px;
+    background-color: var(--color-black);
+
+    @media (--md) {
+      max-width: 260px;
+    }
+  }
+}

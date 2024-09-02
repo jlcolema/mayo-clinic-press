@@ -1,0 +1,45 @@
+.woocommerce {
+  .woocommerce-info,
+  .woocommerce-message,
+  .woocommerce-error {
+    background-color: var(--color-contrast-low-alpha);
+  }
+
+  .woocommerce-info {
+    border-top-color: var(--color-primary-light);
+
+    &::before {
+      color: var(--color-primary-light);
+    }
+  }
+
+  .woocommerce-message {
+    border-top-color: var(--color-quaternary);
+
+    .woocommerce-lost-password & {
+      font-weight: var(--font-weight-bold);
+    }
+
+    @media (max-width: 48rem) {
+      display: flex;
+      flex-direction: column;
+
+      a.button {
+        order: 1;
+        margin-top: var(--space-base);
+      }
+    }
+
+    &::before {
+      color: var(--color-quaternary);
+    }
+  }
+
+  .woocommerce-error {
+    border-top-color: var(--color-error);
+
+    &::before {
+      color: var(--color-error);
+    }
+  }
+}

@@ -1,0 +1,51 @@
+<article id="category-{{ category.id }}" class="singular">
+	<script>
+		const banner_options = {{ blog_banner_options | json_encode }};
+		const cat = `{{ category.title }}`;
+		const catSlug = `{{ category.slug }}`;
+	</script>
+
+	{# Header #}
+	<header class="singular__header">
+		{# Breadcrumbs #}
+		{% if fn('function_exists', 'yoast_breadcrumb') %}
+			{{ fn('yoast_breadcrumb','<p id="breadcrumbs">','</p>') }}
+		{% endif %}
+	</header>
+
+	{# Content #}
+	<div class="singular__content">
+		<div class="wp-container-15 wp-block-group archives__banner has-black-background-color has-background">
+			<p class="has-text-align-center archives__icon--caption">MAYO CLINIC PRESS TOPICS</p>
+			<h2 class="has-text-align-center has-heading-xxl-font-size archives__banner--title has-white-color has-text-color has-heading-lg-font-size">Your go-to Source</h2>
+			<p class="has-text-align-center archives__banner--text has-white-color has-text-color">Health information you can trust: It’s what we do.</p>
+			<div class="wp-container-14 wp-block-group topics__search--container">
+				{% if fn('function_exists', 'do_shortcode') %}
+				{{ fn('do_shortcode','[facetwp facet="topics_search"]') }}
+    		{% include 'template-parts/components/icon.twig' with { icon: 'search' } %}
+				{% endif %}
+			</div>
+		</div>
+  
+		{% if fn('function_exists', 'do_shortcode') %}
+		{{ fn('do_shortcode','[facetwp facet="listing_format"]') }}
+
+		<div class="category-list__container" data-component="category-list">
+			{{ fn('do_shortcode','[facetwp facet="listing_categories"]') }}
+		</div>
+		{% endif %}
+	</div>
+
+	<div class="facetwp-template">
+		<ul class="columns-3">
+      {% for post in post_query %}
+				{% include 'template-parts/post/post-excerpt.twig' %}
+			{% endfor %}
+		</ul>
+	</div>
+
+	{% if fn('function_exists', 'do_shortcode') %}
+		{{ fn('do_shortcode', '[facetwp facet="pagination"]') }}
+	{% endif %}
+
+</article>

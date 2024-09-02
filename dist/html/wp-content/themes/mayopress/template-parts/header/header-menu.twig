@@ -1,0 +1,103 @@
+<nav class="header__navbar navbar" id="navbar-header" aria-label="Main Navigation">
+	{% if header_menu %}
+		<ul class="menu menu--header" id="menu-header" data-component="mega-menu" role="list">
+			{% for item in header_menu.items %}
+				<li class="menu__item {{ item.classes|join(' ')|split('menu-item')[0] }} {% if item.children %}menu__item--has-children{% endif %} {% if item._menu_item_megamenu_widgetarea %}menu__item--has-mega-menu{% endif %}">
+          {% if item._menu_item_nolink %}
+            <span class="menu__text {% if item.current %}menu__text--current{% endif %}">
+              {{ item.title|e('esc_html') }}
+
+              {% if item.children %}
+                <i class="menu__link-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 16 16"><g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"><path d="M2 2l12 12"></path><path d="M14 2L2 14"></path></g></svg>
+                </i>
+              {% endif %}
+            </span>
+          {% else %}
+            <a class="menu__link {% if item.current %}menu__link--current{% endif %}" href="{{ item.link|e('esc_url') }}" {% if item.target == '_blank' %}target="{{ item.target }}" rel="noopener"{% endif %}>
+              {% if item._menu_item_megamenu_widgetarea == 'ecs-sidebar-61147' %}
+                {% include 'template-parts/components/icon.twig' with { icon: 'menu', size: 'sm' } %}
+
+                <i class="menu__link-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 16 16"><g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"><path d="M2 2l12 12"></path><path d="M14 2L2 14"></path></g></svg>
+                </i>
+              {% endif %}
+
+              {{ item.title|e('esc_html') }}
+
+              {% if item.children and not item._menu_item_megamenu_widgetarea or item._menu_item_megamenu_widgetarea == 'ecs-sidebar-109088' %}
+              {# production/qa = ecs-sidebar-109088, local = ecs-sidebar-94969 #}
+                <i class="menu__link-icon" aria-hidden="true">
+                  <svg class="icon" viewBox="0 0 16 16"><g class="icon__group" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10" stroke-width="2"><path d="M2 2l12 12"></path><path d="M14 2L2 14"></path></g></svg>
+                </i>
+              {% endif %}
+            </a>
+          {% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea or item.children %}
+            <section class="submenu {{ item._menu_item_megamenu_widgetarea ? 'submenu--mega-menu' }}">
+          {% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea %}
+            {{ fn('render_widget_area', item._menu_item_megamenu_widgetarea) }}
+          {% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea == 'ecs-sidebar-61147' %}
+            <div class="shop-col__right">
+          {% endif %}
+
+					{% if item.children %}
+            {% if item._menu_item_megamenu_widgetarea == 'ecs-sidebar-109088' %}
+            {# production/qa = ecs-sidebar-109088, local = ecs-sidebar-94969 #}
+              {% for child in item.children %}
+                {% set urlParts = child.link|split('/') %}
+                {% set slug = urlParts|last %}
+
+                {# Check if the slug is empty (it might be in case of trailing slash in URL) and get the second last part #}
+                {% if slug == '' %}
+                  {% set slug = urlParts|slice(-2, 1)|first %}
+                {% endif %}
+
+                {% for list_page in pages %}
+                  {% if list_page.post_name == slug %}
+                    <div class="mega-menu__image is-hidden" data-imgId="{{ slug }}">
+                      {% if fn('function_exists', 'get_the_post_thumbnail') %}
+                        {{ fn('get_the_post_thumbnail', list_page.ID, 'card-thumbnail') }}
+                      {% endif %} 
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+            {% else %}
+              <ul class="submenu__list" role="list">
+                {% for child in item.children %}
+                  <li class="submenu__item">
+                    {% if child._menu_item_nolink %}
+                      <span class="submenu__text {{ child.classes|join(' ')|split('menu-item')[0] }} {% if child.current %}menu__link--current{% endif %}">
+                        {{ child.title|e('esc_html') }}
+                      </span>
+                    {% else %}
+                      <a class="submenu__link {{ child.classes|join(' ')|split('menu-item')[0] }} {% if child.current %}menu__link--current{% endif %}" href="{{ child.link|e('esc_url') }}" {% if child.target == '_blank' %}target="{{ child.target }}" rel="noopener"{% endif %}>
+                        {{ child.title|e('esc_html') }}
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+					{% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea == 'ecs-sidebar-61147' %}
+            {% include 'template-parts/components/featured-product-mega-menu.twig' %}
+            </div>
+          {% endif %}
+
+          {% if item._menu_item_megamenu_widgetarea or item.children %}
+            </section>
+          {% endif %}
+
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</nav>

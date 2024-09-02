@@ -1,0 +1,19 @@
+.cart-summary-threshold {
+  text-align: right;
+  margin-bottom: var(--space-base);
+
+  p {
+    margin-bottom: var(--space-xxs);
+  }
+
+  .status-bar,
+  .status-bar__inner {
+    background-color: var(--color-contrast-low);
+    height: 10px;
+    border-radius: 10px;
+  }
+
+  .status-bar__inner {
+    background-color: var(--color-quaternary);
+  }
+}

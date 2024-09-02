@@ -1,0 +1,23 @@
+<nav class="adjacent-posts">
+	<ul class="adjacent-posts">
+
+		{# Previous post #}
+		{% if post.prev %}
+			<li class="adjacent-posts__prev">
+				<a class="adjacent-posts__link" href="{{ post.prev.link|e('esc_url') }}">
+					{{ post.prev.title|e('esc_html') }}
+				</a>
+			</li>
+		{% endif %}
+
+		{# Next post #}
+		{% if post.next %}
+			<li class="adjacent-posts__next">
+				<a class="adjacent-posts__link" href="{{ post.next.link|e('esc_url') }}">
+					{{ post.next.title|e('esc_html') }}
+				</a>
+			</li>
+		{% endif %}
+
+	</ul>
+</nav>

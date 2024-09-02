@@ -1,0 +1,176 @@
+@use './post-carousel.scss';
+
+.post-carousel__spotlight {
+  grid-column: 1 / -1 !important;
+  position: relative;
+  background-image: url('/wp-content/themes/mayopress/assets/images/Shapes-Pattern-Mobile-2x.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-top: var(--space-xxl);
+  padding-block: calc(var(--text-xxxl) + var(--space-base));
+
+  @media (--sm) {
+    background-image: url('/wp-content/themes/mayopress/assets/images/Shapes-Pattern-Desktop-2x.png');
+  }
+
+  @media (--md) {
+    padding-block: calc(var(--text-xxxxxl) + var(--space-md));
+  }
+
+  .icon--book-swoosh {
+    position: absolute;
+    left: 50%;
+    font-size: var(--text-xxxl);
+    transform: translateX(-50%);
+    grid-column: 1 / -1;
+    width: 100%;
+  
+    @media (--md) {
+      font-size: var(--text-xxxxxl);
+    }
+
+    &:first-child {
+      top: 0;
+      transform: translateX(-50%) rotate(180deg);
+    }
+
+    &:last-child {
+      bottom: 0;
+    }
+  }
+
+  .post-carousel__header {
+    justify-content: center;
+    align-items: center;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: var(--space-md);
+  }
+
+  .post-carousel__title {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .slider {
+    --items: 1;
+    --circle-size: 257px;
+
+    max-width: none;
+  }
+
+  .slider__item {
+    text-align: center;
+  }
+
+  .slider__image {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: var(--space-lg);
+
+    img,
+    .spotlight__circle {
+      min-width: var(--circle-size);
+      max-width: var(--circle-size);
+      min-height: var(--circle-size);
+      max-height: var(--circle-size);
+      border-radius: 100%;
+      object-fit: cover;
+    }
+
+    > * {
+      &:nth-child(3n + 1) {
+        background-color: var(--color-quaternary);
+      }
+
+      &:nth-child(3n + 2) {
+        background-color: var(--color-tertiary);
+      }
+
+      &:nth-child(3n + 3) {
+        background-color: var(--color-senary);
+      }
+    }
+  }
+
+  .slider__title {
+    font-size: var(--heading-md);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+    padding-inline: var(--space-base);
+  }
+
+  .slider__content{
+    max-width: var(--max-width-xs);
+    margin-inline: auto;
+    padding-inline: var(--space-base);
+  }
+
+  .btn--primary {
+    --btn-color: var(--color-white);
+    --btn-text-color: var(--color-primary);
+
+    margin-top: var(--space-base);
+  }
+
+  &.has-accent-2-background-color,
+  &.has-accent-3-background-color,
+  &.has-accent-4-background-color,
+  &.has-accent-5-background-color,
+  &.has-accent-6-background-color,
+  &.has-light-gray-background-color,
+  &.has-medium-gray-background-color,
+  &.has-dark-gray-background-color,
+  &.has-alpha-light-gray-background-color {
+    .btn--primary {
+      --btn-color: var(--color-primary);
+      --btn-text-color: var(--color-white);
+
+      &:hover {
+        --btn-color: var(--color-primary-dark);
+      }
+    }
+  }
+
+  .slider__arrow {
+    // circle size - button size
+    --arrow-offset: calc(var(--circle-size) - var(--slider-btn-size));
+
+    @media (--md) {
+      // circle size + margin-bottom doubled subtract half of the title size
+      --arrow-offset: calc((var(--circle-size) + var(--space-lg)) * 2 - var(--heading-md) / 2);
+    }
+  }
+
+  .slider__arrow--prev {
+    left: 50%;
+    transform: translateX(calc(-50% - var(--circle-size) / 2));
+
+    @media (--md) {
+      transform: translateX(calc(-50% - var(--circle-size)));
+    }
+  }
+
+  .slider__arrow--next {
+    right: 50%;
+    transform: translateX(calc(50% + var(--circle-size) / 2));
+
+    @media (--md) {
+      transform: translateX(calc(50% + var(--circle-size)));
+    }
+  }
+
+  .slider__pagination {
+    display: flex;
+
+    .has-primary-background-color &,
+    .has-primary-dark-background-color &,
+    .has-secondary-background-color &,
+    .has-black-background-color &,
+    .has-alpha-black-dark-background-color &,
+    .has-alpha-black-light-background-color & {
+      color: var(--color-white);
+    }
+  }
+}
